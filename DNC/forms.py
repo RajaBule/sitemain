@@ -11,4 +11,18 @@ class newsample(forms.ModelForm):
                   'cooperative', 'assosiation', 'othertrac', 'moisture',
                   'wa', 'proccessing', 'density', 'screensize',
                   'varieties', 'cropyear', 'classification',
-                  'grade', 'generalcomments', 'sensorial', 'sensorialdescriptors','regdate')
+                  'grade', 'generalcomments', 'sensorial', 'sensorialdescriptors',
+                  'regdate'
+                  )
+        
+
+class RegistrationForm(forms.Form):
+    first_name = forms.CharField(max_length=30)
+    last_name = forms.CharField(max_length=30)
+    email = forms.EmailField()
+    password = forms.CharField(widget=forms.PasswordInput)
+    password_repeat = forms.CharField(widget=forms.PasswordInput)
+
+class LoginForm(forms.Form):
+    email = forms.EmailField()
+    password = forms.CharField(widget=forms.PasswordInput)

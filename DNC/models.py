@@ -1,9 +1,10 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 class Samples(models.Model):
     id = models.CharField(max_length=300, primary_key=True)
     name = models.CharField(max_length=300)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=3)
     stype = models.CharField(max_length=300, null=True)
     project = models.CharField(max_length=300, null=True, blank=True)
     location = models.CharField(max_length=300, null=True)
@@ -47,6 +48,7 @@ class Samples(models.Model):
     sensorialdescriptors = models.TextField(max_length=300, null=True, blank=True)
     generalcomments = models.TextField(max_length=300, null=True, blank=True)
     sensorial = models.CharField(max_length=300, null=True, blank=True)
+
     def __str__(self):
         return self.id
 #class Content(models.Model):

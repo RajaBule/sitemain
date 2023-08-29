@@ -9,5 +9,7 @@ urlpatterns = [
     path('edit_sample/', views.edit_sample,name='edit_sample'),
     path('new_sample_success/', views.submit_new_sample, name='submit_new_sample'),
     path('edit_selected/', views.edit_selected_rows, name='edit_selected_rows'),
-    path('update_selected_row/', views.update_selected_row, name='update_row')
+    path('update_selected_row/', views.update_selected_row, name='update_row'),
+    path('register/', views.register, name='register'),
+    path('login/', views.user_login, name='login')
     ]

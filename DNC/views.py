@@ -3,7 +3,10 @@ from .models import Samples
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 from django.db.models import Q
-from .forms import newsample
+from .forms import newsample, RegistrationForm, LoginForm
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import datetime
 import re
@@ -11,12 +14,18 @@ import re
 #samplesdata = Samples.objects
 
 def index(request):
-    return render(request, "index.html")
+    user = request.user
+    context = {
+        'user_first_name': user.first_name,
+        'user_last_name': user.last_name,
+    }
+    return render(request, 'index.html', context)
 
 def samples(request):
-    amples = Samples.objects.all()
-
-    per_page = request.GET.get('selected', 10)
+    user = request.user
+    amples = Samples.objects.filter(user=user)
+    
+    per_page = request.GET.get('selected', 25)
 
     print(per_page)
     p = Paginator(amples, per_page)
@@ -25,12 +34,14 @@ def samples(request):
         page_obj = p.get_page(page_number)  # returns the desired page object
     except PageNotAnInteger:
         # if page_number is not an integer then assign the first page
-        page_obj = p.page(10)
+        page_obj = p.page(25)
     except EmptyPage:
         # if page is empty then return last page
         page_obj = p.page(p.num_pages)
     context = {'page_obj': page_obj,
                'per_page': per_page,
+               'user_first_name': user.first_name,
+               'user_last_name': user.last_name,
                }
     
     #page_obj = paginator.get_page(page_number)
@@ -41,15 +52,18 @@ def samples(request):
     #print(context)
     return render(request,'table.html', context)
 
-
+@login_required
 def search_view(request):
+    user = request.user
     search_query = request.GET.get('q', '')
     selected_value = request.GET.get('selected', '')
 
     # Filter your model data based on the search query and selected value
     filtered_data = Samples.objects.filter(
+        
         Q(name__icontains=search_query) |  # Adjust fields as needed
-        Q(location__icontains=search_query)
+        Q(location__icontains=search_query),
+        user=user
     )
 
    
@@ -67,7 +81,9 @@ def search_view(request):
     
     return JsonResponse(data_list, safe=False)
 
+@login_required
 def new_sample(request):
+    user = request.user
     date_time = datetime.datetime.now()
     last_id_obj = Samples.objects.last()
 
@@ -79,16 +95,24 @@ def new_sample(request):
     else:
         next_id = ''
     context = {'date_time': date_time,
-               'nextid': next_id}
+               'nextid': next_id,
+               'user_first_name': user.first_name,
+               'user_last_name': user.last_name
+               }
+    
     return render(request, "newsample.html", context)
 
+@login_required
 def submit_new_sample(request):
-    if request.method=="POST":
+    user = request.user
+    if request.method == "POST":
         print('POST called')
         post = newsample(request.POST)
         if post.is_valid():
             print('Successfully Posted...')
-            post.save()
+            sample = post.save(commit=False)  # Create an instance but don't save it yet
+            sample.user = request.user  # Set the user to the currently logged-in user
+            sample.save()  # Now save the instance with the user information
             messages.success(request, "Sample added successfully!")
             return redirect(samples)
         else:
@@ -97,20 +121,34 @@ def submit_new_sample(request):
         print('NO POST')
         post = newsample()
 
-    context = {'post': post}
+    context = {'post': post,
+               'user_first_name': user.first_name,
+               'user_last_name': user.last_name
+               }
     
     return render(request, "newsample.html", context)
 
+@login_required
 def edit_sample(request):
-    return render(request, "editsample.html")
+    user = request.user
+    context = {
+        'user_first_name': user.first_name,
+        'user_last_name': user.last_name
+    }
+    return render(request, "editsample.html", context)
 
+@login_required
 def edit_selected_rows(request):
+    user = request.user
     selected_row_ids = request.GET.get('ids').split(',')
     rows_data = Samples.objects.filter(id__in=selected_row_ids)  # Fetch data for selected rows
-    context = {'rows_data': rows_data}
+    context = {'rows_data': rows_data,
+               'user_first_name': user.first_name,
+               'user_last_name': user.last_name
+               }
     return render(request, 'editsample.html', context)
 
-
+@login_required
 def update_selected_row(request):
     if request.method == "POST":
         print('POST CALL-----')
@@ -128,3 +166,50 @@ def update_selected_row(request):
         return redirect('samples')  # Redirect to the samples page or another appropriate URL
 
     return redirect('edit_selected_rows')
+
+def register(request):
+    if request.method == 'POST':
+        form = RegistrationForm(request.POST)
+        if form.is_valid():
+            # Check if passwords match
+            password = form.cleaned_data['password']
+            password_repeat = form.cleaned_data['password_repeat']
+            if password != password_repeat:
+                form.add_error('password_repeat', "Passwords do not match.")
+            else:
+                # Create user account
+                user = User.objects.create_user(
+                    username=form.cleaned_data['email'],
+                    email=form.cleaned_data['email'],
+                    password=password
+                )
+                user.first_name = form.cleaned_data['first_name']
+                user.last_name = form.cleaned_data['last_name']
+                user.save()
+
+                # Log the user in
+                user = authenticate(username=user.username, password=password)
+                if user:
+                    login(request, user)
+                    return redirect(index)  # Redirect to your dashboard page
+    else:
+        form = RegistrationForm()
+
+    return render(request, 'register.html', {'form': form})
+
+def user_login(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            user = authenticate(username=email, password=password)
+            if user:
+                login(request, user)
+                return redirect('index')  # Redirect to your dashboard page
+            else:
+                form.add_error('email', "Invalid credentials.")
+    else:
+        form = LoginForm()
+
+    return render(request, 'login.html', {'form': form})
