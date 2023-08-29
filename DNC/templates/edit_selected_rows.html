@@ -1,0 +1,14 @@
+
+<!DOCTYPE html>
+<h1>Edit Selected Rows</h1>
+
+<form method="post">
+    {% csrf_token %}
+    {% for row_data in rows_data %}
+        <!-- Display form fields for editing row_data -->
+        <input type="text" name="name" value="{{ row_data.name }}">
+        <!-- Other fields... -->
+    {% endfor %}
+    <button type="submit">Save Changes</button>
+</form>
+</html>

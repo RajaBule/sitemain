@@ -1,0 +1,535 @@
+{% load static %}
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Blank Page - Brand</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bs-theme-overrides.css' %}">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark" data-bs-theme="dark">
+            <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-biking text-dark"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span class="text-dark"><strong>DNC</strong></span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'index' %}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'samples' %}"><i class="fas fa-table"></i><span>Samples</span></a><a class="nav-link" href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html"><i class="far fa-user-circle"></i><span>Login</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="register.html"><i class="fas fa-user-circle"></i><span>Register</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn text-bg-dark rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div class="text-bg-dark" id="content">
+                <nav class="navbar navbar-expand bg-primary shadow mb-4 topbar static-top navbar-light" data-bs-theme="dark">
+                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                        <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ..."><button class="btn btn-primary link-light text-bg-info py-0" type="button"><i class="fas fa-search"></i></button></div>
+                        </form>
+                        <ul class="navbar-nav flex-nowrap ms-auto">
+                            <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
+                                <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
+                                    <form class="me-auto navbar-search w-100">
+                                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                            <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">3+</span><i class="fas fa-bell fa-fw"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                        <h6 class="dropdown-header">alerts center</h6><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="me-3">
+                                                <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
+                                            </div>
+                                            <div><span class="small text-gray-500">December 12, 2019</span>
+                                                <p>A new monthly report is ready to download!</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="me-3">
+                                                <div class="bg-success icon-circle"><i class="fas fa-donate text-white"></i></div>
+                                            </div>
+                                            <div><span class="small text-gray-500">December 7, 2019</span>
+                                                <p>$290.29 has been deposited into your account!</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="me-3">
+                                                <div class="bg-warning icon-circle"><i class="fas fa-exclamation-triangle text-white"></i></div>
+                                            </div>
+                                            <div><span class="small text-gray-500">December 2, 2019</span>
+                                                <p>Spending Alert: We've noticed unusually high spending for your account.</p>
+                                            </div>
+                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">7</span><i class="fas fa-envelope fa-fw"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                        <h6 class="dropdown-header">alerts center</h6><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="assets/img/avatars/avatar4.jpeg">
+                                                <div class="bg-success status-indicator"></div>
+                                            </div>
+                                            <div class="fw-bold">
+                                                <div class="text-truncate"><span>Hi there! I am wondering if you can help me with a problem I've been having.</span></div>
+                                                <p class="small text-gray-500 mb-0">Emily Fowler - 58m</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="assets/img/avatars/avatar2.jpeg">
+                                                <div class="status-indicator"></div>
+                                            </div>
+                                            <div class="fw-bold">
+                                                <div class="text-truncate"><span>I have the photos that you ordered last month!</span></div>
+                                                <p class="small text-gray-500 mb-0">Jae Chun - 1d</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="assets/img/avatars/avatar3.jpeg">
+                                                <div class="bg-warning status-indicator"></div>
+                                            </div>
+                                            <div class="fw-bold">
+                                                <div class="text-truncate"><span>Last month's report looks great, I am very happy with the progress so far, keep up the good work!</span></div>
+                                                <p class="small text-gray-500 mb-0">Morgan Alvarez - 2d</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="assets/img/avatars/avatar5.jpeg">
+                                                <div class="bg-success status-indicator"></div>
+                                            </div>
+                                            <div class="fw-bold">
+                                                <div class="text-truncate"><span>Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</span></div>
+                                                <p class="small text-gray-500 mb-0">Chicken the Dog · 2w</p>
+                                            </div>
+                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                    </div>
+                                </div>
+                                <div class="shadow dropdown-list dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown"></div>
+                            </li>
+                            <div class="d-none d-sm-block topbar-divider"></div>
+                            <li class="nav-item dropdown no-arrow">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#" data-bs-theme="dark"><span class="d-none d-lg-inline me-2 text-gray-600 small">Valerie Luna</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg"></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="container-fluid">
+                    <h2 class="text-light mb-1">Edit Sample</h2>
+                </div>
+                <form id="editsample" method="post" action="{% url 'update_row' %}">
+                    {% csrf_token %}
+                    {% for row_data in rows_data %}
+                        <div class="row" style="margin-top: 37px;margin-right: 50px;margin-left: 0px;text-align: center;max-width: 100%;min-width: 230px;">
+                            <div class="col-auto col-lg-8" style="margin-left: 50px;padding-left: 0px;margin-right: 50px;padding-right: 50px;text-align: center;min-width: auto;width: auto;">
+                                <div class="card mb-4" style="max-width: 100%;text-align: center;width: auto;min-width: auto;">
+                                    <div class="card-header text-bg-info py-3" data-bs-theme="dark" style="text-align: center;max-width: 100%;">
+                                        <h4 class="text-dark m-0 fw-bold">Basic Information ({{ row_data.id }})</h4>
+                                    </div>
+                                    <div class="card-body text-bg-dark border rounded-0" data-bs-theme="dark" style="padding: 0px;text-align: center;max-width: 100%;">
+                                        <div class="row text-info" style="margin: 10px;margin-right: 0px;margin-left: 0px;padding: 0px;padding-top: 12px;max-width: 100%;border-color: var(--bs-primary-text-emphasis);border-bottom-style: solid;position: relative;width: auto;text-align: center;">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="width: auto;margin: 0px;margin-bottom: 0px;padding-bottom: 0px;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding-bottom: 0px;width: auto;">
+                                                        <h6 class="fs-4 text-center text-info m-0" style="width: auto;">ID</h6><input readonly="readonly" name="id" id="id" class="border rounded float-none" type="text" placeholder="{{ row_data.id }}" value="{{ row_data.id }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: 0px;max-height: 93px;width: auto;position: relative;">
+                                                <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="width: auto;min-width: 0px;position: relative;overflow: visible;display: block;">
+                                                    <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding-bottom: 0px;margin-bottom: 0px;min-width: auto;position: relative;width: auto;">
+                                                        <h5 class="fs-4 text-center text-info m-0" style="position: relative;width: auto;">*Name</h5><input name="name" class="border rounded float-none" type="text" placeholder="Sample name" value="{{ row_data.name }}" data-bs-theme="dark" style="text-align: center;position: relative;display: block;width: 100%;padding: 0px 0px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-info m-0" style="width: auto;">*Current Location</h5><input name="location" value="{{ row_data.location }}" class="border rounded float-none" type="text" placeholder="Sample location" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" id="stype" name="stype" value="{{ row_data.stype }}">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin: 0px;margin-left: 0px;margin-right: 0px;padding: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;text-align: center;margin-top: 0px;margin-bottom: 0px;padding-top: 0px;padding-bottom: 0px;max-width: 100%;">
+                                                <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;position: relative;display: flex;max-width: 100%;text-align: center;">
+                                                    <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding: 16px;padding-bottom: 0px;margin: 0px;margin-bottom: 0px;margin-top: 0px;width: auto;min-width: auto;padding-top: 0px;max-width: 100%;padding-left: 16px;padding-right: 16px;text-align: center;">
+                                                        <h5 class="fs-4 text-center text-info m-0" style="width: auto;">*Sample Type</h5>
+                                                        <div class="dropdown" style="text-align: center;" data-bs-theme="dark"><button data-toggle="sampledropdown" id="sampledrop" class="btn btn-dark dropdown-toggle fs-5 text-center link-secondary" aria-expanded="false" data-bs-toggle="dropdown" type="button" style="margin-left: 0px;width: 100%;padding: 0px;position: static;">{{ row_data.stype }}&nbsp;</button>
+                                                            <div class="dropdown-menu text-center text-bg-light" data-dropdown="datadropsample"><a class="dropdown-item link-dark">Type Sample</a><a class="dropdown-item link-dark">Pre-Shipment</a><a class="dropdown-item link-dark">Evaluation</a><a class="dropdown-item link-dark">Spot Offer</a><a class="dropdown-item link-dark">Offer</a><a class="dropdown-item link-dark">Arrival</a></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" id="sampleweightunit" name="sampleweightunit" value="{{ row_data.sampleweightunit }}">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin: 0px;margin-left: 0px;margin-right: 0px;padding: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;max-width: 100%;text-align: center;margin-top: 0px;margin-bottom: 0px;padding-top: 0px;padding-bottom: 0px;">
+                                                <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="width: auto;margin-bottom: 0px;padding-bottom: 0px;min-width: 0px;text-align: center;">
+                                                    <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding: 16px;padding-bottom: 0px;width: auto;min-width: auto;padding-top: 0px;padding-right: 16px;padding-left: 16px;text-align: center;">
+                                                        <div class="dropdown" style="text-align: center;width: auto;position: relative;" data-bs-theme="dark"><button data-toggle="weightdatadropt" id="weightdrop" class="btn btn-dark dropdown-toggle fs-4 text-center link-info" aria-expanded="false" data-bs-toggle="dropdown" type="button" style="margin: 0px;margin-left: 0px;width: auto;padding: 1px;margin-right: 0px;padding-right: 0px;">Sample Weight({{ row_data.sampleweightunit }})</button>
+                                                            <div class="dropdown-menu text-center text-bg-light" data-dropdown="weightdatadrop">
+                                                                <h6 class="dropdown-header text-dark">Weight unit</h6><a class="dropdown-item link-primary">g</a><a class="dropdown-item link-primary">kg</a><a class="dropdown-item link-primary">lb</a>
+                                                            </div>
+                                                        </div><input name="sampleweight" value="{{ row_data.sampleweight }}" class="border rounded float-none" type="text" placeholder="Sample Weight" data-bs-theme="dark" style="margin-right: 0px;text-align: center;width: 100%;padding: 0px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" id="expweightunit" name="expweightunit" value="{{ row_data.expweightunit }}">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin: 0px;margin-left: 0px;margin-right: 0px;padding: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;text-align: center;margin-top: 0px;margin-bottom: 0px;padding-top: 0px;padding-bottom: 0px;max-width: 100%;">
+                                                <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="width: auto;margin-bottom: 0px;padding-bottom: 0px;min-width: 0px;text-align: center;">
+                                                    <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding: 16px;padding-bottom: 16px;width: auto;min-width: auto;padding-top: 16px;padding-right: 16px;padding-left: 16px;text-align: center;">
+                                                        <div class="dropdown" style="text-align: center;" data-bs-theme="dark"><button data-toggle="weightdatadropt2" id="weightdrop2" class="btn btn-dark dropdown-toggle fs-4 text-center link-info" aria-expanded="false" data-bs-toggle="dropdown" type="button" style="margin-left: 0px;width: auto;padding: 0px;padding-top: 0px;">Availability({{ row_data.expweightunit }})</button>
+                                                            <div class="dropdown-menu text-center text-bg-light" data-dropdown="weightdatadrop2">
+                                                                <h6 class="dropdown-header text-dark">Weight unit</h6><a class="dropdown-item link-primary">g</a><a class="dropdown-item link-primary">kg</a><a class="dropdown-item link-primary">lb</a>
+                                                            </div>
+                                                        </div><input name="expweight" class="border rounded float-none" value="{{ row_data.expweight }}" type="text" placeholder="Availability (weight)" data-bs-theme="dark" style="margin-right: 0px;text-align: center;width: 100%;padding: 0px;padding-left: 0px;padding-right: 0px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-info m-0" style="width: auto;">Customer</h5><input name="customer" value="{{ row_data.customer }}" class="border rounded float-none" type="text" placeholder="Intended for..." data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-info m-0" style="width: auto;">Project</h5><input name="project" value="{{ row_data.project }}" class="border rounded float-none" type="text" placeholder="Project name" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row text-info" style="margin: auto;margin-right: 0px;margin-left: 0px;padding: 0px;padding-top: 12px;max-width: 100%;width: auto;display: flex;position: relative;text-align: center;">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 16px;padding-right: 16px;min-width: 0px;max-height: none;width: 100%;height: auto;">
+                                                <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="width: 100%;margin-bottom: 0px;padding-bottom: 0px;">
+                                                    <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding-bottom: 0px;padding-left: 0px;min-width: 0px;margin-top: 10px;padding-right: 0px;width: 100%;">
+                                                        <h5 class="text-center text-info m-0" style="padding-left: 0px;width: 100%;">Basic Notes</h5><textarea name="notes" value="{{ row_data.notes }}" style="width: 100%;height: 147px;padding: 0px;" placeholder="Put your notes about the coffee here...">{{ row_data.notes }}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto col-lg-8" style="margin-left: 50px;padding-left: 0px;margin-right: 50px;padding-right: 50px;text-align: center;min-width: auto;width: auto;">
+                                <div class="card mb-4" style="max-width: 100%;text-align: center;width: auto;min-width: auto;">
+                                    <div class="card-header text-bg-warning py-3" data-bs-theme="dark" style="text-align: center;max-width: 100%;">
+                                        <h4 class="text-dark m-0 fw-bold">Origins value ({{ row_data.id }})</h4>
+                                    </div>
+                                    <div class="card-body text-bg-dark border rounded-0" data-bs-theme="dark" style="padding: 0px;text-align: center;max-width: 100%;">
+                                        <div class="row text-info" style="margin: 10px;margin-right: 0px;margin-left: 0px;padding: 0px;padding-top: 12px;max-width: 100%;border-color: var(--bs-primary-text-emphasis);border-bottom-style: solid;position: relative;width: auto;text-align: center;">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Country</h5><input name="country" value="{{ row_data.country }}" class="border rounded float-none" type="text" placeholder="Origin Country" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Farm</h5><input name="farm" value="{{ row_data.farm }}" class="border rounded float-none" type="text" placeholder="Origin Farm" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Tracking Number</h5><input name="tracknum" value="{{ row_data.tracknum }}" class="border rounded float-none" type="text" placeholder="Tracking Number" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Importer</h5><input name="importer" value="{{ row_data.importer }}" class="border rounded float-none" type="text" placeholder="Imported by" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Exporter</h5><input name="exporter" value="{{ row_data.exporter }}" class="border rounded float-none" type="text" placeholder="Exported by" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Wetmill</h5><input name="wetmill" value="{{ row_data.wetmill }}" class="border rounded float-none" type="text" placeholder="Wet proccessed at..." data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Drymill</h5><input name="drymill" value="{{ row_data.drymill }}" class="border rounded float-none" type="text" placeholder="dry proccessed at.." data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Cooperative</h5><input name="cooperative" value="{{ row_data.cooperative }}" class="border rounded float-none" type="text" placeholder="Co-Op" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Assosiation</h5><input name="assosiation" value="{{ row_data.assosiation }}" class="border rounded float-none" type="text" placeholder="Assosiation" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row text-info" style="margin: auto;margin-right: 0px;margin-left: 0px;padding: 0px;padding-top: 12px;max-width: 100%;width: auto;display: flex;position: relative;text-align: center;">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 16px;padding-right: 16px;min-width: 0px;max-height: none;width: 100%;height: auto;">
+                                                <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="width: 100%;margin-bottom: 0px;padding-bottom: 0px;">
+                                                    <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding-bottom: 0px;padding-left: 0px;min-width: 0px;margin-top: 10px;padding-right: 0px;width: 100%;">
+                                                        <h5 class="text-center text-warning m-0" style="padding-left: 0px;width: 100%;">Tracking Notes</h5><textarea name="othertrac" value="{{ row_data.othertrac }}" style="width: 100%;height: 147px;padding: 0px;" placeholder="Put your notes about tracking the coffee here...">{{ row_data.othertrac }}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto col-lg-8" style="margin-left: 50px;padding-left: 0px;margin-right: 50px;padding-right: 50px;text-align: center;min-width: auto;width: auto;">
+                                <div class="card mb-4" style="max-width: 100%;text-align: center;width: auto;min-width: auto;">
+                                    <div class="card-header text-bg-danger py-3" data-bs-theme="dark" style="text-align: center;max-width: 100%;">
+                                        <h4 class="text-dark m-0 fw-bold">Other Details ({{ row_data.id }})</h4>
+                                    </div>
+                                    <div class="card-body text-bg-dark border rounded-0" data-bs-theme="dark" style="padding: 0px;text-align: center;max-width: 100%;">
+                                        <div class="row text-info" style="margin: 10px;margin-right: 0px;margin-left: 0px;padding: 0px;padding-top: 12px;max-width: 100%;border-color: var(--bs-primary-text-emphasis);border-bottom-style: solid;position: relative;width: auto;text-align: center;">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-danger m-0" style="width: auto;">Moisture</h5><input name="moisture" value="{{ row_data.moisture }}" class="border rounded float-none" type="text" placeholder="Sample Origin" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-danger m-0" style="width: auto;">WA</h5><input name="wa" value="{{ row_data.wa }}" class="border rounded float-none" type="text" placeholder="Water activity" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" id="proccessing" name="proccessing" value="{{ row_data.proccessing }}">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin: auto;margin-left: 0px;margin-right: 0px;padding: 0px;padding-left: 0px;padding-right: 0px;min-width: 0px;max-height: 93px;width: auto;text-align: center;">
+                                                <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;position: relative;display: flex;max-width: 100%;text-align: center;padding-right: 16px;padding-left: 16px;">
+                                                    <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding: 0px;padding-bottom: 0px;margin: 0px;margin-bottom: 0px;margin-top: 0px;width: auto;min-width: auto;padding-top: 0px;max-width: 100%;padding-left: 0px;padding-right: 0px;text-align: center;margin-right: 0px;margin-left: 0px;">
+                                                        <h4 class="fs-4 text-center text-danger m-0" style="width: auto;">*Processing</h4>
+                                                        <div class="dropdown" style="text-align: center;" data-bs-theme="dark"><button data-toggle="weightdatadropt3" id="weightdrop3" class="btn btn-dark dropdown-toggle fs-5 text-center link-secondary" aria-expanded="false" data-bs-toggle="dropdown" type="button" style="margin-left: 0px;width: 100%;padding: 0px;position: static;">{{ row_data.proccessing}}&nbsp;</button>
+                                                            <div class="dropdown-menu text-center text-bg-light" data-dropdown="weightdatadrop3">
+                                                                <h6 class="dropdown-header text-dark">Processing</h6><a class="dropdown-item link-dark">Wet Hulled</a><a class="dropdown-item link-dark">Semi-Washed</a><a class="dropdown-item link-dark">Natural</a><a class="dropdown-item link-dark">Pulped Natural</a><a class="dropdown-item link-dark">Washed</a><a class="dropdown-item link-dark">Honey</a><a class="dropdown-item link-dark">Miscellaneous</a><a class="dropdown-item link-dark">Other</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-danger m-0" style="width: auto;">Density</h5><input name="density" value="{{ row_data.density }}" class="border rounded float-none" type="text" placeholder="Sample Density" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-danger m-0" style="width: auto;">Screen Size</h5><input name="screensize" value="{{ row_data.screensize }}" class="border rounded float-none" type="text" placeholder="Sample Screen size" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin: 0px;margin-left: 0px;margin-right: 0px;padding: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;margin-top: 0px;margin-bottom: 0px;padding-top: 0px;padding-bottom: 0px;max-width: 100%;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-danger m-0" style="width: auto;">*Varieties</h5><input name="varieties" value="{{ row_data.varieties }}" class="border rounded float-none" type="text" placeholder="Sample Varieties" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin: 0px;margin-left: 0px;margin-right: 0px;padding: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;margin-top: 0px;margin-bottom: 0px;padding-top: 0px;padding-bottom: 0px;max-width: 100%;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-danger m-0" style="width: auto;">*Crop Year</h5><input name="cropyear" value="{{ row_data.cropyear }}" class="border rounded float-none" type="text" placeholder="Sample Crop Year" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-danger m-0" style="width: auto;">Classification</h5><input name="classification" value="{{ row_data.classification }}" class="border rounded float-none" type="text" placeholder="Sample " data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-danger m-0" style="width: auto;">Grade</h5><input name="grade" value="{{ row_data.grade }}" class="border rounded float-none" type="text" placeholder="Green bean graded as..." data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row text-info" style="margin: auto;margin-right: 0px;margin-left: 0px;padding: 0px;padding-top: 12px;max-width: 100%;width: auto;display: flex;position: relative;text-align: center;">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 16px;padding-right: 16px;min-width: 0px;max-height: none;width: 100%;height: auto;">
+                                                <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="width: 100%;margin-bottom: 0px;padding-bottom: 0px;">
+                                                    <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding-bottom: 0px;padding-left: 0px;min-width: 0px;margin-top: 10px;padding-right: 0px;width: 100%;">
+                                                        <h5 class="text-center text-danger m-0" style="padding-left: 0px;width: 100%;">Other Notes</h5><textarea name="generalcomments" value="{{ row_data.generalcomments }}" style="width: 100%;height: 147px;padding: 0px;" placeholder="Put your notes about the coffee here...">{{ row_data.generalcomments }}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col" style="margin-left: 0px;margin-right: 0px;width: auto;min-width: auto;max-width: 100%;padding-right: 0px;padding-left: 50px;">
+                                <div class="card shadow mb-4" style="width: 100%;margin-left: 0px;height: auto;min-width: auto;">
+                                    <div class="card-header text-dark text-bg-success d-flex justify-content-between align-items-center" style="width: 100%;min-width: 0px;">
+                                        <h4 class="text-center fw-bold m-0" style="padding-left: 0px;width: 100%;min-width: 0px;">Sensorial Information({{ row_data.id }})</h4>
+                                        <div class="dropdown no-arrow" data-bs-theme="dark"><button class="btn btn-sm dropdown-toggle link-dark" aria-expanded="false" data-bs-toggle="dropdown" type="button"><i class="fas fa-ellipsis-v text-gray-400"></i></button>
+                                            <div class="dropdown-menu dropdown-menu-end text-bg-light shadow animated--fade-in">
+                                                <h6 class="dropdown-header text-center text-dark"><strong>Sensoral Information({{ row_data.id }})</strong></h6><a class="dropdown-item link-dark" href="#" style="text-align: center;">Start Cupping Session</a><a class="dropdown-item link-dark" href="#" style="text-align: center;">Add From Existing Session</a>
+                                                <div class="dropdown-divider"></div><a class="dropdown-item link-dark" href="#" style="text-align: center;">Auto Fill (default is blank)</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card-body text-bg-dark border rounded-0 border-dark-subtle" style="padding-left: 0px;margin: 0px;min-width: 0px;height: auto;padding-right: 0px;width: 100%;">
+                                        <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin: 0px;margin-left: 0px;margin-right: 0px;padding: 0px;padding-left: 16px;padding-right: 16px;min-width: 0px;max-height: 93px;width: 75%;padding-top: 0px;">
+                                            <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="padding-bottom: 0px;margin: 0px;margin-bottom: 0px;width: 100%;">
+                                                <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding: 0px;padding-bottom: 0px;padding-left: 0px;min-width: 0px;margin: auto;margin-top: auto;width: 100%;padding-right: 0px;padding-top: 0px;">
+                                                    <h5 class="text-center text-success m-0" style="width: 100%;min-width: 0px;">Cupping Score</h5><input name="sensorial" value="{{ row_data.sensorial }}" class="border rounded float-none" type="text" placeholder="Cup Score" data-bs-theme="dark" style="margin: 0px;margin-right: 0px;text-align: center;padding: 0px;padding-left: 0px;padding-right: 0px;width: 100%;min-width: 0px;">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 16px;padding-right: 16px;min-width: 0px;max-height: none;width: 100%;height: auto;">
+                                            <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="width: 100%;margin-bottom: 0px;padding-bottom: 0px;">
+                                                <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding-bottom: 0px;padding-left: 0px;min-width: 0px;margin-top: 10px;padding-right: 0px;width: 100%;">
+                                                    <h5 class="text-center text-success m-0" style="padding-left: 0px;width: 100%;">Sensorial&nbsp;Descriptors</h5><textarea name="sensorialdescriptors" value="{{ row_data.sensorialdescriptors }}" style="width: 100%;height: 147px;padding: 0px;" placeholder="Flavor notes (ex: Ripe fruit, Stone Fruit, Fresh cut grass)">{{ row_data.sensorialdescriptors }}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="submit-button" class="btn btn-success btn-lg text-start link-dark border rounded btn-icon-split" role="button" type="submit" style="margin-bottom: 24px;"><span class="text-white-50 icon"><i class="fas fa-check text-dark"></i></span><span class="text-dark text">Submit Edits to ({{ row_data.id }})</span></button>
+                            </div>
+                        </div>
+                        {% endfor %}
+                </form>
+            </div>
+                <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © RajaBule 2023</span></div>
+                </div>
+            </footer>
+        </div><a class="text-bg-warning border rounded d-inline scroll-to-top" href="#page-top" data-bs-theme="dark"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bs-init.js' %}"></script>
+    <script src="{% static 'js/theme.js' %}"></script>
+    <script>
+
+document.addEventListener('DOMContentLoaded', function () {
+    console.log("JavaScript code executing");
+    //submit button
+    const submitButton = document.getElementById('submit-button');
+    const form = document.getElementById('editsample');
+
+    submitButton.addEventListener('submit', function(event) {
+        //event.preventDefault();  // Prevent the default link behavior
+        form.submit();  // Submit the form programmatically
+        console.log("submiting...");
+    });
+    // Dropdown 1
+    const customDropdownButtons = document.querySelectorAll('[data-toggle="sampledropdown"]');
+    const dropdownButton1 = document.getElementById('sampledrop'); //<!-- btn id -->
+    const selectedOptionInput1 = document.getElementById('stype'); //<!-- input id-->
+    
+    dropdownButton1.addEventListener('click', function () {
+        const dropdown = document.querySelector(`[data-dropdown="${this.getAttribute('data-toggle')}"]`);
+        dropdown.classList.toggle('show');
+    });
+
+    const dropdownItems1 = document.querySelectorAll('[data-dropdown="datadropsample"] a');
+    dropdownItems1.forEach(function (item) {
+        item.addEventListener('click', function () {
+            const selectedText = item.textContent.trim();
+            dropdownButton1.textContent = selectedText;
+            selectedOptionInput1.value = selectedText;
+        });
+    });
+
+    // Dropdown 2
+    const customDropdownButtons2 = document.querySelectorAll('[data-toggle="weightdatadrop"]');
+    const dropdownButton2 = document.getElementById('weightdrop');
+    const selectedOptionInput2 = document.getElementById('sampleweightunit');
+    
+    dropdownButton2.addEventListener('click', function () {
+        const dropdown = document.querySelector(`[data-dropdown="${this.getAttribute('data-toggle')}"]`);
+        dropdown.classList.toggle('show');
+    });
+
+    const dropdownItems2 = document.querySelectorAll('[data-dropdown="weightdatadrop"] a');
+    dropdownItems2.forEach(function (item) {
+        item.addEventListener('click', function () {
+            const selectedText = item.textContent.trim();
+            dropdownButton2.textContent = "Sample Weight" + ' (' + selectedText + ')';
+            selectedOptionInput2.value = selectedText;
+        });
+    });
+
+    // Dropdown 3
+    const customDropdownButtons3 = document.querySelectorAll('[data-toggle="weightdatadrop2"]');
+    const dropdownButton3 = document.getElementById('weightdrop2');
+    const selectedOptionInput3 = document.getElementById('expweightunit');
+    
+    dropdownButton3.addEventListener('click', function () {
+        const dropdown = document.querySelector(`[data-dropdown="${this.getAttribute('data-toggle')}"]`);
+        dropdown.classList.toggle('show');
+    });
+
+    const dropdownItems3 = document.querySelectorAll('[data-dropdown="weightdatadrop2"] a');
+    dropdownItems3.forEach(function (item) {
+        item.addEventListener('click', function () {
+            const selectedText = item.textContent.trim();
+            dropdownButton3.textContent = "Availability" + ' (' + selectedText + ')';
+            selectedOptionInput3.value = selectedText;
+        });
+    });
+    // Dropdown 4
+    const customDropdownButtons4 = document.querySelectorAll('[data-toggle="weightdatadrop3"]');
+    const dropdownButton4 = document.getElementById('weightdrop3');
+    const selectedOptionInput4 = document.getElementById('proccessing');
+    
+    dropdownButton4.addEventListener('click', function () {
+        const dropdown = document.querySelector(`[data-dropdown="${this.getAttribute('data-toggle')}"]`);
+        dropdown.classList.toggle('show');
+    });
+
+    const dropdownItems4 = document.querySelectorAll('[data-dropdown="weightdatadrop3"] a');
+    dropdownItems4.forEach(function (item) {
+        item.addEventListener('click', function () {
+            const selectedText = item.textContent.trim();
+            dropdownButton4.textContent = selectedText;
+            selectedOptionInput4.value = selectedText;
+        });
+    });
+});
+
+
+    </script>
+</body>
+
+</html>

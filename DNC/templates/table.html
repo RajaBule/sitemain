@@ -1,0 +1,348 @@
+{% load static %}
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>DNC - Definetly Not Cropste</title>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bs-theme-overrides.css' %}">
+</head>
+
+<body id="page-top">
+    <div id="wrapper">
+        <nav class="navbar align-items-start sidebar sidebar-dark accordion bg-gradient-primary p-0 navbar-dark" data-bs-theme="dark">
+            <div class="container-fluid d-flex flex-column p-0"><a class="navbar-brand d-flex justify-content-center align-items-center sidebar-brand m-0" href="#">
+                    <div class="sidebar-brand-icon rotate-n-15"><i class="fas fa-biking text-dark"></i></div>
+                    <div class="sidebar-brand-text mx-3"><span class="text-dark"><strong>DNC</strong></span></div>
+                </a>
+                <hr class="sidebar-divider my-0">
+                <ul class="navbar-nav text-light" id="accordionSidebar">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'index' %}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="{% url 'samples' %}"><i class="fas fa-table"></i><span>Samples</span></a><a class="nav-link" href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                    <li class="nav-item"></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html"><i class="far fa-user-circle"></i><span>Login</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="register.html"><i class="fas fa-user-circle"></i><span>Register</span></a></li>
+                </ul>
+                <div class="text-center d-none d-md-inline"><button class="btn text-bg-dark rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+            </div>
+        </nav>
+        <div class="d-flex flex-column" id="content-wrapper">
+            <div class="text-bg-dark" id="content">
+                <nav class="navbar navbar-expand bg-primary shadow mb-4 topbar static-top navbar-light" data-bs-theme="dark">
+                    <div class="container-fluid"><button class="btn btn-link d-md-none rounded-circle me-3" id="sidebarToggleTop" type="button"><i class="fas fa-bars"></i></button>
+                        <form class="d-none d-sm-inline-block me-auto ms-md-3 my-2 my-md-0 mw-100 navbar-search">
+                            <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ..."><button class="btn btn-primary link-light text-bg-info py-0" type="button"><i class="fas fa-search"></i></button></div>
+                        </form>
+                        <ul class="navbar-nav flex-nowrap ms-auto">
+                            <li class="nav-item dropdown d-sm-none no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><i class="fas fa-search"></i></a>
+                                <div class="dropdown-menu dropdown-menu-end p-3 animated--grow-in" aria-labelledby="searchDropdown">
+                                    <form class="me-auto navbar-search w-100">
+                                        <div class="input-group"><input class="bg-light form-control border-0 small" type="text" placeholder="Search for ...">
+                                            <div class="input-group-append"><button class="btn btn-primary py-0" type="button"><i class="fas fa-search"></i></button></div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">3+</span><i class="fas fa-bell fa-fw"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                        <h6 class="dropdown-header">alerts center</h6><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="me-3">
+                                                <div class="bg-primary icon-circle"><i class="fas fa-file-alt text-white"></i></div>
+                                            </div>
+                                            <div><span class="small text-gray-500">December 12, 2019</span>
+                                                <p>A new monthly report is ready to download!</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="me-3">
+                                                <div class="bg-success icon-circle"><i class="fas fa-donate text-white"></i></div>
+                                            </div>
+                                            <div><span class="small text-gray-500">December 7, 2019</span>
+                                                <p>$290.29 has been deposited into your account!</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="me-3">
+                                                <div class="bg-warning icon-circle"><i class="fas fa-exclamation-triangle text-white"></i></div>
+                                            </div>
+                                            <div><span class="small text-gray-500">December 2, 2019</span>
+                                                <p>Spending Alert: We've noticed unusually high spending for your account.</p>
+                                            </div>
+                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="nav-item dropdown no-arrow mx-1">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#"><span class="badge bg-danger badge-counter">7</span><i class="fas fa-envelope fa-fw"></i></a>
+                                    <div class="dropdown-menu dropdown-menu-end dropdown-list animated--grow-in">
+                                        <h6 class="dropdown-header">alerts center</h6><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="assets/img/avatars/avatar4.jpeg">
+                                                <div class="bg-success status-indicator"></div>
+                                            </div>
+                                            <div class="fw-bold">
+                                                <div class="text-truncate"><span>Hi there! I am wondering if you can help me with a problem I've been having.</span></div>
+                                                <p class="small text-gray-500 mb-0">Emily Fowler - 58m</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="assets/img/avatars/avatar2.jpeg">
+                                                <div class="status-indicator"></div>
+                                            </div>
+                                            <div class="fw-bold">
+                                                <div class="text-truncate"><span>I have the photos that you ordered last month!</span></div>
+                                                <p class="small text-gray-500 mb-0">Jae Chun - 1d</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="assets/img/avatars/avatar3.jpeg">
+                                                <div class="bg-warning status-indicator"></div>
+                                            </div>
+                                            <div class="fw-bold">
+                                                <div class="text-truncate"><span>Last month's report looks great, I am very happy with the progress so far, keep up the good work!</span></div>
+                                                <p class="small text-gray-500 mb-0">Morgan Alvarez - 2d</p>
+                                            </div>
+                                        </a><a class="dropdown-item d-flex align-items-center" href="#">
+                                            <div class="dropdown-list-image me-3"><img class="rounded-circle" src="assets/img/avatars/avatar5.jpeg">
+                                                <div class="bg-success status-indicator"></div>
+                                            </div>
+                                            <div class="fw-bold">
+                                                <div class="text-truncate"><span>Am I a good boy? The reason I ask is because someone told me that people say this to all dogs, even if they aren't good...</span></div>
+                                                <p class="small text-gray-500 mb-0">Chicken the Dog · 2w</p>
+                                            </div>
+                                        </a><a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                                    </div>
+                                </div>
+                                <div class="shadow dropdown-list dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown"></div>
+                            </li>
+                            <div class="d-none d-sm-block topbar-divider"></div>
+                            <li class="nav-item dropdown no-arrow">
+                                <div class="nav-item dropdown no-arrow"><a class="dropdown-toggle nav-link" aria-expanded="false" data-bs-toggle="dropdown" href="#" data-bs-theme="dark"><span class="d-none d-lg-inline me-2 text-gray-600 small">Valerie Luna</span><img class="border rounded-circle img-profile" src="assets/img/avatars/avatar1.jpeg"></a>
+                                    <div class="dropdown-menu shadow dropdown-menu-end animated--grow-in"><a class="dropdown-item" href="#"><i class="fas fa-user fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Profile</a><a class="dropdown-item" href="#"><i class="fas fa-cogs fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Settings</a><a class="dropdown-item" href="#"><i class="fas fa-list fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Activity log</a>
+                                        <div class="dropdown-divider"></div><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-gray-400"></i>&nbsp;Logout</a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+                <div class="container-fluid border-dark">
+                    <div class="card border-secondary shadow">
+                        <div class="card-header text-bg-dark border-primary py-3" data-bs-theme="dark">
+                            <div class="dropdown d-table"><a class="btn btn-secondary dropdown-toggle fw-semibold link-light text-bg-dark border-secondary" aria-expanded="false" data-bs-toggle="dropdown" role="button">Samples</a>
+                                <div class="dropdown-menu"><a class="dropdown-item" href="#" id="edit-selected">Edit Selected</a><a class="dropdown-item" href="#">Delete selected</a><a class="dropdown-item" href="{% url 'new_sample' %}">Create New Sample</a></div>
+                            </div>
+                        </div>
+                        <div class="card-body text-bg-primary" data-bs-theme="dark">
+                            <div class="row">
+                                <div class="col-md-6 text-nowrap">
+                                    <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
+                                        <label class="form-label">
+                                            Show&nbsp;
+                                            <select name="selected" class="d-inline-block form-select form-select-sm" id="maxrange">
+                                                <option value="10">{{ per_page }}</option>
+                                                <option value="10">10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                                <option value="100">100</option>
+                                            </select>
+                                            &nbsp;
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="text-md-end dataTables_filter" id="dataTable_filter">
+                                        <label class="form-label">
+                                            <input type="search" class="form-control form-control-sm" aria-controls="dataTable" placeholder="Search">
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="table-responsive table mt-2" id="dataTable" role="grid" aria-describedby="dataTable_info">
+                                <table class="table my-0" id="dataTable">
+                                    <thead>
+                                        
+                                        <tr>
+                                            <th style="width: 135px;max-width: 150px;"><input class="form-check-input custom-control-input"  type="checkbox" id="selectAllCheckbox">    Select</th>
+                                            <th style="width: 171.45px;max-width: 170px;">ID</th>                                            
+                                            <th>Name</th>
+                                            <th>Location</th>
+                                            <th>Score</th>
+                                            <th>Notes</th>
+                                            <th>Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for item in page_obj %}
+                                        <tr>
+                                                <td style="width: 85px;max-width: 100px;"><input class="form-check-input custom-control-input" type="checkbox" value="{{item.id}}"></td>
+                                                <td>{{ item.id }}</td>
+                                                <td>{{ item.name }}</td>
+                                                <td>{{ item.location }}</td>
+                                                <td>{{ item.sensorial }}</td>
+                                                <td>{{ item.sensorialdescriptors }}</td>
+                                                <td>{{ item.regdate }}</td>                                        
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td style="width: 85.45px;max-width: 100px;"></td>
+                                            <td style="width: 171.45px;max-width: 170px;"><strong>ID</strong></td>
+                                            <td><strong>Name</strong></td>
+                                            <td><strong>Location</strong></td>
+                                            <td><strong>Score</strong></td>
+                                            <td><strong>Notes</strong></td>
+                                            <td><strong>Date</strong></td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 align-self-center">
+                                    <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</p>
+                                </div>
+                                <div class="col-md-6">
+                                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
+                                        <ul class="pagination">
+                                            
+                                            {%if page_obj.has_previous %}
+                                            <li class="page-item"><a class="page-link" id="prev" aria-label="Previous" href="?page={{page_obj.previous_page_number}}"><span aria-hidden="true">«</span></a></li>
+                                            {% endif %}
+                                            {% for pages in page_obj.paginator.page_range %}
+                                            <li class="page-item"><a class="page-link" id="pagenum" href="?page={{pages}}">{{pages}}</a></li>
+                                            {% endfor %}   
+                                            {%if page_obj.has_next %}                                            
+                                            <li class="page-item"><a class="page-link" id="next" aria-label="Next" href="?page={{page_obj.next_page_number}}"><span aria-hidden="true">»</span></a></li>
+                                            {% endif %}
+                                        </ul>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="bg-white sticky-footer">
+                <div class="container my-auto">
+                    <div class="text-center my-auto copyright"><span>Copyright © RajaBule 2023</span></div>
+                </div>
+            </footer>
+        </div><a class="border rounded d-inline scroll-to-top" href="#page-top"><i class="fas fa-angle-up"></i></a>
+    </div>
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/bs-init.js' %}"></script>
+    <script src="{% static 'js/theme.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const selectElement = document.getElementById('maxrange');
+            const searchInput = document.querySelector('input[type="search"]');
+            const dataTableBody = document.querySelector('#dataTable tbody');
+            const selectAllCheckbox = document.getElementById('selectAllCheckbox');
+            const currentUrl = window.location.href;
+    
+            // Get the selected value from the URL's query parameters
+            const urlSearchParams = new URLSearchParams(window.location.search);
+            const selectedValueFromURL = urlSearchParams.get('selected');
+            if (selectedValueFromURL) {
+                selectElement.value = selectedValueFromURL;
+            }
+    
+            // Attach event listener to checkboxes
+            function attachCheckboxEventListeners() {
+                $('#dataTable input[type="checkbox"]').on('change', function() {
+                    const selectedRowID = $(this).val();
+                    if ($(this).is(':checked')) {
+                        selectedRowIDs.push(selectedRowID);
+                    } else {
+                        const index = selectedRowIDs.indexOf(selectedRowID);
+                        if (index !== -1) {
+                            selectedRowIDs.splice(index, 1);
+                        }
+                    }
+                    console.log('Selected row IDs:', selectedRowIDs);
+                });
+            }
+            
+            attachCheckboxEventListeners();
+
+            function updateTableContent(data) {
+            const dataTableBody = document.querySelector('#dataTable tbody');
+            dataTableBody.innerHTML = ''; // Clear existing table rows
+    
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td style="width: 85px;max-width: 100px;"><input class="form-check-input custom-control-input" type="checkbox" value=${item.id}></td>
+                    <td>${item.id}</td>
+                    <td>${item.name}</td>
+                    <td>${item.location}</td>
+                    <td>${item.sensorial}</td>
+                    <td>${item.sensorialdescriptors}</td>
+                    <td>${item.regdate}</td>
+                `;
+                dataTableBody.appendChild(row);
+            });
+    
+            attachCheckboxEventListeners();
+        }
+
+            selectElement.addEventListener('change', function() {
+                const selectedValue = selectElement.value;
+                const urlWithSelectedValue = updateQueryStringParameter(currentUrl, 'selected', selectedValue);
+                window.location.href = urlWithSelectedValue;
+            });
+    
+            updatePaginationLinks(selectElement.value);
+            searchInput.addEventListener('input', function() {
+                const searchQuery = searchInput.value;
+                const selectedValue = selectElement.value;
+                // Make an AJAX request to the Django view
+                $.ajax({
+                    url: `/search/?q=${searchQuery}&selected=${selectedValue}`, // Modify the URL as needed
+                    dataType: 'json',
+                    success: function(data) {
+                        // Update the table content with the search results
+                        updateTableContent(data);
+                    }
+                });
+            });
+    
+            selectAllCheckbox.addEventListener('change', function() {
+                const checkboxes = dataTableBody.querySelectorAll('input[type="checkbox"]');
+                checkboxes.forEach(checkbox => {
+                    checkbox.checked = selectAllCheckbox.checked;
+                });
+            });
+    
+            const selectedRowIDs = [];
+    
+            $('#edit-selected').on('click', function() {
+                const selectedRowIDsString = selectedRowIDs.join(',');
+                const editSelectedURL = '{% url "edit_selected_rows" %}';
+                window.location.href = `${editSelectedURL}?ids=${selectedRowIDsString}`;
+            });
+        });
+    
+        function updatePaginationLinks(selectedValue) {
+            const paginationLinks = document.querySelectorAll('.page-link');
+            paginationLinks.forEach(link => {
+                const pageUrl = updateQueryStringParameter(link.getAttribute('href'), 'selected', selectedValue);
+                link.setAttribute('href', pageUrl);
+            });
+        }
+    
+                
+        function updateQueryStringParameter(uri, key, value) {
+            const re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+            const separator = uri.indexOf('?') !== -1 ? "&" : "?";
+            if (uri.match(re)) {
+                return uri.replace(re, '$1' + key + "=" + value + '$2');
+            }
+            return uri + separator + key + "=" + value;
+        }
+    </script>
+    
+</body>
+
+</html>
