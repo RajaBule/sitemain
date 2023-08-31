@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-    <title>DNC - Definetly Not Cropste</title>
+    <title>DNC - My Samples</title>
     <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i&amp;display=swap">
     <link rel="stylesheet" href="{% static 'fonts/fontawesome-all.min.css' %}">
@@ -27,6 +27,7 @@
                     <li class="nav-item"><a class="nav-link" href="register.html"><i class="fas fa-user-circle"></i><span>Register</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn text-bg-dark rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
+                <a class="link-primary" href="{% url 'logout' %}" data-bs-theme="dark"><i class="fas fa-user-circle"></i><span style="font-weight: bold;font-style: italic;">Logout</span></a>
             </div>
         </nav>
         <div class="d-flex flex-column" id="content-wrapper">

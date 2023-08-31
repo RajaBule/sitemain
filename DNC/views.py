@@ -5,7 +5,7 @@ from django.http import JsonResponse
 from django.db.models import Q
 from .forms import newsample, RegistrationForm, LoginForm
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import datetime
@@ -13,6 +13,7 @@ import re
 # Create your views here.
 #samplesdata = Samples.objects
 
+@login_required
 def index(request):
     user = request.user
     context = {
@@ -21,6 +22,7 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
+@login_required
 def samples(request):
     user = request.user
     amples = Samples.objects.filter(user=user)
@@ -86,7 +88,7 @@ def new_sample(request):
     user = request.user
     date_time = datetime.datetime.now()
     last_id_obj = Samples.objects.last()
-
+    print(date_time)
     if last_id_obj:
         last_id = last_id_obj.id  # Replace with the actual field name
         numeric_part = re.search(r'\d+$', last_id).group()  # Extract numeric part
@@ -104,6 +106,7 @@ def new_sample(request):
 
 @login_required
 def submit_new_sample(request):
+    date_time = datetime.datetime.now()
     user = request.user
     if request.method == "POST":
         print('POST called')
@@ -123,7 +126,8 @@ def submit_new_sample(request):
 
     context = {'post': post,
                'user_first_name': user.first_name,
-               'user_last_name': user.last_name
+               'user_last_name': user.last_name,
+               'date_time' : date_time,
                }
     
     return render(request, "newsample.html", context)
@@ -213,3 +217,7 @@ def user_login(request):
         form = LoginForm()
 
     return render(request, 'login.html', {'form': form})
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')  # Redirect to your login page

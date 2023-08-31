@@ -11,5 +11,6 @@ urlpatterns = [
     path('edit_selected/', views.edit_selected_rows, name='edit_selected_rows'),
     path('update_selected_row/', views.update_selected_row, name='update_row'),
     path('register/', views.register, name='register'),
-    path('login/', views.user_login, name='login')
+    path('login/', views.user_login, name='login'),
+    path('logout/', views.logout_view, name='logout')
     ]
