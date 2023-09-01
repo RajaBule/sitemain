@@ -3,6 +3,8 @@
   --bs-link-color-rgb: 15,12,18;
   --bs-link-hover-color: #321937;
   --bs-link-hover-color-rgb: 50,25,55;
+  --bs-info: #4c71dd;
+  --bs-info-rgb: 76,113,221;
 }
 
 [data-bs-theme=dark] {

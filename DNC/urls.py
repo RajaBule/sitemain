@@ -12,5 +12,6 @@ urlpatterns = [
     path('update_selected_row/', views.update_selected_row, name='update_row'),
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),
-    path('logout/', views.logout_view, name='logout')
+    path('logout/', views.logout_view, name='logout'),
+    path('cupping_sci/', views.cupping_session_sci, name='cupping_sci')
     ]

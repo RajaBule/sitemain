@@ -221,3 +221,6 @@ def user_login(request):
 def logout_view(request):
     logout(request)
     return redirect('login')  # Redirect to your login page
+
+def cupping_session_sci(request):
+    return render(request ,'cuppingSCI.html')
