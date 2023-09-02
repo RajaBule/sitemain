@@ -1,5 +1,5 @@
 from django import forms
-from .models import Samples
+from .models import Samples, CuppingSCI
 
 class newsample(forms.ModelForm):
     class Meta:
@@ -26,3 +26,8 @@ class RegistrationForm(forms.Form):
 class LoginForm(forms.Form):
     email = forms.EmailField()
     password = forms.CharField(widget=forms.PasswordInput)
+
+class CuppingFormSCI(forms.ModelForm):
+    class Meta:
+        model = CuppingSCI
+        fields = '__all__'

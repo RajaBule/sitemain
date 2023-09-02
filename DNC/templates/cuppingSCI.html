@@ -127,139 +127,233 @@
                     </div>
                 </nav>
                 <h1 class="display-4 text-info" style="width: 100%;margin-bottom: 22px;">Cupping Session Id</h1>
-                <div class="text-bg-dark card" style="width: 98%;margin-left: 1%;"><a class="btn btn-link fs-5 text-start text-bg-success card-header fw-bold" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-11" href="#collapse-11" role="button">Sample Id</a>
-                    <div class="collapse show" id="collapse-11">
-                        <div class="text-bg-dark card-body" style="width: 100%;height: 100%;padding: 0px;padding-top: 23px;">
-                            <div class="container text-bg-dark" style="width: 100%;max-width: 100%;padding-right: 16px;">
-                                <div class="row">
-                                    <div class="col-md-6 text-bg-dark" style="padding-bottom: 0px;">
-                                        <div></div>
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="text-center text-dark">Roast Level</h5><input class="form-range" type="range" name="roast_level_range" value="3" min="1" max="5" step="1" data-bs-theme="dark"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                <form method="post" action="{% url 'save_session' %}">
+                    {% csrf_token %}
+                
+                    {% for form in selected_samples %}
+                    <input type="hidden" name="sample_id" value="{{ form.id }}">
+                    <div class="text-bg-dark card" style="width: 98%;margin-left: 1%;">
+                        <a class="btn btn-link fs-5 text-start text-bg-success card-header fw-bold" data-bs-toggle="collapse" aria-expanded="true" aria-controls="collapse-11" href="#collapse-11" role="button">Sample: {{form.id}}</a>
+                        <div class="collapse show" id="collapse-11">
+                            <div class="text-bg-dark card-body" style="width: 100%;height: 100%;padding: 0px;padding-top: 23px;">
+                                <div class="container text-bg-dark" style="width: 100%;max-width: 100%;padding-right: 16px;">
+                                    <div class="row">
+                                        <div class="col-md-6 text-bg-dark" style="padding-bottom: 0px;">
+                                            <div></div>
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="text-center text-dark">Roast Level</h5>
+                                                    <input class="form-range" type="range" name="{{ form.id }}roast_level_range" value="3" min="1" max="5" step="1" data-bs-theme="dark">
+                                                    <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                </div>
                                             </div>
+                                            <hr>
                                         </div>
-                                        <hr>
+                                        <div class="col-md-6 text-bg-dark" style="padding-bottom: 0px;">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <h5 class="text-center text-dark">Ferment Level</h5>
+                                                    <input class="form-range" type="range" name="{{ form.id }}ferment_level_range" value="3" min="1" max="5" step="1" data-bs-theme="dark">
+                                                    <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6 text-bg-dark" style="padding-bottom: 0px;">
-                                        <div class="card">
-                                            <div class="card-body">
-                                                <h5 class="text-center text-dark">Ferment Level</h5><input class="form-range" type="range" name="ferment_level_range" value="3" min="1" max="5" step="1" data-bs-theme="dark"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-6 text-bg-dark" style="padding-bottom: 10px;">
+                                            <div class="shadow card" style="margin-bottom: 10px;">
+                                                <a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button" style="padding-bottom: 12px;">Fragrance</a>
+                                                <div class="collapse" id="collapse-1">
+                                                    <div class="card-body" style="padding-top: 7px;">
+                                                        <input class="form-range" type="range" name="{{ form.id }}fragrance_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
+                                                        <hr style="width: 100%;">
+                                                        <label class="form-label">Intensity:</label>
+                                                        <input class="form-range" type="range" name="{{ form.id }}fragrance_intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <hr style="width: 100%;">
+                                                        <input class="border rounded" type="text" name="{{ form.id }}fragrance_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="shadow card">
+                                                <a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button">Flavor</a>
+                                                <div class="collapse" id="collapse-2">
+                                                    <div class="card-body" style="padding-top: 7px;">
+                                                        <input class="form-range" type="range" name="{{ form.id }}flavor_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
+                                                        <hr>
+                                                        <label class="form-label">Intensity:</label>
+                                                        <input class="form-range" type="range" name="{{ form.id }}flavor_Intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <hr style="width: 100%;">
+                                                        <input class="border rounded" type="text" name="{{ form.id }}Flavor_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <hr>
+                                        <div class="col-md-6 text-bg-dark" style="padding-bottom: 10px;">
+                                            <div class="shadow card" style="padding-bottom: 0px;margin-bottom: 10px;">
+                                                <a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-4" href="#collapse-4" role="button">Aroma</a>
+                                                <div class="collapse" id="collapse-4">
+                                                    <div class="card-body" style="padding-top: 7px;">
+                                                        <input class="form-range" type="range" name="{{ form.id }}aroma_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
+                                                        <hr>
+                                                        <label class="form-label">Intensity:</label>
+                                                        <input class="form-range" type="range" name="{{ form.id }}aroma_intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <hr style="width: 100%;">
+                                                        <input class="border rounded" type="text" name="{{ form.id }}aroma_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="shadow card">
+                                                <a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button">Acidity</a>
+                                                <div class="collapse" id="collapse-3">
+                                                    <div class="card-body" style="padding-top: 7px;">
+                                                        <input class="form-range" type="range" name="{{ form.id }}acid_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
+                                                        <hr>
+                                                        <label class="form-label">Intensity:</label>
+                                                        <input class="form-range" type="range" name="{{ form.id }}acid_Intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <hr style="width: 100%;">
+                                                        <input class="border rounded" type="text" name="{{ form.id }}Acidity_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6" style="padding-bottom: 10px;">
+                                            <div class="shadow card">
+                                                <a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-7" href="#collapse-7" role="button">Body</a>
+                                                <div class="collapse" id="collapse-7">
+                                                    <div class="card-body" style="padding-top: 7px;">
+                                                        <input class="form-range" type="range" name="{{ form.id }}body_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
+                                                        <hr>
+                                                        <label class="form-label">Thickness:</label>
+                                                        <input class="form-range" type="range" name="{{ form.id }}body_thickness_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <hr style="width: 100%;">
+                                                        <input class="border rounded" type="text" name="{{ form.id }}body_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" style="padding-bottom: 10px;">
+                                            <div class="shadow card">
+                                                <a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-8" href="#collapse-8" role="button">Sweetness</a>
+                                                <div class="collapse" id="collapse-8">
+                                                    <div class="card-body" style="padding-top: 7px;">
+                                                        <input class="form-range" type="range" name="{{ form.id }}sweetness_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
+                                                        <hr>
+                                                        <label class="form-label">Intensity:</label>
+                                                        <input class="form-range" type="range" name="{{ form.id }}sweetness_intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <hr style="width: 100%;">
+                                                        <input class="border rounded" type="text" name="{{ form.id }}sweetness_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6" style="padding-bottom: 10px;">
+                                            <div class="shadow card">
+                                                <a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-5" href="#collapse-5" role="button">Aftertaste</a>
+                                                <div class="collapse" id="collapse-5">
+                                                    <div class="card-body" style="padding-top: 7px;">
+                                                        <input class="form-range" type="range" name="{{ form.id }}aftertaste_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
+                                                        <hr>
+                                                        <label class="form-label">Duration:</label>
+                                                        <input class="form-range" type="range" name="{{ form.id }}aftertaste_duration_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <hr style="width: 100%;">
+                                                        <input class="border rounded" type="text" name="{{ form.id }}aftertaste_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" style="padding-bottom: 10px;">
+                                            <div class="shadow card">
+                                                <a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-6" href="#collapse-6" role="button">Fresh Crop</a>
+                                                <div class="collapse" id="collapse-6">
+                                                    <div class="card-body" style="padding-top: 7px;">
+                                                        <input class="form-range" type="range" name="{{ form.id }}fresh_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
+                                                        <hr>
+                                                        <label class="form-label">Woody:</label>
+                                                        <input class="form-range" type="range" name="{{ form.id }}fresh_woody_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <hr style="width: 100%;">
+                                                        <input class="border rounded" type="text" name="{{ form.id }}freshcrop_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6" style="padding-bottom: 10px;">
+                                            <div class="shadow card">
+                                                <a class="btn btn-warning text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-9" href="#collapse-9" role="button">Off Flavor</a>
+                                                <div class="collapse" id="collapse-9">
+                                                    <div class="card-body" style="padding-top: 7px;">
+                                                        <input class="form-range" type="range" name="{{ form.id }}off_1_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input class="form-range" type="range" name="{{ form.id }}off_2_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input class="form-range" type="range" name="{{ form.id }}off_3_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input class="form-range" type="range" name="{{ form.id }}off_4_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input class="form-range" type="range" name="{{ form.id }}off_5_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <hr>
+                                                        <input class="border rounded" type="text" name="{{ form.id }}off_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6" style="padding-bottom: 10px;">
+                                            <div class="shadow card">
+                                                <a class="btn btn-info text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-10" href="#collapse-10" role="button" style="--bs-info: #4e73df;--bs-info-rgb: 78,115,223;">Uniformity</a>
+                                                <div class="collapse" id="collapse-10">
+                                                    <div class="card-body" style="padding-top: 7px;">
+                                                        <input class="form-range" type="range" name="{{ form.id }}uniform_1_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input class="form-range" type="range" name="{{ form.id }}uniform_2_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input class="form-range" type="range" name="{{ form.id }}uniform_3_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input class="form-range" type="range" name="{{ form.id }}uniform_4_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input class="form-range" type="range" name="{{ form.id }}uniform_5_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <hr>
+                                                        <input class="border rounded" type="text" name="{{ form.id }}uniformity_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
+                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-md-6 col-lg-6 text-bg-dark" style="padding-bottom: 10px;">
-                                        <div class="shadow card" style="margin-bottom: 10px;"><a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button" style="padding-bottom: 12px;">Fragrance</a>
-                                            <div class="collapse" id="collapse-1">
-                                                <div class="card-body" style="padding-top: 7px;"><input class="form-range" type="range" name="fragrance_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark" style="width: 100%;height: 14px;"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
-                                                    <hr style="width: 100%;"><label class="form-label">Intensity:</label><input class="form-range" type="range" name="fragrance_intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark" style="width: 100%;height: 14px;"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
-                                                    <hr style="width: 100%;"><input class="border rounded" type="text" name="fragrance_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="shadow card"><a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button">Flavor</a>
-                                            <div class="collapse" id="collapse-2">
-                                                <div class="card-body" style="padding-top: 7px;"><input class="form-range" type="range" name="flavor_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark" style="width: 100%;height: 14px;"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
-                                                    <hr><label class="form-label">Intensity:</label><input class="form-range" type="range" name="flavor_Intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark" style="width: 100%;height: 14px;"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
-                                                    <hr style="width: 100%;"><input class="border rounded" type="text" name="Flavor_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 text-bg-dark" style="padding-bottom: 10px;">
-                                        <div class="shadow card" style="padding-bottom: 0px;margin-bottom: 10px;"><a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-4" href="#collapse-4" role="button">Aroma</a>
-                                            <div class="collapse" id="collapse-4">
-                                                <div class="card-body" style="padding-top: 7px;"><input class="form-range" type="range" name="Aroma_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark" style="width: 100%;height: 14px;"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
-                                                    <hr><label class="form-label">Intensity:</label><input class="form-range" type="range" name="aroma_intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark" style="width: 100%;height: 14px;"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
-                                                    <hr style="width: 100%;"><input class="border rounded" type="text" name="aroma_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="shadow card"><a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button">Acidity</a>
-                                            <div class="collapse" id="collapse-3">
-                                                <div class="card-body" style="padding-top: 7px;"><input class="form-range" type="range" name="acid_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark" style="width: 100%;height: 14px;"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
-                                                    <hr><label class="form-label">Intensity:</label><input class="form-range" type="range" name="acid_Intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark" style="width: 100%;height: 14px;"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
-                                                    <hr style="width: 100%;"><input class="border rounded" type="text" name="Acidity_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6" style="padding-bottom: 10px;">
-                                        <div class="shadow card"><a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-7" href="#collapse-7" role="button">Body</a>
-                                            <div class="collapse" id="collapse-7">
-                                                <div class="card-body" style="padding-top: 7px;"><input class="form-range" type="range" name="body_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark" style="width: 100%;height: 14px;"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
-                                                    <hr><label class="form-label">Thickness:</label><input class="form-range" type="range" name="body_thickness_range" min="1" max="5" step="1" value="3" data-bs-theme="dark" style="width: 100%;height: 14px;"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
-                                                    <hr style="width: 100%;"><input class="border rounded" type="text" name="body_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6" style="padding-bottom: 10px;">
-                                        <div class="shadow card"><a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-8" href="#collapse-8" role="button">Sweetness</a>
-                                            <div class="collapse" id="collapse-8">
-                                                <div class="card-body" style="padding-top: 7px;"><input class="form-range" type="range" name="sweetness_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark" style="width: 100%;height: 14px;"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
-                                                    <hr><label class="form-label">Intensity:</label><input class="form-range" type="range" name="sweetness_intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark" style="width: 100%;height: 14px;"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
-                                                    <hr style="width: 100%;"><input class="border rounded" type="text" name="sweetness_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6" style="padding-bottom: 10px;">
-                                        <div class="shadow card"><a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-5" href="#collapse-5" role="button">Aftertaste</a>
-                                            <div class="collapse" id="collapse-5">
-                                                <div class="card-body" style="padding-top: 7px;"><input class="form-range" type="range" name="aftertaste_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark" style="width: 100%;height: 14px;"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
-                                                    <hr><label class="form-label">Duration:</label><input class="form-range" type="range" name="aftertaste_duration_range" min="1" max="5" step="1" value="3" data-bs-theme="dark" style="width: 100%;height: 14px;"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
-                                                    <hr style="width: 100%;"><input class="border rounded" type="text" name="aftertaste_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6" style="padding-bottom: 10px;">
-                                        <div class="shadow card"><a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-6" href="#collapse-6" role="button">Fresh Crop</a>
-                                            <div class="collapse" id="collapse-6">
-                                                <div class="card-body" style="padding-top: 7px;"><input class="form-range" type="range" name="fresh_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark" style="width: 100%;height: 14px;"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
-                                                    <hr><label class="form-label">Woody:</label><input class="form-range" type="range" name="fresh_woody_range" min="1" max="5" step="1" value="3" data-bs-theme="dark" style="width: 100%;height: 14px;"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
-                                                    <hr style="width: 100%;"><input class="border rounded" type="text" name="freshcrop_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6" style="padding-bottom: 10px;">
-                                        <div class="shadow card"><a class="btn btn-warning text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-9" href="#collapse-9" role="button">Off Flavor</a>
-                                            <div class="collapse" id="collapse-9">
-                                                <div class="card-body" style="padding-top: 7px;"><input class="form-range" type="range" name="off_1_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark" style="width: 50%;height: 14px;"><label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label><input class="form-range" type="range" name="off_2_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark" style="width: 50%;height: 14px;"><label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label><input class="form-range" type="range" name="off_3_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark" style="width: 50%;height: 14px;"><label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label><input class="form-range" type="range" name="off_4_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark" style="width: 50%;height: 14px;"><label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label><input class="form-range" type="range" name="off_5_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark" style="width: 50%;height: 14px;"><label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
-                                                    <hr><input class="border rounded" type="text" name="off_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6" style="padding-bottom: 10px;">
-                                        <div class="shadow card"><a class="btn btn-info text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-10" href="#collapse-10" role="button" style="--bs-info: #4e73df;--bs-info-rgb: 78,115,223;">Uniformity</a>
-                                            <div class="collapse" id="collapse-10">
-                                                <div class="card-body" style="padding-top: 7px;"><input class="form-range" type="range" name="uniform_1_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark" style="width: 50%;height: 14px;"><label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;" for="d">0</label><input class="form-range" type="range" name="uniform_2_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark" style="width: 50%;height: 14px;"><label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label><input class="form-range" type="range" name="uniform_3_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark" style="width: 50%;height: 14px;"><label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label><input class="form-range" type="range" name="uniform_4_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark" style="width: 50%;height: 14px;"><label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label><input class="form-range" type="range" name="uniform_5_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark" style="width: 50%;height: 14px;"><label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
-                                                    <hr><input class="border rounded" type="text" name="uniformity_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);"><label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="container text-bg-dark">
-                                <hr><label class="form-label text-success text-bg-dark border rounded border-1 border-dark-subtle" style="font-size: 23px;font-weight: bold;padding: 12px;margin-top: 0px;">85</label>
-                                <h4 class="text-primary text-bg-dark m-0 fw-bold" style="padding-bottom: 7px;">Sensorial&nbsp;descriptors</h4><textarea class="border rounded" style="width: 100%;margin-bottom: 23px;" name="sens_descriptors" placeholder="Final descriptors go here..." rows="5" autocomplete="off" spellcheck="true" data-bs-theme="dark"></textarea>
                             </div>
                         </div>
                     </div>
-                </div><button class="btn btn-primary fs-4 text-center link-dark" type="submit" style="width: 50%;margin-left: 0;margin-bottom: 25px;margin-top: 24px;max-width: 50%;">Save&nbsp;Session</button>
+                    {% endfor %}
+                    <div class="container text-center">
+                        <button class="btn btn-primary fs-4 text-center link-dark" type="submit" style="width: 50%;margin-left: 0;margin-bottom: 25px;margin-top: 24px;max-width: 50%;">Save&nbsp;Session</button>
+                    </div>
+                </form>
+                
             </div>
             <footer class="bg-white sticky-footer">
                 <div class="container my-auto">

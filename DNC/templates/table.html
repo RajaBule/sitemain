@@ -130,7 +130,7 @@
                     <div class="card border-secondary shadow">
                         <div class="card-header text-bg-dark border-primary py-3" data-bs-theme="dark">
                             <div class="dropdown d-table"><a class="btn btn-secondary dropdown-toggle fw-semibold link-light text-bg-dark border-secondary" aria-expanded="false" data-bs-toggle="dropdown" role="button">Samples</a>
-                                <div class="dropdown-menu"><a class="dropdown-item" href="#" id="edit-selected">Edit Selected</a><a class="dropdown-item" href="#">Delete selected</a><a class="dropdown-item" href="{% url 'new_sample' %}">Create New Sample</a></div>
+                                <div class="dropdown-menu"><a class="dropdown-item" href="#" id="edit-selected">Edit Selected</a><a class="dropdown-item" href="#">Delete selected</a><a class="dropdown-item" href="{% url 'new_sample' %}">Create New Sample</a><a class="dropdown-item" id="start-cupping-selected">Start Cupping Selected</a></div>
                             </div>
                         </div>
                         <div class="card-body text-bg-primary" data-bs-theme="dark">
@@ -264,30 +264,30 @@
                     console.log('Selected row IDs:', selectedRowIDs);
                 });
             }
-            
+    
             attachCheckboxEventListeners();
-
+    
             function updateTableContent(data) {
-            const dataTableBody = document.querySelector('#dataTable tbody');
-            dataTableBody.innerHTML = ''; // Clear existing table rows
+                const dataTableBody = document.querySelector('#dataTable tbody');
+                dataTableBody.innerHTML = ''; // Clear existing table rows
     
-            data.forEach(item => {
-                const row = document.createElement('tr');
-                row.innerHTML = `
-                    <td style="width: 85px;max-width: 100px;"><input class="form-check-input custom-control-input" type="checkbox" value=${item.id}></td>
-                    <td>${item.id}</td>
-                    <td>${item.name}</td>
-                    <td>${item.location}</td>
-                    <td>${item.sensorial}</td>
-                    <td>${item.sensorialdescriptors}</td>
-                    <td>${item.regdate}</td>
-                `;
-                dataTableBody.appendChild(row);
-            });
+                data.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td style="width: 85px;max-width: 100px;"><input class="form-check-input custom-control-input" type="checkbox" value=${item.id}></td>
+                        <td>${item.id}</td>
+                        <td>${item.name}</td>
+                        <td>${item.location}</td>
+                        <td>${item.sensorial}</td>
+                        <td>${item.sensorialdescriptors}</td>
+                        <td>${item.regdate}</td>
+                    `;
+                    dataTableBody.appendChild(row);
+                });
     
-            attachCheckboxEventListeners();
-        }
-
+                attachCheckboxEventListeners();
+            }
+    
             selectElement.addEventListener('change', function() {
                 const selectedValue = selectElement.value;
                 const urlWithSelectedValue = updateQueryStringParameter(currentUrl, 'selected', selectedValue);
@@ -323,6 +323,21 @@
                 const editSelectedURL = '{% url "edit_selected_rows" %}';
                 window.location.href = `${editSelectedURL}?ids=${selectedRowIDsString}`;
             });
+    
+            // Handle "Start Cupping Selected" option
+            $('#start-cupping-selected').on('click', function() {
+                if (selectedRowIDs.length > 0) {
+                    const selectedRowIDsString = selectedRowIDs.join(',');
+                    const cuppingSciURL = '{% url "cupping_sci" %}';
+                    // Append the selected sample IDs as a query parameter
+                    const urlWithSelectedIDs = `${cuppingSciURL}?selected_ids=${selectedRowIDsString}`;
+                    // Redirect to the "cupping_sci" page with the selected IDs
+                    window.location.href = urlWithSelectedIDs;
+                } else {
+                    // Handle the case where no samples are selected
+                    alert('No samples are selected for cupping.');
+                }
+            });
         });
     
         function updatePaginationLinks(selectedValue) {
@@ -333,7 +348,6 @@
             });
         }
     
-                
         function updateQueryStringParameter(uri, key, value) {
             const re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
             const separator = uri.indexOf('?') !== -1 ? "&" : "?";
@@ -343,6 +357,7 @@
             return uri + separator + key + "=" + value;
         }
     </script>
+    
     
 </body>
 

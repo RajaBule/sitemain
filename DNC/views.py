@@ -1,13 +1,14 @@
 from django.shortcuts import render, HttpResponse,redirect
-from .models import Samples
+from .models import Samples, CuppingSCI
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse
 from django.db.models import Q
-from .forms import newsample, RegistrationForm, LoginForm
+from .forms import newsample, RegistrationForm, LoginForm, CuppingFormSCI
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.forms import formset_factory
 import datetime
 import re
 # Create your views here.
@@ -222,5 +223,81 @@ def logout_view(request):
     logout(request)
     return redirect('login')  # Redirect to your login page
 
-def cupping_session_sci(request):
-    return render(request ,'cuppingSCI.html')
+def cupping_sci(request):
+        # Retrieve the selected_ids query parameter from the URL
+    selected_ids = request.GET.get('selected_ids')
+    print(selected_ids)
+    if selected_ids:
+        # Split the selected_ids string into a list
+        selected_ids_list = selected_ids.split(',')
+
+        # Now, you have a list of selected IDs (some may be integers, some strings)
+        # You can use this list to filter your Django model based on your criteria
+        selected_samples = Samples.objects.filter(id__in=selected_ids_list)
+        print(selected_samples)
+        # Do something with the selected_samples, such as rendering a template
+        return render(request, 'cuppingSCI.html', {'selected_samples': selected_samples})
+    else:
+        # Handle the case where no selected_ids parameter is provided
+        return HttpResponse("No selected_ids parameter found in the URL.")
+    
+def save_session(request):
+    if request.method == 'POST':
+        # Get the list of sample IDs from the form data
+        selected_ids = request.POST.getlist('sample_id')
+
+        # Initialize a list to store the created CuppingSCI objects
+        created_cupping_sci_list = []
+        for sample_id in selected_ids:
+            print(sample_id)
+            cupping_sci = CuppingSCI(
+            sample_id=sample_id,
+            roast_level_range=request.POST.get(sample_id+'roast_level_range'),
+            ferment_level_range=request.POST.get(sample_id+'ferment_level_range'),
+            fragrance_range=request.POST.get(sample_id+'fragrance_range'),
+            fragrance_intensity_range=request.POST.get(sample_id+'fragrance_intensity_range'),
+            fragrance_notes=request.POST.get(sample_id+'fragrance_notes'),
+            flavor_range=request.POST.get(sample_id+'flavor_range'),
+            flavor_intensity_range=request.POST.get(sample_id+'flavor_Intensity_range'),
+            Flavor_notes=request.POST.get(sample_id+'Flavor_notes'),
+            aroma_range=request.POST.get(sample_id+'aroma_range'),
+            aroma_intensity_range=request.POST.get(sample_id+'aroma_intensity_range'),
+            aroma_notes=request.POST.get(sample_id+'aroma_notes'),
+            acidity_range=request.POST.get(sample_id+'acid_range'),
+            acidity_intensity_range=request.POST.get(sample_id+'acid_Intensity_range'),
+            Acidity_notes=request.POST.get(sample_id+'Acidity_notes'),
+            body_range=request.POST.get(sample_id+'body_range'),
+            body_thickness_range=request.POST.get(sample_id+'body_thickness_range'),
+            body_notes=request.POST.get(sample_id+'body_notes'),
+            sweetness_range=request.POST.get(sample_id+'sweetness_range'),
+            sweetness_intensity_range=request.POST.get(sample_id+'sweetness_intensity_range'),
+            sweetness_notes=request.POST.get(sample_id+'sweetness_notes'),
+            aftertaste_range=request.POST.get(sample_id+'aftertaste_range'),
+            aftertaste_duration_range=request.POST.get(sample_id+'aftertaste_duration_range'),
+            aftertaste_notes=request.POST.get(sample_id+'aftertaste_notes'),
+            fresh_range=request.POST.get(sample_id+'fresh_range'),
+            fresh_woody_range=request.POST.get(sample_id+'fresh_woody_range'),
+            freshcrop_notes=request.POST.get(sample_id+'freshcrop_notes'),
+            off_1_range=request.POST.get(sample_id+'off_1_range'),
+            off_2_range=request.POST.get(sample_id+'off_2_range'),
+            off_3_range=request.POST.get(sample_id+'off_3_range'),
+            off_4_range=request.POST.get(sample_id+'off_4_range'),
+            off_5_range=request.POST.get(sample_id+'off_5_range'),
+            off_notes=request.POST.get(sample_id+'off_notes'),
+            uniform_1_range=request.POST.get(sample_id+'uniform_1_range'),
+            uniform_2_range=request.POST.get(sample_id+'uniform_2_range'),
+            uniform_3_range=request.POST.get(sample_id+'uniform_3_range'),
+            uniform_4_range=request.POST.get(sample_id+'uniform_4_range'),
+            uniform_5_range=request.POST.get(sample_id+'uniform_5_range'),
+            uniformity_notes=request.POST.get(sample_id+'uniformity_notes'),
+            sens_descriptors=request.POST.get(sample_id+'sens_descriptors')
+            )
+            created_cupping_sci_list.append(cupping_sci)
+        # Save the CuppingSCI object to the database
+    
+        CuppingSCI.objects.bulk_create(created_cupping_sci_list)
+        # Redirect to a success page or the next step in your workflow
+        return redirect(samples)  # Replace 'success_page' with the actual URL name
+
+    # Handle GET request or any other case
+    return render(request, 'index.html')  # Replace 'error_page' with the actual error page template

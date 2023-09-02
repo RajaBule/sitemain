@@ -13,5 +13,6 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),
     path('logout/', views.logout_view, name='logout'),
-    path('cupping_sci/', views.cupping_session_sci, name='cupping_sci')
+    path('cupping_sci/', views.cupping_sci, name='cupping_sci'),
+    path('save_session/', views.save_session, name='save_session')
     ]
