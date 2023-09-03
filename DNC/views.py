@@ -223,6 +223,7 @@ def logout_view(request):
     logout(request)
     return redirect('login')  # Redirect to your login page
 
+@login_required
 def cupping_sci(request):
         # Retrieve the selected_ids query parameter from the URL
     selected_ids = request.GET.get('selected_ids')
@@ -241,6 +242,7 @@ def cupping_sci(request):
         # Handle the case where no selected_ids parameter is provided
         return HttpResponse("No selected_ids parameter found in the URL.")
     
+@login_required    
 def save_session(request):
     if request.method == 'POST':
         # Get the list of sample IDs from the form data

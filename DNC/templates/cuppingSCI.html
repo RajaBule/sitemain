@@ -143,8 +143,8 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="text-center text-dark">Roast Level</h5>
-                                                    <input class="form-range" type="range" name="{{ form.id }}roast_level_range" value="3" min="1" max="5" step="1" data-bs-theme="dark">
-                                                    <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                    <input oninput="updateLabel(this, '{{ form.id }}roast_level_label')" class="form-range" type="range" name="{{ form.id }}roast_level_range" value="3" min="1" max="5" step="1" data-bs-theme="dark">
+                                                    <label id="{{ form.id }}roast_level_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
                                                 </div>
                                             </div>
                                             <hr>
@@ -153,8 +153,8 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="text-center text-dark">Ferment Level</h5>
-                                                    <input class="form-range" type="range" name="{{ form.id }}ferment_level_range" value="3" min="1" max="5" step="1" data-bs-theme="dark">
-                                                    <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                    <input oninput="updateLabel(this, '{{ form.id }}ferment_level_label')" class="form-range" type="range" name="{{ form.id }}ferment_level_range" value="3" min="1" max="4" step="1" data-bs-theme="dark">
+                                                    <label id="{{ form.id }}ferment_level_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
                                                 </div>
                                             </div>
                                             <hr>
@@ -166,12 +166,12 @@
                                                 <a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-1" href="#collapse-1" role="button" style="padding-bottom: 12px;">Fragrance</a>
                                                 <div class="collapse" id="collapse-1">
                                                     <div class="card-body" style="padding-top: 7px;">
-                                                        <input class="form-range" type="range" name="{{ form.id }}fragrance_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}fragrance_range_label')" class="form-range" type="range" name="{{ form.id }}fragrance_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}fragrance_range_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
                                                         <hr style="width: 100%;">
                                                         <label class="form-label">Intensity:</label>
-                                                        <input class="form-range" type="range" name="{{ form.id }}fragrance_intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}fragrance_intensity_label')" class="form-range" type="range" name="{{ form.id }}fragrance_intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}fragrance_intensity_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
                                                         <hr style="width: 100%;">
                                                         <input class="border rounded" type="text" name="{{ form.id }}fragrance_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
                                                     </div>
@@ -181,12 +181,12 @@
                                                 <a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-2" href="#collapse-2" role="button">Flavor</a>
                                                 <div class="collapse" id="collapse-2">
                                                     <div class="card-body" style="padding-top: 7px;">
-                                                        <input class="form-range" type="range" name="{{ form.id }}flavor_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}flavor_range_label')" class="form-range" type="range" name="{{ form.id }}flavor_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}flavor_range_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
                                                         <hr>
                                                         <label class="form-label">Intensity:</label>
-                                                        <input class="form-range" type="range" name="{{ form.id }}flavor_Intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}flavor_intensity_label')" class="form-range" type="range" name="{{ form.id }}flavor_Intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}flavor_intensity_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
                                                         <hr style="width: 100%;">
                                                         <input class="border rounded" type="text" name="{{ form.id }}Flavor_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
                                                     </div>
@@ -198,12 +198,12 @@
                                                 <a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-4" href="#collapse-4" role="button">Aroma</a>
                                                 <div class="collapse" id="collapse-4">
                                                     <div class="card-body" style="padding-top: 7px;">
-                                                        <input class="form-range" type="range" name="{{ form.id }}aroma_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}aroma_range_label')" class="form-range" type="range" name="{{ form.id }}aroma_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}aroma_range_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
                                                         <hr>
                                                         <label class="form-label">Intensity:</label>
-                                                        <input class="form-range" type="range" name="{{ form.id }}aroma_intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}aroma_intensity_label')" class="form-range" type="range" name="{{ form.id }}aroma_intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}aroma_intensity_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
                                                         <hr style="width: 100%;">
                                                         <input class="border rounded" type="text" name="{{ form.id }}aroma_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
                                                     </div>
@@ -213,12 +213,12 @@
                                                 <a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-3" href="#collapse-3" role="button">Acidity</a>
                                                 <div class="collapse" id="collapse-3">
                                                     <div class="card-body" style="padding-top: 7px;">
-                                                        <input class="form-range" type="range" name="{{ form.id }}acid_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}acid_range_label')" class="form-range" type="range" name="{{ form.id }}acid_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}acid_range_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
                                                         <hr>
                                                         <label class="form-label">Intensity:</label>
-                                                        <input class="form-range" type="range" name="{{ form.id }}acid_Intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}acid_intensity_label')" class="form-range" type="range" name="{{ form.id }}acid_Intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}acid_intensity_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
                                                         <hr style="width: 100%;">
                                                         <input class="border rounded" type="text" name="{{ form.id }}Acidity_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
                                                     </div>
@@ -232,12 +232,12 @@
                                                 <a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-7" href="#collapse-7" role="button">Body</a>
                                                 <div class="collapse" id="collapse-7">
                                                     <div class="card-body" style="padding-top: 7px;">
-                                                        <input class="form-range" type="range" name="{{ form.id }}body_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}body_range_label')" class="form-range" type="range" name="{{ form.id }}body_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}body_range_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
                                                         <hr>
                                                         <label class="form-label">Thickness:</label>
-                                                        <input class="form-range" type="range" name="{{ form.id }}body_thickness_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}body_thickness_label')" class="form-range" type="range" name="{{ form.id }}body_thickness_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}body_thickness_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
                                                         <hr style="width: 100%;">
                                                         <input class="border rounded" type="text" name="{{ form.id }}body_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
                                                     </div>
@@ -249,12 +249,12 @@
                                                 <a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-8" href="#collapse-8" role="button">Sweetness</a>
                                                 <div class="collapse" id="collapse-8">
                                                     <div class="card-body" style="padding-top: 7px;">
-                                                        <input class="form-range" type="range" name="{{ form.id }}sweetness_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}sweetness_range_label')" class="form-range" type="range" name="{{ form.id }}sweetness_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}sweetness_range_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
                                                         <hr>
                                                         <label class="form-label">Intensity:</label>
-                                                        <input class="form-range" type="range" name="{{ form.id }}sweetness_intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}sweetness_intensity_label')" class="form-range" type="range" name="{{ form.id }}sweetness_intensity_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}sweetness_intensity_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
                                                         <hr style="width: 100%;">
                                                         <input class="border rounded" type="text" name="{{ form.id }}sweetness_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
                                                     </div>
@@ -268,12 +268,12 @@
                                                 <a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-5" href="#collapse-5" role="button">Aftertaste</a>
                                                 <div class="collapse" id="collapse-5">
                                                     <div class="card-body" style="padding-top: 7px;">
-                                                        <input class="form-range" type="range" name="{{ form.id }}aftertaste_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}aftertaste_range_label')" class="form-range" type="range" name="{{ form.id }}aftertaste_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}aftertaste_range_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
                                                         <hr>
                                                         <label class="form-label">Duration:</label>
-                                                        <input class="form-range" type="range" name="{{ form.id }}aftertaste_duration_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}aftertaste_duration_label')" class="form-range" type="range" name="{{ form.id }}aftertaste_duration_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}aftertaste_duration_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
                                                         <hr style="width: 100%;">
                                                         <input class="border rounded" type="text" name="{{ form.id }}aftertaste_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
                                                     </div>
@@ -285,12 +285,12 @@
                                                 <a class="btn btn-success text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-6" href="#collapse-6" role="button">Fresh Crop</a>
                                                 <div class="collapse" id="collapse-6">
                                                     <div class="card-body" style="padding-top: 7px;">
-                                                        <input class="form-range" type="range" name="{{ form.id }}fresh_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}fresh_range_label')" class="form-range" type="range" name="{{ form.id }}fresh_range" min="6" max="10" step=".25" value="8" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}fresh_range_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">8</label>
                                                         <hr>
                                                         <label class="form-label">Woody:</label>
-                                                        <input class="form-range" type="range" name="{{ form.id }}fresh_woody_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}fresh_woody_label')" class="form-range" type="range" name="{{ form.id }}fresh_woody_range" min="1" max="5" step="1" value="3" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}fresh_woody_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
                                                         <hr style="width: 100%;">
                                                         <input class="border rounded" type="text" name="{{ form.id }}freshcrop_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
                                                     </div>
@@ -304,19 +304,19 @@
                                                 <a class="btn btn-warning text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-9" href="#collapse-9" role="button">Off Flavor</a>
                                                 <div class="collapse" id="collapse-9">
                                                     <div class="card-body" style="padding-top: 7px;">
-                                                        <input class="form-range" type="range" name="{{ form.id }}off_1_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
-                                                        <input class="form-range" type="range" name="{{ form.id }}off_2_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
-                                                        <input class="form-range" type="range" name="{{ form.id }}off_3_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
-                                                        <input class="form-range" type="range" name="{{ form.id }}off_4_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
-                                                        <input class="form-range" type="range" name="{{ form.id }}off_5_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}off_1_range_label'); updateTotals('{{ form.id }}off_', '{{ form.id }}offnotes_tot_label')" class="form-range" type="range" name="{{ form.id }}off_1_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}off_1_range_label" class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}off_2_range_label'); updateTotals('{{ form.id }}off_', '{{ form.id }}offnotes_tot_label')" class="form-range" type="range" name="{{ form.id }}off_2_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}off_2_range_label" class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}off_3_range_label'); updateTotals('{{ form.id }}off_', '{{ form.id }}offnotes_tot_label')" class="form-range" type="range" name="{{ form.id }}off_3_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}off_3_range_label" class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}off_4_range_label'); updateTotals('{{ form.id }}off_', '{{ form.id }}offnotes_tot_label')" class="form-range" type="range" name="{{ form.id }}off_4_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}off_4_range_label" class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}off_5_range_label'); updateTotals('{{ form.id }}off_', '{{ form.id }}offnotes_tot_label')" class="form-range" type="range" name="{{ form.id }}off_5_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}off_5_range_label" class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
                                                         <hr>
                                                         <input class="border rounded" type="text" name="{{ form.id }}off_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <label id="{{ form.id }}offnotes_tot_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -326,19 +326,19 @@
                                                 <a class="btn btn-info text-start text-dark card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-10" href="#collapse-10" role="button" style="--bs-info: #4e73df;--bs-info-rgb: 78,115,223;">Uniformity</a>
                                                 <div class="collapse" id="collapse-10">
                                                     <div class="card-body" style="padding-top: 7px;">
-                                                        <input class="form-range" type="range" name="{{ form.id }}uniform_1_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
-                                                        <input class="form-range" type="range" name="{{ form.id }}uniform_2_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
-                                                        <input class="form-range" type="range" name="{{ form.id }}uniform_3_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
-                                                        <input class="form-range" type="range" name="{{ form.id }}uniform_4_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
-                                                        <input class="form-range" type="range" name="{{ form.id }}uniform_5_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
-                                                        <label class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}uniform_1_range_label'); updateTotals('{{ form.id }}uniform_', '{{ form.id }}uniform_tot_label')" class="form-range" type="range" name="{{ form.id }}uniform_1_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}uniform_1_range_label" class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}uniform_2_range_label'); updateTotals('{{ form.id }}uniform_', '{{ form.id }}uniform_tot_label')" class="form-range" type="range" name="{{ form.id }}uniform_2_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}uniform_2_range_label" class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}uniform_3_range_label'); updateTotals('{{ form.id }}uniform_', '{{ form.id }}uniform_tot_label')" class="form-range" type="range" name="{{ form.id }}uniform_3_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}uniform_3_range_label" class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}uniform_4_range_label'); updateTotals('{{ form.id }}uniform_', '{{ form.id }}uniform_tot_label')" class="form-range" type="range" name="{{ form.id }}uniform_4_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}uniform_4_range_label" class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
+                                                        <input oninput="updateLabel(this, '{{ form.id }}uniform_5_range_label'); updateTotals('{{ form.id }}uniform_', '{{ form.id }}uniform_tot_label')" class="form-range" type="range" name="{{ form.id }}uniform_5_range" min="-2" max="2" step="1" value="0" data-bs-theme="dark">
+                                                        <label id="{{ form.id }}uniform_5_range_label" class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
                                                         <hr>
                                                         <input class="border rounded" type="text" name="{{ form.id }}uniformity_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
-                                                        <label class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <label id="{{ form.id }}uniform_tot_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -365,5 +365,28 @@
     <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/bs-init.js' %}"></script>
     <script src="{% static 'js/theme.js' %}"></script>
+    <script>
+        // Function to update individual labels
+        function updateLabel(input, labelId) {
+            const value = input.value;
+            document.getElementById(labelId).textContent = value;
+        }
+    
+        // Function to update total labels
+        function updateTotals(prefix, totalLabelId) {
+            let total = 0;
+    
+            // Loop through input elements with the specified prefix
+            for (let i = 1; i <= 5; i++) {
+                const input = document.getElementsByName(prefix + i + "_range")[0];
+                total += parseFloat(input.value) || 0; // Convert the value to a float or default to 0 if NaN
+            }
+    
+            // Update the total label
+            document.getElementById(totalLabelId).textContent = total;
+        }
+    </script>
+    
+    
 
 </html>
