@@ -48,6 +48,7 @@ class Samples(models.Model):
     sensorialdescriptors = models.TextField(max_length=300, null=True, blank=True)
     generalcomments = models.TextField(max_length=300, null=True, blank=True)
     sensorial = models.CharField(max_length=300, null=True, blank=True)
+    shared_with = models.ManyToManyField(User, related_name='shared_samples', blank=True)
 
     def __str__(self):
         return self.id

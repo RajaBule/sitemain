@@ -11,8 +11,7 @@ from django.contrib import messages
 from django.forms import formset_factory
 import datetime
 import re
-# Create your views here.
-#samplesdata = Samples.objects
+
 
 @login_required
 def index(request):
@@ -26,7 +25,7 @@ def index(request):
 @login_required
 def samples(request):
     user = request.user
-    amples = Samples.objects.filter(user=user)
+    amples = Samples.objects.filter(user=user).order_by('-id')
     
     per_page = request.GET.get('selected', 25)
 
@@ -47,12 +46,6 @@ def samples(request):
                'user_last_name': user.last_name,
                }
     
-    #page_obj = paginator.get_page(page_number)
-    #context = {'page_obj': page_obj}
-    #context = {
-    #    'samples': Samples.objects.all()
-    #}
-    #print(context)
     return render(request,'table.html', context)
 
 @login_required
