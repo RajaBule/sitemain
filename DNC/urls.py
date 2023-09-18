@@ -14,5 +14,6 @@ urlpatterns = [
     path('login/', views.user_login, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('cupping_sci/', views.cupping_sci, name='cupping_sci'),
-    path('save_session/', views.save_session, name='save_session')
+    path('save_session/', views.save_session, name='save_session'),
+    path('sample_view/<int:coffee_id>/', views.sample_view, name='sample_view')
     ]

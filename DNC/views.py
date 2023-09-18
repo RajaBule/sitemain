@@ -237,6 +237,8 @@ def cupping_sci(request):
     
 @login_required    
 def save_session(request):
+    user = request.user
+    date_time = datetime.datetime.now()
     if request.method == 'POST':
         # Get the list of sample IDs from the form data
         selected_ids = request.POST.getlist('sample_id')
@@ -253,7 +255,7 @@ def save_session(request):
             fragrance_intensity_range=request.POST.get(sample_id+'fragrance_intensity_range'),
             fragrance_notes=request.POST.get(sample_id+'fragrance_notes'),
             flavor_range=request.POST.get(sample_id+'flavor_range'),
-            flavor_intensity_range=request.POST.get(sample_id+'flavor_Intensity_range'),
+            flavor_intensity_range=request.POST.get(sample_id+'flavor_intensity_range'),
             Flavor_notes=request.POST.get(sample_id+'Flavor_notes'),
             aroma_range=request.POST.get(sample_id+'aroma_range'),
             aroma_intensity_range=request.POST.get(sample_id+'aroma_intensity_range'),
@@ -285,7 +287,8 @@ def save_session(request):
             uniform_4_range=request.POST.get(sample_id+'uniform_4_range'),
             uniform_5_range=request.POST.get(sample_id+'uniform_5_range'),
             uniformity_notes=request.POST.get(sample_id+'uniformity_notes'),
-            sens_descriptors=request.POST.get(sample_id+'sens_descriptors')
+            sens_descriptors=request.POST.get(sample_id+'sens_descriptors'),
+            cupdate=date_time
             )
             created_cupping_sci_list.append(cupping_sci)
         # Save the CuppingSCI object to the database
@@ -296,3 +299,10 @@ def save_session(request):
 
     # Handle GET request or any other case
     return render(request, 'index.html')  # Replace 'error_page' with the actual error page template
+
+@login_required    
+def sample_view(request):
+    user = request.user
+    date_time = datetime.datetime.now()
+    
+    return render(request, 'sampleview.html')
