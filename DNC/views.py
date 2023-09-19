@@ -1,7 +1,7 @@
 from django.shortcuts import render, HttpResponse,redirect
 from .models import Samples, CuppingSCI
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseNotFound
 from django.db.models import Q
 from .forms import newsample, RegistrationForm, LoginForm, CuppingFormSCI
 from django.contrib.auth.models import User
@@ -60,11 +60,12 @@ def search_view(request):
         Q(name__icontains=search_query) |  # Adjust fields as needed
         Q(location__icontains=search_query),
         user=user
-    )
+    ).order_by('-id')
 
    
     data_list = [
         {
+            'ref': "/sample_view/" + str(item.id),
             'id': item.id,
             'name': item.name,
             'location': item.location,
@@ -177,7 +178,7 @@ def register(request):
             else:
                 # Create user account
                 user = User.objects.create_user(
-                    username=form.cleaned_data['email'],
+                    username=form.cleaned_data['username'],
                     email=form.cleaned_data['email'],
                     password=password
                 )
@@ -290,7 +291,21 @@ def save_session(request):
             sens_descriptors=request.POST.get(sample_id+'sens_descriptors'),
             cupdate=date_time
             )
+            try:
+                sample = Samples.objects.get(id=sample_id)
+                total_score = request.POST.get(sample_id+'final_cup_score_value')
+                print(total_score)
+            except Samples.DoesNotExist:
+            # Handle the case where the object doesn't exist
+            # You can return an error response or redirect as needed
+                return redirect('samples')  # Redirect to a sample list view, adjust the URL name as needed
+
+        # Update the 'sensorial' field with the 'total_score'
+            sample.sensorial = total_score
+            sample.save()
+
             created_cupping_sci_list.append(cupping_sci)
+
         # Save the CuppingSCI object to the database
     
         CuppingSCI.objects.bulk_create(created_cupping_sci_list)
@@ -300,9 +315,53 @@ def save_session(request):
     # Handle GET request or any other case
     return render(request, 'index.html')  # Replace 'error_page' with the actual error page template
 
-@login_required    
-def sample_view(request):
+@login_required
+def sample_view(request, coffee_id):
     user = request.user
     date_time = datetime.datetime.now()
-    
-    return render(request, 'sampleview.html')
+
+    try:
+        sample = Samples.objects.get(id=coffee_id)
+    except Samples.DoesNotExist:
+        # Handle the case where the coffee with the given ID doesn't exist
+        return HttpResponseNotFound("Sample not found")
+    try:
+        cupsession = CuppingSCI.objects.filter(sample_id=coffee_id, user=user.id)
+    except CuppingSCI.DoesNotExist:
+        cupsession = "No cupping data found!"
+        print(cupsession)
+        context = {
+        'cup_session': cupsession,
+        'sample_id': coffee_id,
+        'user_first_name': user.first_name,
+        'user_last_name': user.last_name,
+        'sample': sample,  # Add the sample object to the context
+        'user_id': user.id,
+        }
+        return render(request, 'sampleview.html', context)
+    try:
+        cupsessions = CuppingSCI.objects.filter(sample_id=coffee_id)
+    except CuppingSCI.DoesNotExist:
+        cupsessions = "No cupping data found!"
+        print(cupsessions)
+        context = {
+        'global_sessions': cupsessions,
+        'cup_session': cupsession,
+        'sample_id': coffee_id,
+        'user_first_name': user.first_name,
+        'user_last_name': user.last_name,
+        'sample': sample,  # Add the sample object to the context
+        'user_id': user.id,
+        }
+        return render(request, 'sampleview.html', context)
+    context = {
+        'global_session': cupsessions,
+        'cup_session': cupsession,
+        'sample_id': coffee_id,
+        'user_first_name': user.first_name,
+        'user_last_name': user.last_name,
+        'sample': sample,  # Add the sample object to the context
+        'user_id': user.id,
+    }
+    print(cupsession)
+    return render(request, 'sampleview.html', context)

@@ -177,7 +177,7 @@
                                         <tr>
                                                 <td style="width: 85px;max-width: 100px;"><input class="form-check-input custom-control-input" type="checkbox" value="{{item.id}}"></td>
                                                 <td>{{ item.id }}</td>
-                                                <td>{{ item.name }}</td>
+                                                <td><a href="{% url 'sample_view' item.id %}">{{ item.name }}</a></td>
                                                 <td>{{ item.location }}</td>
                                                 <td>{{ item.sensorial }}</td>
                                                 <td>{{ item.sensorialdescriptors }}</td>
@@ -276,7 +276,7 @@
                     row.innerHTML = `
                         <td style="width: 85px;max-width: 100px;"><input class="form-check-input custom-control-input" type="checkbox" value=${item.id}></td>
                         <td>${item.id}</td>
-                        <td>${item.name}</td>
+                        <td><a href="${item.ref}">${item.name}</a></td>
                         <td>${item.location}</td>
                         <td>${item.sensorial}</td>
                         <td>${item.sensorialdescriptors}</td>

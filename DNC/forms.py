@@ -20,6 +20,7 @@ class RegistrationForm(forms.Form):
     first_name = forms.CharField(max_length=30)
     last_name = forms.CharField(max_length=30)
     email = forms.EmailField()
+    username = forms.CharField(max_length=20)
     password = forms.CharField(widget=forms.PasswordInput)
     password_repeat = forms.CharField(widget=forms.PasswordInput)
 

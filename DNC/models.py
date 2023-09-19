@@ -54,6 +54,7 @@ class Samples(models.Model):
         return self.id
 
 class CuppingSCI(models.Model):
+    
     user = models.ForeignKey(User, on_delete=models.CASCADE, default=3)
     sample_id = models.CharField(max_length=10000)
     roast_level_range = models.FloatField(null=True, blank=True, default=0)
