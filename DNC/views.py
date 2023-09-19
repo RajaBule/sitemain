@@ -26,6 +26,9 @@ def index(request):
 def samples(request):
     user = request.user
     amples = Samples.objects.filter(user=user).order_by('-id')
+    shared_samples = request.user.shared_samples.all()
+    
+    amples = amples | shared_samples
     
     per_page = request.GET.get('selected', 25)
 
@@ -62,7 +65,11 @@ def search_view(request):
         user=user
     ).order_by('-id')
 
-   
+    sharesamplequery=request.user.shared_samples.filter(
+        Q(name__icontains=search_query) |  # Adjust fields as needed
+        Q(location__icontains=search_query)
+    ).order_by('-id')
+    filtered_data = filtered_data | sharesamplequery
     data_list = [
         {
             'ref': "/sample_view/" + str(item.id),
@@ -202,7 +209,7 @@ def user_login(request):
         if form.is_valid():
             email = form.cleaned_data['email']
             password = form.cleaned_data['password']
-            user = authenticate(username=email, password=password)
+            user = authenticate(request, email=email, password=password)  # Use email as the username
             if user:
                 login(request, user)
                 return redirect('index')  # Redirect to your dashboard page
@@ -289,7 +296,8 @@ def save_session(request):
             uniform_5_range=request.POST.get(sample_id+'uniform_5_range'),
             uniformity_notes=request.POST.get(sample_id+'uniformity_notes'),
             sens_descriptors=request.POST.get(sample_id+'sens_descriptors'),
-            cupdate=date_time
+            cupdate=date_time,
+            total_cup_score=request.POST.get(sample_id+'final_cup_score_value')
             )
             try:
                 sample = Samples.objects.get(id=sample_id)

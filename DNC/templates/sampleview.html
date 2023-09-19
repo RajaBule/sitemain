@@ -223,6 +223,7 @@
                                 <thead>
                                     <tr style="text-decoration: underline;">
                                         <th>Session Id</th>
+                                        <th>Cup Score</th>
                                         <th>Roast Level</th>
                                         <th>Ferment Level</th>
                                         <th>Fragrance</th>
@@ -269,6 +270,7 @@
                                     {% for cup_session in cup_session %}
                                         <tr>
                                             <td style="min-width: 75px;">{{ cup_session.id }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.total_cup_score }}</td>
                                             <td style="min-width: 200px;">{{ cup_session.roast_level_range }}</td>
                                             <td style="min-width: 75px;">{{ cup_session.ferment_level_range }}</td>
                                             <td style="min-width: 75px;">{{ cup_session.fragrance_range }}</td>
@@ -328,6 +330,7 @@
                                     <tr style="text-decoration: underline;">
                                         <th>Session Id</th>
                                         <th>User Name</th>
+                                        <th>Cup Score</th>
                                         <th>Roast Level</th>
                                         <th>Ferment Level</th>
                                         <th>Fragrance</th>
@@ -375,6 +378,7 @@
                                         <tr>
                                             <td style="min-width: 75px;">{{ cup_sessions.id }}</td>
                                             <td style="min-width: 75px;">{{ cup_sessions.user }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.total_cup_score }}</td>
                                             <td style="min-width: 200px;">{{ cup_sessions.roast_level_range }}</td>
                                             <td style="min-width: 75px;">{{ cup_sessions.ferment_level_range }}</td>
                                             <td style="min-width: 75px;">{{ cup_sessions.fragrance_range }}</td>

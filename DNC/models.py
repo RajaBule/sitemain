@@ -96,6 +96,7 @@ class CuppingSCI(models.Model):
     uniform_5_range = models.IntegerField(null=True, blank=True, default=0)
     uniformity_notes = models.TextField(null=True, blank=True)
     sens_descriptors = models.TextField(null=True, blank=True)
+    total_cup_score = models.TextField(null=True, blank=True)
     cupdate = models.CharField(max_length=300, null=True, blank=True)
 
     def __str__(self):
