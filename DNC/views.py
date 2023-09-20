@@ -2,6 +2,7 @@ from django.shortcuts import render, HttpResponse,redirect
 from .models import Samples, CuppingSCI
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse, HttpResponseNotFound
+from django.http import HttpRequest, JsonResponse
 from django.db.models import Q
 from .forms import newsample, RegistrationForm, LoginForm, CuppingFormSCI
 from django.contrib.auth.models import User
@@ -374,3 +375,14 @@ def sample_view(request, coffee_id):
     }
     print(cupsession)
     return render(request, 'sampleview.html', context)
+
+def search_users(request):
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        search_query = request.GET.get('search_query', '')
+        # Query the users based on the search query
+        users = User.objects.filter(username__icontains=search_query)[:10]  # Adjust the query as needed
+        user_list = [{'username': user.username, 'email': user.email} for user in users]
+        return JsonResponse({'users': user_list})
+    else:
+        # If it's not an AJAX request, return an empty JSON response or handle it as needed
+        return JsonResponse({})
