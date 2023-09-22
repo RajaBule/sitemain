@@ -48,10 +48,19 @@ class Samples(models.Model):
     sensorialdescriptors = models.TextField(max_length=300, null=True, blank=True)
     generalcomments = models.TextField(max_length=300, null=True, blank=True)
     sensorial = models.CharField(max_length=300, null=True, blank=True)
-    shared_with = models.ManyToManyField(User, related_name='shared_samples', blank=True)
+    shared_with = models.ManyToManyField(User, through='SampleShare', related_name='shared_samples', blank=True)
 
     def __str__(self):
         return self.id
+    
+class SampleShare(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    sample = models.ForeignKey(Samples, on_delete=models.CASCADE)
+    can_alter = models.BooleanField(default=False)
+    
+    def __str__(self):
+        return f"{self.sample} shared with {self.user}"
+    
 
 class CuppingSCI(models.Model):
     

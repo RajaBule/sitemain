@@ -1,8 +1,8 @@
-from django.shortcuts import render, HttpResponse,redirect
-from .models import Samples, CuppingSCI
+from django.shortcuts import render, HttpResponse,redirect, get_object_or_404
+from .models import Samples, CuppingSCI,SampleShare
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse, HttpResponseNotFound
-from django.http import HttpRequest, JsonResponse
+from django.http import HttpRequest, JsonResponse,HttpResponseForbidden
 from django.db.models import Q
 from .forms import newsample, RegistrationForm, LoginForm, CuppingFormSCI
 from django.contrib.auth.models import User
@@ -12,6 +12,7 @@ from django.contrib import messages
 from django.forms import formset_factory
 import datetime
 import re
+
 
 #A Work in progress...
 
@@ -24,14 +25,30 @@ def index(request):
     }
     return render(request, 'index.html', context)
 
+
 @login_required
 def samples(request):
     user = request.user
-    amples = Samples.objects.filter(user=user).order_by('-id')
-    shared_samples = request.user.shared_samples.all()
-    
-    amples = amples | shared_samples
-    
+
+    # Fetch samples owned by the user
+    user_samples = list(Samples.objects.filter(user=user).order_by('-id'))
+
+    # Fetch shared samples
+    shared_samples = list(request.user.shared_samples.all().order_by('-id'))
+
+    # Combine the two lists and remove duplicates
+    amples = list(set(user_samples + shared_samples))
+
+    # Define a function to extract the numeric part from the ID
+    def extract_numeric_part(sample):
+        match = re.match(r'SG-(\d+)', sample.id)
+        if match:
+            return int(match.group(1))
+        return 0  # Return 0 if there's no numeric part
+
+    # Sort the list based on the extracted numeric part in descending order
+    amples.sort(key=extract_numeric_part, reverse=True)
+
     per_page = request.GET.get('selected', 25)
 
     print(per_page)
@@ -50,8 +67,8 @@ def samples(request):
                'user_first_name': user.first_name,
                'user_last_name': user.last_name,
                }
-    
-    return render(request,'table.html', context)
+
+    return render(request, 'table.html', context)
 
 @login_required
 def search_view(request):
@@ -61,17 +78,26 @@ def search_view(request):
 
     # Filter your model data based on the search query and selected value
     filtered_data = Samples.objects.filter(
-        
-        Q(name__icontains=search_query) |  # Adjust fields as needed
-        Q(location__icontains=search_query),
+        Q(name__icontains=search_query) |
+        Q(location__icontains=search_query) |
+        Q(sensorial__icontains=search_query),
         user=user
     ).order_by('-id')
 
-    sharesamplequery=request.user.shared_samples.filter(
-        Q(name__icontains=search_query) |  # Adjust fields as needed
-        Q(location__icontains=search_query)
+    sharesamplequery = request.user.shared_samples.filter(
+        Q(name__icontains=search_query) |
+        Q(location__icontains=search_query)|
+        Q(sensorial__icontains=search_query)
     ).order_by('-id')
-    filtered_data = filtered_data | sharesamplequery
+
+    # Convert querysets to lists
+    filtered_data_list = list(filtered_data)
+    sharesamplequery_list = list(sharesamplequery)
+
+    # Merge the lists and remove duplicates
+    merged_list = filtered_data_list + sharesamplequery_list
+    unique_merged_list = list({sample.id: sample for sample in merged_list}.values())
+
     data_list = [
         {
             'ref': "/sample_view/" + str(item.id),
@@ -82,9 +108,9 @@ def search_view(request):
             'sensorialdescriptors': item.sensorialdescriptors,
             'regdate': item.regdate
         }
-        for item in filtered_data
+        for item in unique_merged_list
     ]
-    
+
     return JsonResponse(data_list, safe=False)
 
 @login_required
@@ -145,15 +171,30 @@ def edit_sample(request):
     }
     return render(request, "editsample.html", context)
 
+from django.http import HttpResponseForbidden
+
 @login_required
 def edit_selected_rows(request):
     user = request.user
     selected_row_ids = request.GET.get('ids').split(',')
-    rows_data = Samples.objects.filter(id__in=selected_row_ids)  # Fetch data for selected rows
-    context = {'rows_data': rows_data,
-               'user_first_name': user.first_name,
-               'user_last_name': user.last_name
-               }
+    
+    # Fetch data for selected rows and check if the user has permission to edit each sample
+    rows_data = []
+    for sample_id in selected_row_ids:
+        sample = get_object_or_404(Samples, id=sample_id)
+        
+        # Check if the sample belongs to the user or is shared with them with can_alter=True
+        if sample.user == user or sample.sampleshare_set.filter(user=user, can_alter=1).exists():
+            rows_data.append(sample)
+        else:
+            # If the user doesn't have permission, return a 403 Forbidden response
+            return HttpResponseForbidden("You don't have permission to edit this sample.")
+    
+    context = {
+        'rows_data': rows_data,
+        'user_first_name': user.first_name,
+        'user_last_name': user.last_name
+    }
     return render(request, 'editsample.html', context)
 
 @login_required
@@ -376,13 +417,59 @@ def sample_view(request, coffee_id):
     print(cupsession)
     return render(request, 'sampleview.html', context)
 
+@login_required
 def search_users(request):
     if request.headers.get('x-requested-with') == 'XMLHttpRequest':
         search_query = request.GET.get('search_query', '')
         # Query the users based on the search query
         users = User.objects.filter(username__icontains=search_query)[:10]  # Adjust the query as needed
-        user_list = [{'username': user.username, 'email': user.email} for user in users]
+        user_list = [{'username': user.username, 'email': user.email, 'id': user.id} for user in users]
         return JsonResponse({'users': user_list})
     else:
         # If it's not an AJAX request, return an empty JSON response or handle it as needed
         return JsonResponse({})
+
+
+@login_required
+def add_to_shared(request):
+    if request.method == 'POST':
+        username_id = request.POST.get('username_id')
+        sample_ids = request.POST.get('sample_ids')
+        allow_alter = request.POST.get('allow_alter')  # Get the 'allow_alter' value
+        
+        try:
+            # Get the User instance based on the username_id
+            user_to_share_with = get_object_or_404(User, id=username_id)
+            
+            # Split the sample_ids into a list
+            sample_ids_list = sample_ids.split(',')
+            
+            # Iterate through the sample IDs
+            for sample_id in sample_ids_list:
+                # Get the Samples instance based on sample_id
+                sample = get_object_or_404(Samples, id=sample_id)
+                
+                # Check if the requesting user is the original creator of the sample
+                if sample.user != request.user:
+                    return JsonResponse({'success': False, 'error': 'You cannot share samples that you do not own!'})
+                
+                # Check if a share already exists for this user and sample
+                share, created = SampleShare.objects.get_or_create(
+                    user=user_to_share_with,
+                    sample=sample
+                )
+                
+                # Update the 'can_alter' field based on 'allow_alter'
+                share.can_alter = allow_alter == 'true'
+                share.save()
+                
+            # Assuming the operation was successful
+            return JsonResponse({'success': True})
+        
+        except User.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'User not found'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    else:
+        return JsonResponse({'success': False})
+

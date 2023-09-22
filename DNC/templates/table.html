@@ -27,7 +27,7 @@
                     <li class="nav-item"><a class="nav-link" href="register.html"><i class="fas fa-user-circle"></i><span>Register</span></a></li>
                 </ul>
                 <div class="text-center d-none d-md-inline"><button class="btn text-bg-dark rounded-circle border-0" id="sidebarToggle" type="button"></button></div>
-                <a class="link-primary" href="{% url 'logout' %}" data-bs-theme="dark"><i class="fas fa-user-circle"></i><span style="font-weight: bold;font-style: italic;">Logout</span></a>
+                <a class="link-primary" href="{% url 'logout' %}" data-bs-theme="dark"><i class="fas fa-sign-out-alt fa-sm fa-fw me-2 text-dark-400"></i><span style="font-weight: bold;font-style: italic;">Logout</span></a>
             </div>
         </nav>
         <div class="d-flex flex-column" id="content-wrapper">
@@ -126,23 +126,24 @@
                         </ul>
                     </div>
                 </nav>
-                <div class="container-fluid border-dark">
+                <div class="container-fluid border-dark" style="overflow: auto;">
                     <div class="card border-secondary shadow">
-                        <div class="card-header text-bg-dark border-primary py-3" data-bs-theme="dark">
-                            <div class="dropdown d-table"><button class="btn btn-secondary dropdown-toggle fw-semibold link-primary text-bg-info border-primary" aria-expanded="false" data-bs-toggle="dropdown" data-bs-auto-close="outside" type="button">Samples</button>
-                                <div class="dropdown-menu border-dark" style="background: var(--bs-info);"><a class="dropdown-item link-dark" href="#" id="edit-selected">Edit Selected</a><a class="dropdown-item link-dark" href="#">Delete selected</a><a class="dropdown-item link-dark" href="{% url 'new_sample' %}">Create New</a><a class="dropdown-item link-dark" id="start-cupping-selected">Start Cupping Selected</a>
-                                    <div class="dropend"><button class="btn btn-secondary btn-sm dropdown-toggle link-primary text-bg-info" aria-expanded="false" data-bs-toggle="dropdown" data-bs-auto-close="outside" type="button" style="padding-left: 15px;width: 100%;padding-right: 0px;text-align: left;background: rgb(76,113,221);border-color: rgb(76,113,221);">Share Sample(s)</button>
-                                        <div class="dropdown-menu text-start text-bg-info border-dark">
-                                            <h6 class="dropdown-header text-start text-dark" style="text-decoration:  underline;">Share by group:</h6><a class="dropdown-item link-dark" href="#">Group1</a><a class="dropdown-item link-dark" href="#">Group2</a>
-                                            <div class="dropdown-divider text-dark border-dark" style="background: var(--bs-primary);"></div>
-                                            <h6 class="dropdown-header text-start text-dark" style="text-decoration: underline;">Search Users:</h6><input class="border rounded border-dark form-control-sm" type="search" placeholder="Search Username" name="sharesearch" style="width: 86%;margin-left: 8.5%;font-size: 11px;background: rgb(221,226,231);margin-bottom: 7px;color: rgb(58,59,69);" data-bs-theme="dark" autocomplete="off">
-                                            <div id="table_div" class="table-responsive border rounded d-none" style="margin-left: 12px;margin-right: 10px;">
-                                                <table class="table table-hover table-sm" id="username_search">
+                        <div class="card-header text-bg-dark border-primary py-3" data-bs-theme="dark" style="padding-right: 0px;position: static;min-width: 0px;width: auto; height: 65px;">
+                            <div class="dropdown d-table" style="width: 100%;min-width: 0px;overflow: auto;position: absolute;"><button class="btn btn-secondary dropdown-toggle fw-semibold link-primary text-bg-info border-primary" aria-expanded="false" data-bs-toggle="dropdown" data-bs-auto-close="outside" type="button" style="min-width: 0px; margin-bottom: 12px;">Samples</button>
+                                <div class="dropdown-menu border-dark" data-bs-popper="none" style="background: var(--bs-info);min-width: 132px;width: 33%;max-width: 175px;"><a class="dropdown-item link-dark" href="#" style="width: 100%;" id="edit-selected">Edit Selected</a><a class="dropdown-item link-dark" href="#" style="width: 100%;">Delete selected</a><a style="width: 100%;" class="dropdown-item link-dark" href="{% url 'new_sample' %}">Create New</a><a style="width: 100%;" class="dropdown-item link-dark" id="start-cupping-selected">Start Cupping Selected</a>
+                                    <div class="dropend" style="width: 100%;"><button class="btn btn-secondary btn-sm dropdown-toggle link-primary text-bg-info" aria-expanded="false" data-bs-toggle="dropdown" data-bs-auto-close="outside" type="button" style="padding-left: 15px;width: 100%;padding-right: 0px;text-align: left;background: rgb(76,113,221);border-color: rgb(76,113,221);">Share Sample(s)</button>
+                                        <div class="dropdown-menu text-start text-bg-info border-dark" data-bs-popper="none" style="width: 100%;min-width: 142px;margin-left: 2px;overflow: auto;max-width: 175px;">
+                                            <h6 class="dropdown-header text-start text-dark" style="text-decoration: underline;width: 100%;overflow: visible;">Share by group:</h6><a class="dropdown-item link-dark" style="width: 100%;" href="#">Group1</a><a class="dropdown-item link-dark" style="width: 100%;" href="#">Group2</a>
+                                            <div class="dropdown-divider text-dark border-dark" style="background: var(--bs-primary);width: 100%;"></div>
+                                            <h6 class="dropdown-header text-start text-dark" style="text-decoration: underline;width: 100%;">Search Users:</h6><input class="border rounded border-dark form-control-sm" type="search" placeholder="Search Username" name="sharesearch" style="width: 85%;margin-left: 15px;font-size: 11px;background: rgb(221,226,231);margin-bottom: 0px;color: rgb(58,59,69);margin-right: 0px;padding-right: 0px;padding-left: 0px;" data-bs-theme="dark" autocomplete="off">
+                                            <div id="table_div" class="table-responsive border rounded d-none" style="margin-left: 15px;margin-right: 0px;height: 91px;width: 85%;margin-bottom: 0px;padding-right: 0px;padding-left: 0px;">
+                                                <table class="table table-hover table-sm table-bordered" id="username_search">
                                                     <tbody id="username_table_body">
                                                         
                                                     </tbody>
                                                 </table>
                                             </div>
+                                            <div class="form-check text-bg-warning border rounded" style="margin-left: 15px;margin-right: 0px;padding-left: 0px;width: 85%;margin-bottom: 0px;padding-right: 0px;"><input id="allow_alter" class="form-check-input" type="checkbox" style="margin-top: 13.4px;margin-left: 1.6px;padding-right: 0px;margin-right: 2px;" name="allow_alter"><label class="form-check-label text-primary" for="allow_alter" style="padding-right: 0px;width: 88%;margin-right: 0px;margin-bottom: 0px;margin-left: 0px;padding-left: 0px;">Allow User to alter sample.</label></div>
                                         </div>
                                     </div>
                                 </div>
@@ -155,7 +156,7 @@
                                         <label class="form-label">
                                             Show&nbsp;
                                             <select name="selected" class="d-inline-block form-select form-select-sm" id="maxrange">
-                                                <option value="10">{{ per_page }}</option>
+                                                <option value="{{per_page}}">{{ per_page }}</option>
                                                 <option value="10">10</option>
                                                 <option value="25">25</option>
                                                 <option value="50">50</option>
@@ -353,63 +354,112 @@
                     alert('No samples are selected for cupping.');
                 }
             });
-        });
     
-        function updatePaginationLinks(selectedValue) {
-            const paginationLinks = document.querySelectorAll('.page-link');
-            paginationLinks.forEach(link => {
-                const pageUrl = updateQueryStringParameter(link.getAttribute('href'), 'selected', selectedValue);
-                link.setAttribute('href', pageUrl);
-            });
-        }
-    
-        function updateQueryStringParameter(uri, key, value) {
-            const re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
-            const separator = uri.indexOf('?') !== -1 ? "&" : "?";
-            if (uri.match(re)) {
-                return uri.replace(re, '$1' + key + "=" + value + '$2');
+            function updatePaginationLinks(selectedValue) {
+                const paginationLinks = document.querySelectorAll('.page-link');
+                paginationLinks.forEach(link => {
+                    const pageUrl = updateQueryStringParameter(link.getAttribute('href'), 'selected', selectedValue);
+                    link.setAttribute('href', pageUrl);
+                });
             }
-            return uri + separator + key + "=" + value;
-        }
-
-        $(document).ready(function () {
-            const searchInput = $('input[name="sharesearch"]');
-            const tableBody = $('#username_search tbody'); // Select the table element
-            const tablediv = $('#table_div');
     
-            searchInput.on('input', function () {
-                const searchQuery = searchInput.val();
-                console.log('Searching')
-                $.ajax({
-                    url: '{% url "search_users" %}',
-                    data: { 'search_query': searchQuery },
-                    dataType: 'json',
-                    success: function (data) {
-                        const users = data.users;
-                        tableBody.empty(); // Clear existing table rows
-                    if (users.length > 0) {
-                        $.each(users, function (index, user) {
-                            const row = $('<tr><td>' + user.username + '</td></tr>');
-                            tableBody.append(row);
-                        });
-                    } else {
-                    // Handle case when no users are found
-                        const row = $('<tr><td>No users found.</td></tr>');
-                        tableBody.append(row);
-                    }
-                
-                // Update the class attribute based on search results
-                    if (searchQuery.length > 0) {
-                        tablediv.removeClass('d-none');
-                    } else {
-                        tablediv.addClass('d-none');
+            function updateQueryStringParameter(uri, key, value) {
+                const re = new RegExp("([?&])" + key + "=.*?(&|$)", "i");
+                const separator = uri.indexOf('?') !== -1 ? "&" : "?";
+                if (uri.match(re)) {
+                    return uri.replace(re, '$1' + key + "=" + value + '$2');
+                }
+                return uri + separator + key + "=" + value;
+            }
+    
+            $(document).ready(function () {
+                const searchInput = $('input[name="sharesearch"]');
+                const tableBody = $('#username_search tbody'); // Select the table element
+                const tablediv = $('#table_div');
+    
+                searchInput.on('input', function () {
+                    const searchQuery = searchInput.val();
+                    console.log('Searching');
+                    $.ajax({
+                        url: '{% url "search_users" %}',
+                        data: { 'search_query': searchQuery },
+                        dataType: 'json',
+                        success: function (data) {
+                            const users = data.users;
+                            tableBody.empty(); // Clear existing table rows
+    
+                            if (users.length > 0) {
+                                $.each(users, function (index, user) {
+                                    const row = $('<tr data-username-id="' + user.id + '"><td>' + user.username + '</td></tr>');
+                                    tableBody.append(row);
+                                });
+                            } else {
+                                // Handle case when no users are found
+                                const row = $('<tr><td>No users found.</td></tr>');
+                                tableBody.append(row);
+                            }
+    
+                            // Update the class attribute based on search results
+                            if (searchQuery.length > 0) {
+                                tablediv.removeClass('d-none');
+                            } else {
+                                tablediv.addClass('d-none');
+                            }
+                        }
+                    });
+                });
+                // Add a click event listener to the table rows (including dynamically generated rows)
+                tableBody.on('click', 'tr', function () {
+                    const usernameId = $(this).data('username-id');
+                    const selectedSampleIds = selectedRowIDs.join(',');
+
+    // Check if the 'allow_alter' checkbox is checked
+                    const allowAlter = $('#allow_alter').prop('checked');
+                    console.log(allowAlter)
+    
+    // Perform an AJAX request to add the selected samples to the "samples_shared_with" module
+                    $.ajax({
+                        url: '/add_to_shared/',
+                        data: {
+                            'username_id': usernameId,
+                            'sample_ids': selectedSampleIds,
+                            'allow_alter': allowAlter  // Include the 'allow_alter' value in the request
+                        },
+                        type: 'POST',
+                        dataType: 'json',
+                        headers: { 'X-CSRFToken': getCookie('csrftoken') },
+                        success: function (data) {
+                            if (data.success) {
+                                alert("Samples shared successfully!");
+                            } else {
+                                if (data.error) {
+                                    alert("There was a problem sharing samples! ERROR: " + data.error);
+                                    console.error(data.error);
+                                }
+                            }
+                        }
+                    });
+                });
+                // Function to retrieve the CSRF token from cookies
+                function getCookie(name) {
+                    let cookieValue = null;
+                    if (document.cookie && document.cookie !== '') {
+                        const cookies = document.cookie.split(';');
+                        for (let i = 0; i < cookies.length; i++) {
+                            const cookie = cookies[i].trim();
+                            // Search for the CSRF token cookie
+                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
                         }
                     }
-                });
+                    return cookieValue;
+                }
             });
         });
-
     </script>
+    
 
     
 </body>

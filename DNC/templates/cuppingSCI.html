@@ -133,7 +133,7 @@
                     {% for form in selected_samples %}
                     <input type="hidden" name="sample_id" value="{{ form.id }}">
                     <div class="text-bg-dark card" style="width: 98%;margin-left: 1%;">
-                        <a class="btn btn-link fs-5 text-start text-bg-success card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="{{ form.id }}collapse-11" href="#{{ form.id }}collapse-11" role="button">Sample: {{form.name}} ({{form.id}}) </a>
+                        <a class="btn btn-link fs-5 text-start text-bg-success card-header fw-bold" data-bs-toggle="collapse" aria-expanded="false" aria-controls="collapse-11" href="#{{ form.id }}collapse-11" role="button">Sample: {{form.name}} ({{form.id}}) </a>
                         <div class="collapse" id="{{ form.id }}collapse-11">
                             <div class="text-bg-dark card-body" style="width: 100%;height: 100%;padding: 0px;padding-top: 23px;">
                                 <div class="container text-bg-dark" style="width: 100%;max-width: 100%;padding-right: 16px;">
@@ -143,8 +143,8 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="text-center text-dark">Roast Level</h5>
-                                                    <input oninput="updateLabel(this, '{{ form.id }}roast_level_label');calculateFinalCupScore('{{ form.id }}');" class="form-range" type="range" name="{{ form.id }}roast_level_range" value="3" min="1" max="5" step="1" data-bs-theme="dark">
-                                                    <label id="{{ form.id }}roast_level_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                    <input oninput="updateLabel2(this, '{{ form.id }}roast_level_label', 'roast');" class="form-range" type="range" name="{{ form.id }}roast_level_range" value="3" min="1" max="5" step="1" data-bs-theme="dark">
+                                                    <label id="{{ form.id }}roast_level_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">Standard</label>
                                                 </div>
                                             </div>
                                             <hr>
@@ -153,8 +153,8 @@
                                             <div class="card">
                                                 <div class="card-body">
                                                     <h5 class="text-center text-dark">Ferment Level</h5>
-                                                    <input oninput="updateLabel(this, '{{ form.id }}ferment_level_label');calculateFinalCupScore('{{ form.id }}');" class="form-range" type="range" name="{{ form.id }}ferment_level_range" value="3" min="1" max="4" step="1" data-bs-theme="dark">
-                                                    <label id="{{ form.id }}ferment_level_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                    <input oninput="updateLabel2(this, '{{ form.id }}ferment_level_label', 'ferment');calculateFinalCupScore('{{ form.id }}');" class="form-range" type="range" name="{{ form.id }}ferment_level_range" value="1" min="1" max="4" step="1" data-bs-theme="dark">
+                                                    <label id="{{ form.id }}ferment_level_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">None</label>
                                                 </div>
                                             </div>
                                             <hr>
@@ -316,7 +316,7 @@
                                                         <label id="{{ form.id }}off_5_range_label" class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
                                                         <hr>
                                                         <input class="border rounded" type="text" name="{{ form.id }}off_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
-                                                        <label id="{{ form.id }}offnotes_tot_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <label id="{{ form.id }}offnotes_tot_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -338,7 +338,7 @@
                                                         <label id="{{ form.id }}uniform_5_range_label" class="form-label" style="width: 50%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
                                                         <hr>
                                                         <input class="border rounded" type="text" name="{{ form.id }}uniformity_notes" placeholder="Notes" style="width: 100%;text-align: center;background: var(--bs-gray-900);color: var(--bs-gray-200);">
-                                                        <label id="{{ form.id }}uniform_tot_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">3</label>
+                                                        <label id="{{ form.id }}uniform_tot_label" class="form-label" style="width: 100%;text-align: center;height: 20px;font-size: 13px;margin-bottom: 0px;">0</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -374,6 +374,27 @@
     <script src="{% static 'js/bs-init.js' %}"></script>
     <script src="{% static 'js/theme.js' %}"></script>
     <script>
+        const roastLevelWords = {
+            '1': 'Light',
+            '2': 'Standard-',
+            '3': 'Standard',
+            '4': 'Standard+',
+            '5': 'Dark'
+        };
+
+        const fermentLevelWords = {
+            '1': 'None',
+            '2': 'Low',
+            '3': 'Medium',
+            '4': 'High'
+        };
+        function updateLabel2(input, labelId, levelType) {
+            const value = input.value;
+            const words = levelType === 'roast' ? roastLevelWords : fermentLevelWords;
+            const word = words[value] || ''; // Get the corresponding word or an empty string if not found
+            document.getElementById(labelId).textContent = word;
+        }
+
         // Function to update individual labels
         function updateLabel(input, labelId) {
             const value = input.value;
