@@ -130,7 +130,8 @@
                     <div class="card border-secondary shadow">
                         <div class="card-header text-bg-dark border-primary py-3" data-bs-theme="dark" style="padding-right: 0px;position: static;min-width: 0px;width: auto; height: 65px;">
                             <div class="dropdown d-table" style="width: 100%;min-width: 0px;overflow: auto;position: absolute;"><button class="btn btn-secondary dropdown-toggle fw-semibold link-primary text-bg-info border-primary" aria-expanded="false" data-bs-toggle="dropdown" data-bs-auto-close="outside" type="button" style="min-width: 0px; margin-bottom: 12px;">Samples</button>
-                                <div class="dropdown-menu border-dark" data-bs-popper="none" style="background: var(--bs-info);min-width: 132px;width: 33%;max-width: 175px;"><a class="dropdown-item link-dark" href="#" style="width: 100%;" id="edit-selected">Edit Selected</a><a class="dropdown-item link-dark" href="#" style="width: 100%;">Delete selected</a><a style="width: 100%;" class="dropdown-item link-dark" href="{% url 'new_sample' %}">Create New</a><a style="width: 100%;" class="dropdown-item link-dark" id="start-cupping-selected">Start Cupping Selected</a>
+                                <div class="dropdown-menu border-dark" data-bs-popper="none" style="background: var(--bs-info);min-width: 132px;width: 33%;max-width: 175px;"><a class="dropdown-item link-dark" href="#" style="width: 100%;" id="edit-selected">Edit Selected</a><a class="dropdown-item link-dark delete-selected-link" href="#" style="width: 100%;">Delete selected</a>
+                                    <a style="width: 100%;" class="dropdown-item link-dark" href="{% url 'new_sample' %}">Create New</a><a style="width: 100%;" class="dropdown-item link-dark" id="start-cupping-selected">Start Cupping Selected</a>
                                     <div class="dropend" style="width: 100%;"><button class="btn btn-secondary btn-sm dropdown-toggle link-primary text-bg-info" aria-expanded="false" data-bs-toggle="dropdown" data-bs-auto-close="outside" type="button" style="padding-left: 15px;width: 100%;padding-right: 0px;text-align: left;background: rgb(76,113,221);border-color: rgb(76,113,221);">Share Sample(s)</button>
                                         <div class="dropdown-menu text-start text-bg-info border-dark" data-bs-popper="none" style="width: 100%;min-width: 142px;margin-left: 2px;overflow: auto;max-width: 175px;">
                                             <h6 class="dropdown-header text-start text-dark" style="text-decoration: underline;width: 100%;overflow: visible;">Share by group:</h6><a class="dropdown-item link-dark" style="width: 100%;" href="#">Group1</a><a class="dropdown-item link-dark" style="width: 100%;" href="#">Group2</a>
@@ -214,22 +215,22 @@
                                     </tfoot>
                                 </table>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6 align-self-center">
+                            <div class="row" style="width: 100%;">
+                                <div class="col-md-6 align-self-center" style="width: auto;">
                                     <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.</p>
                                 </div>
-                                <div class="col-md-6">
-                                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
-                                        <ul class="pagination">
+                                <div class="col-md-6" style="width: auto;">
+                                    <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers" style="width: auto;">
+                                        <ul class="pagination" style="width: auto;">
                                             
                                             {%if page_obj.has_previous %}
-                                            <li class="page-item"><a class="page-link" id="prev" aria-label="Previous" href="?page={{page_obj.previous_page_number}}"><span aria-hidden="true">«</span></a></li>
+                                            <li style="width: auto;" class="page-item"><a class="page-link" id="prev" aria-label="Previous" href="?page={{page_obj.previous_page_number}}"><span aria-hidden="true">«</span></a></li>
                                             {% endif %}
                                             {% for pages in page_obj.paginator.page_range %}
-                                            <li class="page-item"><a class="page-link" id="pagenum" href="?page={{pages}}">{{pages}}</a></li>
+                                            <li style="width: auto;" class="page-item"><a class="page-link" id="pagenum" href="?page={{pages}}">{{pages}}</a></li>
                                             {% endfor %}   
                                             {%if page_obj.has_next %}                                            
-                                            <li class="page-item"><a class="page-link" id="next" aria-label="Next" href="?page={{page_obj.next_page_number}}"><span aria-hidden="true">»</span></a></li>
+                                            <li style="width: auto;" class="page-item"><a class="page-link" id="next" aria-label="Next" href="?page={{page_obj.next_page_number}}"><span aria-hidden="true">»</span></a></li>
                                             {% endif %}
                                         </ul>
                                     </nav>
@@ -413,11 +414,11 @@
                     const usernameId = $(this).data('username-id');
                     const selectedSampleIds = selectedRowIDs.join(',');
 
-    // Check if the 'allow_alter' checkbox is checked
+                    // Check if the 'allow_alter' checkbox is checked
                     const allowAlter = $('#allow_alter').prop('checked');
                     console.log(allowAlter)
     
-    // Perform an AJAX request to add the selected samples to the "samples_shared_with" module
+                    // Perform an AJAX request to add the selected samples to the "samples_shared_with" module
                     $.ajax({
                         url: '/add_to_shared/',
                         data: {
@@ -457,7 +458,43 @@
                     return cookieValue;
                 }
             });
+            // Add a click event listener to the "Delete selected" link
+        $('.delete-selected-link').on('click', function(event) {
+            event.preventDefault();  // Prevent the default link behavior (navigation)
+
+            const selectedRowIDsString = selectedRowIDs.join(',');
+    
+    // Check if any samples are selected
+            if (selectedRowIDsString) {
+        // Perform an AJAX request to delete the selected samples
+                $.ajax({
+                    url: '{% url "delete_selected_samples" %}',
+                    type: 'POST',
+                    data: {
+                        'sample_ids': selectedRowIDsString,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}',  // Include CSRF token
+                    },
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.success) {
+                            alert('Selected samples deleted successfully.');
+                    // Reload the page or perform any other desired action
+                            window.location.reload();
+                        } else {
+                            alert('Error deleting samples.');
+                        }
+                    },
+                    error: function() {
+                        alert('Error deleting samples. Please try again later.');
+                    }
+                });
+            } else {
+                alert('No samples selected for deletion.');
+            }
         });
+        });
+        
+
     </script>
     
 

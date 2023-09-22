@@ -473,3 +473,24 @@ def add_to_shared(request):
     else:
         return JsonResponse({'success': False})
 
+@login_required
+def delete_selected_samples(request):
+    sample_ids = request.POST.get('sample_ids', '').split(',')
+    user = request.user
+    
+    # Iterate through the selected sample IDs
+    for sample_id in sample_ids:
+        sample = get_object_or_404(Samples, id=sample_id)
+        
+        # Check if the user is the owner of the sample
+        if sample.user == user:
+            # Delete the sample since the user is the owner
+            sample.delete()
+        else:
+            # Check if it's a shared sample
+            sample_share = SampleShare.objects.filter(sample=sample, user_id=user).first()
+            if sample_share:
+                # Remove the SampleShare instance
+                sample_share.delete()
+    
+    return JsonResponse({'success': True})

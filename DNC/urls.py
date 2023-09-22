@@ -17,5 +17,6 @@ urlpatterns = [
     path('save_session/', views.save_session, name='save_session'),
     path('sample_view/<str:coffee_id>/', views.sample_view, name='sample_view'),
     path('search_users/', views.search_users, name='search_users'),
-    path('add_to_shared/',views.add_to_shared, name='add_to_shared')
+    path('add_to_shared/',views.add_to_shared, name='add_to_shared'),
+    path('delete_selected_samples/', views.delete_selected_samples, name='delete_selected_samples'),
     ]
