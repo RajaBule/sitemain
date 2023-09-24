@@ -49,7 +49,60 @@ class Samples(models.Model):
     generalcomments = models.TextField(max_length=300, null=True, blank=True)
     sensorial = models.CharField(max_length=300, null=True, blank=True)
     shared_with = models.ManyToManyField(User, through='SampleShare', related_name='shared_samples', blank=True)
-
+    view_perms = models.ManyToManyField(User, through='ViewPerms', related_name='sample_view_perms', blank=True)
+    def __str__(self):
+        return self.id
+    
+class ViewPerms(models.Model):
+    #id = models.CharField(max_length=300, primary_key=True)
+    sample = models.ForeignKey(Samples, on_delete=models.CASCADE)
+    name = models.BooleanField(default=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    stype = models.BooleanField(default=False)
+    project = models.BooleanField(default=False)
+    location = models.BooleanField(default=True)
+    proccessing = models.BooleanField(default=True)
+    cropyear = models.BooleanField(default=True)
+    varieties = models.BooleanField(default=True)
+    regdate = models.BooleanField(default=True)
+    grade = models.BooleanField(default=True)
+    rating = models.BooleanField(default=False)
+    cert = models.BooleanField(default=False)
+    notes = models.BooleanField(default=False)
+    refid = models.BooleanField(default=False)
+    salenum = models.BooleanField(default=False)
+    iconum = models.BooleanField(default=False)
+    contnum = models.BooleanField(default=False)
+    tracknum = models.BooleanField(default=False)
+    country = models.BooleanField(default=True)
+    farm = models.BooleanField(default=False)
+    importer = models.BooleanField(default=False)
+    exporter = models.BooleanField(default=False)
+    wetmill = models.BooleanField(default=False)
+    drymill = models.BooleanField(default=False)
+    cooperative = models.BooleanField(default=False)
+    assosiation = models.BooleanField(default=False)
+    customer = models.BooleanField(default=False)
+    othertrac = models.BooleanField(default=False)
+    sampleweight = models.BooleanField(default=False)
+    sampleweightunit = models.BooleanField(default=False)
+    expweight = models.BooleanField(default=False)
+    expweightunit = models.BooleanField(default=False)
+    expprice = models.BooleanField(default=False)
+    exptotalprice = models.BooleanField(default=False)
+    exparrival = models.BooleanField(default=False)
+    moisture = models.BooleanField(default=True)
+    wa = models.BooleanField(default=True)
+    density = models.BooleanField(default=True)
+    physicaldefects = models.BooleanField(default=True)
+    screensize = models.BooleanField(default=True)
+    classification = models.BooleanField(default=False)
+    estgreenweight = models.BooleanField(default=False)
+    sensorialdescriptors = models.BooleanField(default=True)
+    generalcomments = models.BooleanField(default=False)
+    sensorial = models.BooleanField(default=True)
+    can_share = models.BooleanField(default=False)
+    
     def __str__(self):
         return self.id
     
@@ -57,7 +110,7 @@ class SampleShare(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     sample = models.ForeignKey(Samples, on_delete=models.CASCADE)
     can_alter = models.BooleanField(default=False)
-    
+
     def __str__(self):
         return f"{self.sample} shared with {self.user}"
     

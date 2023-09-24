@@ -141,6 +141,8 @@
                                     <tr style="text-decoration: underline;">
                                         <th>Id</th>
                                         <th>Name</th>
+                                        <th>Sensorial Descriptors</th>
+                                        <th>Cupping Score</th>
                                         <th>Type</th>
                                         <th>Project</th>
                                         <th>Location</th>
@@ -149,7 +151,7 @@
                                         <th>Varieties</th>
                                         <th>Grade</th>
                                         <th>Rating</th>
-                                        <th>Notes</th>
+                                        <th>Basic Notes</th>
                                         <th>Country</th>
                                         <th>Farm</th>
                                         <th>Importer</th>
@@ -167,46 +169,44 @@
                                         <th>Density</th>
                                         <th>Screen Size</th>
                                         <th>Classification</th>
-                                        <th>Sensorial Descriptors</th>
-                                        <th>Cupping Score</th>
-                                        <th>General Comments</th>
+                                        <th>Other Notes</th>
                                         <th>Registeration Date</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td style="min-width: 75px;">{{ sample.id }}</td>
-                                        <td style="min-width: 200px;">{{ sample.name }}</td>
-                                        <td style="min-width: 75px;">{{ sample.stype }}</td>
-                                        <td style="min-width: 75px;">{{ sample.project }}</td>
-                                        <td style="min-width: 75px;">{{ sample.location }}</td>
-                                        <td style="min-width: 75px;">{{ sample.proccessing }}</td>
-                                        <td style="min-width: 75px;">{{ sample.cropyear }}</td>
-                                        <td style="min-width: 75px;">{{ sample.varieties }}</td>
-                                        <td style="min-width: 75px;">{{ sample.grade }}</td>
-                                        <td style="min-width: 75px;">{{ sample.rating }}</td>
-                                        <td style="min-width: 200px;">{{ sample.notes }}</td>
-                                        <td style="min-width: 75px;">{{ sample.country }}</td>
-                                        <td style="min-width: 75px;">{{ sample.farm }}</td>
-                                        <td style="min-width: 75px;">{{ sample.importer }}</td>
-                                        <td style="min-width: 75px;">{{ sample.exporter }}</td>
-                                        <td style="min-width: 75px;">{{ sample.wetmill }}</td>
-                                        <td style="min-width: 75px;">{{ sample.drymill }}</td>
-                                        <td style="min-width: 75px;">{{ sample.cooperative }}</td>
-                                        <td style="min-width: 75px;">{{ sample.assosiation }}</td>
-                                        <td style="min-width: 75px;">{{ sample.customer }}</td>
-                                        <td style="min-width: 200px;">{{ sample.othertrac }}</td>
-                                        <td style="min-width: 75px;">{{ sample.sampleweight }}</td>
-                                        <td style="min-width: 75px;">{{ sample.sampleweightunit }}</td>
-                                        <td style="min-width: 75px;">{{ sample.moisture }}</td>
-                                        <td style="min-width: 75px;">{{ sample.wa }}</td>
-                                        <td style="min-width: 75px;">{{ sample.density }}</td>
-                                        <td style="min-width: 75px;">{{ sample.screensize }}</td>
-                                        <td style="min-width: 75px;">{{ sample.classification }}</td>
-                                        <td style="min-width: 200px;">{{ sample.sensorialdescriptors }}</td>
-                                        <td style="min-width: 75px;">{{ sample.sensorial }}</td>
-                                        <td style="min-width: 200px;">{{ sample.generalcomments}}</td>
-                                        <td style="min-width: 200px;">{{ sample.regdate }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.id }}</td>
+                                        <td style="min-width: 200px;">{{ field_values.name }}</td>
+                                        <td style="min-width: 200px;">{{ field_values.sensorialdescriptors }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.sensorial }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.stype }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.project }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.location }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.proccessing }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.cropyear }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.varieties }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.grade }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.rating }}</td>
+                                        <td style="min-width: 200px;">{{ field_values.notes }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.country }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.farm }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.importer }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.exporter }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.wetmill }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.drymill }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.cooperative }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.assosiation }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.customer }}</td>
+                                        <td style="min-width: 200px;">{{ field_values.othertrac }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.sampleweight }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.sampleweightunit }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.moisture }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.wa }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.density }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.screensize }}</td>
+                                        <td style="min-width: 75px;">{{ field_values.classification }}</td>
+                                        <td style="min-width: 200px;">{{ field_values.generalcomments}}</td>
+                                        <td style="min-width: 200px;">{{ field_values.regdate }}</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -224,6 +224,7 @@
                                     <tr style="text-decoration: underline;">
                                         <th>Session Id</th>
                                         <th>Cup Score</th>
+                                        <th>Final Notes</th>
                                         <th>Roast Level</th>
                                         <th>Ferment Level</th>
                                         <th>Fragrance</th>
@@ -262,7 +263,6 @@
                                         <th>Uniformity 4</th>
                                         <th>Uniformity 5</th>
                                         <th>Uniformity Notes</th>
-                                        <th>Final Notes</th>
                                         <th>Session Date</th>
                                     </tr>
                                 </thead>
@@ -271,6 +271,7 @@
                                         <tr>
                                             <td style="min-width: 75px;">{{ cup_session.id }}</td>
                                             <td style="min-width: 75px;">{{ cup_session.total_cup_score }}</td>
+                                            <td style="min-width: 200px;">{{ cup_session.sens_descriptors }}</td>
                                             <td style="min-width: 75px;">{{ cup_session.roast_level_range }}</td>
                                             <td style="min-width: 75px;">{{ cup_session.ferment_level_range }}</td>
                                             <td style="min-width: 75px;">{{ cup_session.fragrance_range }}</td>
@@ -309,7 +310,6 @@
                                             <td style="min-width: 75px;">{{ cup_session.uniform_4_range }}</td>
                                             <td style="min-width: 75px;">{{ cup_session.uniform_5_range }}</td>
                                             <td style="min-width: 200px;">{{ cup_session.uniformity_notes }}</td>
-                                            <td style="min-width: 200px;">{{ cup_session.sens_descriptors }}</td>
                                             <td style="min-width: 200px;">{{ cup_session.cupdate }}</td>
                                         </tr>
                                         {% endfor %}    
@@ -331,6 +331,7 @@
                                         <th>Session Id</th>
                                         <th>User Name</th>
                                         <th>Cup Score</th>
+                                        <th>Final Notes</th>
                                         <th>Roast Level</th>
                                         <th>Ferment Level</th>
                                         <th>Fragrance</th>
@@ -369,7 +370,6 @@
                                         <th>Uniformity 4</th>
                                         <th>Uniformity 5</th>
                                         <th>Uniformity Notes</th>
-                                        <th>Final Notes</th>
                                         <th>Session Date</th>
                                     </tr>
                                 </thead>
@@ -379,6 +379,7 @@
                                             <td style="min-width: 75px;">{{ cup_sessions.id }}</td>
                                             <td style="min-width: 75px;">{{ cup_sessions.user }}</td>
                                             <td style="min-width: 75px;">{{ cup_sessions.total_cup_score }}</td>
+                                            <td style="min-width: 200px;">{{ cup_sessions.sens_descriptors }}</td>
                                             <td style="min-width: 75px;">{{ cup_sessions.roast_level_range }}</td>
                                             <td style="min-width: 75px;">{{ cup_sessions.ferment_level_range }}</td>
                                             <td style="min-width: 75px;">{{ cup_sessions.fragrance_range }}</td>
@@ -417,7 +418,6 @@
                                             <td style="min-width: 75px;">{{ cup_sessions.uniform_4_range }}</td>
                                             <td style="min-width: 75px;">{{ cup_sessions.uniform_5_range }}</td>
                                             <td style="min-width: 200px;">{{ cup_sessions.uniformity_notes }}</td>
-                                            <td style="min-width: 200px;">{{ cup_sessions.sens_descriptors }}</td>
                                             <td style="min-width: 200px;">{{ cup_sessions.cupdate }}</td>
                                         </tr>
                                         {% endfor %}    

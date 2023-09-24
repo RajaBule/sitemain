@@ -133,6 +133,7 @@
                 <form id="editsample" method="post" action="{% url 'update_row' %}">
                     {% csrf_token %}
                     {% for row_data in rows_data %}
+                        <input type="hidden" name="regdate" value="{{date_time}}">
                         <div class="row" style="margin-top: 37px;margin-right: 50px;margin-left: 0px;text-align: center;max-width: 100%;min-width: 230px;">
                             <div class="col-auto col-lg-8" style="margin-left: 50px;padding-left: 0px;margin-right: 50px;padding-right: 50px;text-align: center;min-width: auto;width: auto;">
                                 <div class="card mb-4" style="max-width: 100%;text-align: center;width: auto;min-width: auto;">

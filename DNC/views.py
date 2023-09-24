@@ -1,10 +1,10 @@
 from django.shortcuts import render, HttpResponse,redirect, get_object_or_404
-from .models import Samples, CuppingSCI,SampleShare
+from .models import Samples, CuppingSCI, SampleShare, ViewPerms
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse, HttpResponseNotFound
 from django.http import HttpRequest, JsonResponse,HttpResponseForbidden
 from django.db.models import Q
-from .forms import newsample, RegistrationForm, LoginForm, CuppingFormSCI
+from .forms import newsample, RegistrationForm, LoginForm, changesample
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -12,9 +12,33 @@ from django.contrib import messages
 from django.forms import formset_factory
 import datetime
 import re
+from django.db import IntegrityError
 
 
 #A Work in progress...
+
+def get_allowed_fields(user, sample):
+    try:
+        # Try to get an existing ViewPerms object for the user and sample
+        view_perms = ViewPerms.objects.get(user_id=user.id, sample_id=sample.id)
+    except ViewPerms.DoesNotExist:
+        print('Creating Perms')
+        # If it doesn't exist, create a new one
+        try:
+            view_perms = ViewPerms.objects.create(user=user, sample_id=sample)
+            #print(str(view_perms), 'PERMS!!!!!!!NEW')
+        except IntegrityError as e:
+            # Handle any integrity error if needed
+            view_perms = None
+            print('integ error:',e)
+    if view_perms:
+        # Use the view_perms object to determine allowed fields
+        allowed_fields = [field.name for field in sample._meta.fields if getattr(view_perms, field.name)]
+    else:
+        # Handle the case where there was an error creating the ViewPerms object
+        allowed_fields = []
+    print(allowed_fields, "!!!!!!!!!!!@")
+    return allowed_fields
 
 @login_required
 def index(request):
@@ -116,7 +140,7 @@ def search_view(request):
 @login_required
 def new_sample(request):
     user = request.user
-    date_time = datetime.datetime.now()
+    date_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
     last_id_obj = Samples.objects.last()
     print(date_time)
     if last_id_obj:
@@ -136,7 +160,7 @@ def new_sample(request):
 
 @login_required
 def submit_new_sample(request):
-    date_time = datetime.datetime.now()
+    date_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
     user = request.user
     if request.method == "POST":
         print('POST called')
@@ -171,7 +195,6 @@ def edit_sample(request):
     }
     return render(request, "editsample.html", context)
 
-from django.http import HttpResponseForbidden
 
 @login_required
 def edit_selected_rows(request):
@@ -205,7 +228,7 @@ def update_selected_row(request):
 
         for row_id in selected_row_ids:
             instance = Samples.objects.get(id=row_id)  # Get the existing instance from the database
-            form = newsample(request.POST, instance=instance)
+            form = changesample(request.POST, instance=instance)
             print("MAdE IT THIS FAR--")  # Populate the form with existing instance data
             if form.is_valid():
                 form.save() 
@@ -289,7 +312,7 @@ def cupping_sci(request):
 @login_required    
 def save_session(request):
     user = request.user
-    date_time = datetime.datetime.now()
+    date_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
     if request.method == 'POST':
         # Get the list of sample IDs from the form data
         selected_ids = request.POST.getlist('sample_id')
@@ -340,7 +363,8 @@ def save_session(request):
             uniformity_notes=request.POST.get(sample_id+'uniformity_notes'),
             sens_descriptors=request.POST.get(sample_id+'sens_descriptors'),
             cupdate=date_time,
-            total_cup_score=request.POST.get(sample_id+'final_cup_score_value')
+            total_cup_score=request.POST.get(sample_id+'final_cup_score_value'),
+            user=user
             )
             try:
                 sample = Samples.objects.get(id=sample_id)
@@ -369,53 +393,87 @@ def save_session(request):
 @login_required
 def sample_view(request, coffee_id):
     user = request.user
-    date_time = datetime.datetime.now()
+    print('sample_view call user:', user.id)
+    date_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
 
     try:
         sample = Samples.objects.get(id=coffee_id)
     except Samples.DoesNotExist:
         # Handle the case where the coffee with the given ID doesn't exist
         return HttpResponseNotFound("Sample not found")
+
+    # Check if the user is the same as the sample's user
+    if user.id == sample.user.id:
+        allowed_fields = [field.name for field in sample._meta.fields]
+        print(allowed_fields, "owner")
+    else:
+        allowed_fields = get_allowed_fields(user, sample)
+        print(allowed_fields, "not owner!@")
+
+    # Create a dictionary to store field values
+    field_values = {}
+    for field_name in allowed_fields:
+        field_value = getattr(sample, field_name)
+        field_values[field_name] = field_value
+        # Set values for fields not in allowed_fields to "No Permissions"
+
+    for field_name in sample._meta.fields:
+        print(field_name.name, "name! exist!")
+        if field_name.name not in allowed_fields:
+            print(field_name.name, "name!")
+            field_values[field_name.name] = "No Permissions"
+    print(field_values, "!!!!!!")
+
     try:
         cupsession = CuppingSCI.objects.filter(sample_id=coffee_id, user=user.id)
     except CuppingSCI.DoesNotExist:
         cupsession = "No cupping data found!"
         print(cupsession)
         context = {
-        'cup_session': cupsession,
-        'sample_id': coffee_id,
-        'user_first_name': user.first_name,
-        'user_last_name': user.last_name,
-        'sample': sample,  # Add the sample object to the context
-        'user_id': user.id,
+            'global_session': cupsessions,
+            'cup_session': cupsession,
+            'sample_id': coffee_id,
+            'user_first_name': user.first_name,
+            'user_last_name': user.last_name,
+            'sample': sample,
+            'user_id': user.id,
+            'field_values': field_values,
+            'allowed_fields': allowed_fields,  # Pass the allowed fields to the template
         }
         return render(request, 'sampleview.html', context)
+
     try:
         cupsessions = CuppingSCI.objects.filter(sample_id=coffee_id)
     except CuppingSCI.DoesNotExist:
         cupsessions = "No cupping data found!"
         print(cupsessions)
         context = {
-        'global_sessions': cupsessions,
-        'cup_session': cupsession,
-        'sample_id': coffee_id,
-        'user_first_name': user.first_name,
-        'user_last_name': user.last_name,
-        'sample': sample,  # Add the sample object to the context
-        'user_id': user.id,
+            'global_session': cupsessions,
+            'cup_session': cupsession,
+            'sample_id': coffee_id,
+            'user_first_name': user.first_name,
+            'user_last_name': user.last_name,
+            'sample': sample,
+            'user_id': user.id,
+            'field_values': field_values,
+            'allowed_fields': allowed_fields,  # Pass the allowed fields to the template
         }
         return render(request, 'sampleview.html', context)
+
     context = {
-        'global_session': cupsessions,
-        'cup_session': cupsession,
-        'sample_id': coffee_id,
-        'user_first_name': user.first_name,
-        'user_last_name': user.last_name,
-        'sample': sample,  # Add the sample object to the context
-        'user_id': user.id,
-    }
+            'global_session': cupsessions,
+            'cup_session': cupsession,
+            'sample_id': coffee_id,
+            'user_first_name': user.first_name,
+            'user_last_name': user.last_name,
+            'sample': sample,
+            'user_id': user.id,
+            'field_values': field_values,
+            'allowed_fields': allowed_fields,  # Pass the allowed fields to the template
+        }
     print(cupsession)
     return render(request, 'sampleview.html', context)
+
 
 @login_required
 def search_users(request):
@@ -462,8 +520,40 @@ def add_to_shared(request):
                 # Update the 'can_alter' field based on 'allow_alter'
                 share.can_alter = allow_alter == 'true'
                 share.save()
-                
-            # Assuming the operation was successful
+                print('alter: ', allow_alter)
+
+                if share.can_alter:
+                    try:
+        # Check if ViewPerms already exist for this user and sample
+                        existing_perms = ViewPerms.objects.filter(user=user_to_share_with, sample=sample).first()
+        
+                        if existing_perms:
+            # Update the existing ViewPerms object
+                            for field in existing_perms._meta.fields:
+                                if field.name not in ['sample_id', 'user_id', 'sample', 'user', 'id']:
+                                    setattr(existing_perms, field.name, True)
+                            existing_perms.save()
+                            print("Existing permissions updated")
+                        else:
+            # Create a new ViewPerms object
+                            new_perms = ViewPerms.objects.create(user=user_to_share_with, sample=sample)
+
+            # Set sample_id and user_id manually
+                            new_perms.sample_id = sample.id
+                            new_perms.user_id = user_to_share_with.id
+
+            # Iterate over the other fields and set them to True
+                            for field in new_perms._meta.fields:
+                                if field.name not in ['sample_id', 'user_id', 'sample', 'user', 'id']:
+                                    setattr(new_perms, field.name, True)
+
+                            new_perms.save()
+                            print('New permissions created')
+                    except Exception as e:
+                        print('Did not create or update viewing permissions:', e)
+                else:
+                    print('Cannot alter, permissions will be set automatically later')
+
             return JsonResponse({'success': True})
         
         except User.DoesNotExist:
