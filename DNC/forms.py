@@ -1,5 +1,5 @@
 from django import forms
-from .models import Samples, CuppingSCI
+from .models import Samples, CuppingSCI, Inventory
 
 class newsample(forms.ModelForm):
     class Meta:
@@ -44,3 +44,18 @@ class CuppingFormSCI(forms.ModelForm):
     class Meta:
         model = CuppingSCI
         fields = '__all__'
+
+class newinv(forms.ModelForm):
+    class Meta:
+        model = Inventory
+        fields = ('id', 'sampleid', 'code', 'pricelocal', 'priceexport', 'name',
+                  'totalq', 'g1q', 'g2q','g3q','g4q','g5q', 'defectq',
+                  'unsortedq', 'location', 'customer', 'project', 'notes', 'country', 'farm',
+                  'tracknum', 'importer', 'exporter', 'wetmill', 'drymill',
+                  'cooperative', 'assosiation', 'othertrac', 'moisture',
+                  'wa', 'proccessing', 'density', 'screensize',
+                  'varieties', 'cropyear', 'classification',
+                   'generalcomments',
+                  'sensorial', 'sensorialdescriptors',
+                  'regdate'
+                  )

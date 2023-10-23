@@ -1,10 +1,10 @@
 from django.shortcuts import render, HttpResponse,redirect, get_object_or_404
-from .models import Samples, CuppingSCI, SampleShare, ViewPerms
+from .models import Samples, CuppingSCI, SampleShare, ViewPerms, Inventory, InventoryViewPerms
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse, HttpResponseNotFound
 from django.http import HttpRequest, JsonResponse,HttpResponseForbidden
 from django.db.models import Q
-from .forms import newsample, RegistrationForm, LoginForm, changesample
+from .forms import newsample, RegistrationForm, LoginForm, changesample, newinv
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -584,3 +584,97 @@ def delete_selected_samples(request):
                 sample_share.delete()
     
     return JsonResponse({'success': True})
+
+@login_required
+def inventory(request):
+    user = request.user
+
+    # Fetch samples owned by the user
+    user_inventory = list(Inventory.objects.filter(user=user).order_by('-id'))
+
+    # Fetch shared samples
+    shared_inventory = list(request.user.shared_inventory.all().order_by('-id'))
+
+    # Combine the two lists and remove duplicates
+    amples = list(set(user_inventory + shared_inventory))
+
+    # Define a function to extract the numeric part from the ID
+    def extract_numeric_part(sample):
+        match = re.match(r'SG-(\d+)', sample.id)
+        if match:
+            return int(match.group(1))
+        return 0  # Return 0 if there's no numeric part
+
+    # Sort the list based on the extracted numeric part in descending order
+    amples.sort(key=extract_numeric_part, reverse=True)
+
+    per_page = request.GET.get('selected', 25)
+
+    print(per_page)
+    p = Paginator(amples, per_page)
+    page_number = request.GET.get('page')
+    try:
+        page_obj = p.get_page(page_number)  # returns the desired page object
+    except PageNotAnInteger:
+        # if page_number is not an integer then assign the first page
+        page_obj = p.page(25)
+    except EmptyPage:
+        # if page is empty then return last page
+        page_obj = p.page(p.num_pages)
+    context = {'page_obj': page_obj,
+               'per_page': per_page,
+               'user_first_name': user.first_name,
+               'user_last_name': user.last_name,
+               }
+
+    return render(request, 'inventory.html', context)
+
+@login_required
+def invnew(request):
+    user = request.user
+    date_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
+    last_id_obj = Inventory.objects.last()
+    print(date_time)
+    if last_id_obj:
+        last_id = last_id_obj.id  # Replace with the actual field name
+        numeric_part = re.search(r'\d+$', last_id).group()  # Extract numeric part
+        new_numeric_part = str(int(numeric_part) + 1).zfill(len(numeric_part))
+        next_id = f'IG-{new_numeric_part}'
+    else:
+        next_id = ''
+    context = {'date_time': date_time,
+               'nextid': next_id,
+               'user_first_name': user.first_name,
+               'user_last_name': user.last_name
+               }
+    
+    return render(request, "newinv.html", context)
+
+@login_required
+def submit_new_inventory(request):
+    date_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
+    user = request.user
+    if request.method == "POST":
+        print('POST called')
+        post = newinv(request.POST)
+        if post.is_valid():
+            print('Successfully Posted...')
+            ninventory = post.save(commit=False)  # Create an instance but don't save it yet
+            ninventory.user = request.user  # Set the user to the currently logged-in user
+            ninventory.save()  # Now save the instance with the user information
+            messages.success(request, "Inventory added successfully!")
+            return redirect(inventory)
+        else:
+            print("Form errors:", post.errors)
+    else:
+        print('NO POST')
+        messages.error(request, "Failed to update Inventory!")
+        post = newinv()
+
+    context = {'post': post,
+               'user_first_name': user.first_name,
+               'user_last_name': user.last_name,
+               'date_time' : date_time,
+               }
+    
+    return render(request, "newinv.html", context)

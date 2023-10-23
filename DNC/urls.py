@@ -19,4 +19,7 @@ urlpatterns = [
     path('samples/search_users/', views.search_users, name='search_users'),
     path('add_to_shared/',views.add_to_shared, name='add_to_shared'),
     path('samples/delete_selected_samples/', views.delete_selected_samples, name='delete_selected_samples'),
+    path('inventory/', views.inventory, name='inventory'),
+    path('inventory/new', views.invnew, name='invnew'),
+    path('inventory/new/submit', views.submit_new_inventory, name='submitinv')
     ]
