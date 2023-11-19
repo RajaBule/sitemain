@@ -21,5 +21,11 @@ urlpatterns = [
     path('samples/delete_selected_samples/', views.delete_selected_samples, name='delete_selected_samples'),
     path('inventory/', views.inventory, name='inventory'),
     path('inventory/new', views.invnew, name='invnew'),
-    path('inventory/new/submit', views.submit_new_inventory, name='submitinv')
+    path('inventory/new/submit', views.submit_new_inventory, name='submitinv'),
+    path('inventory/view/<str:coffee_id>/', views.inv_view, name='invview'),
+    path('searchinv/', views.invsearch_view, name='invsearch_view'),
+    path('inventory/edit_selected/', views.edit_selected_rows_inv, name='edit_selected_rows_inv'),
+    path('inventory/update_selected_row_inv/', views.update_selected_row_inv, name='update_row_inv'),
+    path('inventory/search_users/', views.search_users_inv, name='search_users_inv'),
+    path('inventory/add_to_shared_inv/',views.inv_add_to_shared, name='inv_add_to_shared'),
     ]

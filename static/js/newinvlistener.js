@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function () {
     console.log("JavaScript code executing");
     //submit button
     const submitButton = document.getElementById('submit-button');
-    const form = document.getElementById('newsample');
+    const form = document.getElementById('newinventory');
 
     submitButton.addEventListener('submit', function(event) {
         //event.preventDefault();  // Prevent the default link behavior

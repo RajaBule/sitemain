@@ -59,3 +59,18 @@ class newinv(forms.ModelForm):
                   'sensorial', 'sensorialdescriptors',
                   'regdate'
                   )
+        
+class changeinv(forms.ModelForm):
+    class Meta:
+        model = Inventory
+        fields = ('id', 'sampleid', 'code', 'pricelocal', 'priceexport',
+                   'name', 'location', 'sampleweight',
+                  'sampleweightunit', 'expweight', 'expweightunit',
+                  'customer', 'project', 'notes', 'country', 'farm',
+                  'tracknum', 'importer', 'exporter', 'wetmill', 'drymill',
+                  'cooperative', 'assosiation', 'othertrac', 'moisture',
+                  'wa', 'proccessing', 'density', 'screensize',
+                  'varieties', 'cropyear', 'classification',
+                  'grade', 'generalcomments', 'sensorial', 'sensorialdescriptors',
+                  'totalq', 'g1q', 'g2q', 'g3q', 'g4q', 'g5q', 'defectq'
+                  )

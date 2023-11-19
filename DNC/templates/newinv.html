@@ -25,7 +25,7 @@
                 <hr class="sidebar-divider my-0">
                 <ul class="navbar-nav text-light" id="accordionSidebar">
                     <li class="nav-item"><a class="nav-link active" href="{% url 'index' %}"><i class="fas fa-tachometer-alt"></i><span>Dashboard</span></a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'samples' %}"><i class="fas fa-table"></i><span>Samples</span></a><a class="nav-link" href="profile.html"><i class="fas fa-user"></i><span>Inventory</span></a><a class="nav-link" href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'samples' %}"><i class="fas fa-table"></i><span>Samples</span></a><a class="nav-link" href="{% url 'inventory' %}"><i class="fas fa-user"></i><span>Inventory</span></a><a class="nav-link" href="profile.html"><i class="fas fa-user"></i><span>Profile</span></a></li>
                     <li class="nav-item"></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'login' %}"><i class="far fa-user-circle"></i><span>Login</span></a></li>
                     <li class="nav-item"><a class="nav-link" href="{% url 'register' %}"><i class="fas fa-user-circle"></i><span>Register</span></a></li>
@@ -175,7 +175,7 @@
                                     <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
                                         <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
                                             <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
-                                                <h5 class="fs-4 text-center text-info m-0" style="width: auto;">Code</h5><input name="code" class="border rounded float-none" type="text" placeholder="Intended for..." data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                <h5 class="fs-4 text-center text-info m-0" style="width: auto;">Code</h5><input name="code" class="border rounded float-none" type="text" placeholder="Code" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
                                             </div>
                                         </div>
                                     </div>
@@ -189,7 +189,7 @@
                                     <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
                                         <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
                                             <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
-                                                <h5 class="fs-4 text-center text-info m-0" style="width: auto;">Cup Score</h5><input name="sensorial" class="border rounded float-none" type="text" placeholder="Project name" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                <h5 class="fs-4 text-center text-info m-0" style="width: auto;">Cup Score</h5><input name="sensorial" class="border rounded float-none" type="text" placeholder="Cup Score" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
                                             </div>
                                         </div>
                                     </div>
