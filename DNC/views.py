@@ -1,10 +1,10 @@
 from django.shortcuts import render, HttpResponse,redirect, get_object_or_404
-from .models import Samples, CuppingSCI, SampleShare, ViewPerms, Inventory, InventoryViewPerms
+from .models import Samples, CuppingSCI, SampleShare, ViewPerms, Inventory, InventoryViewPerms, InventoryShare
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import JsonResponse, HttpResponseNotFound
 from django.http import HttpRequest, JsonResponse,HttpResponseForbidden
 from django.db.models import Q
-from .forms import newsample, RegistrationForm, LoginForm, changesample, newinv
+from .forms import newsample, RegistrationForm, LoginForm, changesample, newinv, changeinv
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
@@ -678,3 +678,310 @@ def submit_new_inventory(request):
                }
     
     return render(request, "newinv.html", context)
+
+@login_required
+def invsearch_view(request):
+    user = request.user
+    search_query = request.GET.get('q', '')
+    selected_value = request.GET.get('selected', '')
+
+    # Filter your model data based on the search query and selected value
+    filtered_data = Inventory.objects.filter(
+        Q(name__icontains=search_query) |
+        Q(location__icontains=search_query) |
+        Q(sensorial__icontains=search_query),
+        user=user
+    ).order_by('-id')
+
+    shareinvquery = request.user.shared_inventory.filter(
+        Q(name__icontains=search_query) |
+        Q(location__icontains=search_query)|
+        Q(sensorial__icontains=search_query)
+    ).order_by('-id')
+
+    # Convert querysets to lists
+    filtered_data_list = list(filtered_data)
+    shareinvquery_list = list(shareinvquery)
+
+    # Merge the lists and remove duplicates
+    merged_list = filtered_data_list + shareinvquery_list
+    unique_merged_list = list({inv.id: inv for inv in merged_list}.values())
+
+    data_list = [
+        {
+            'ref': "/inventory/view/" + str(item.id),
+            'id': item.id,
+            'name': item.name,
+            'location': item.location,
+            'sensorial': item.sensorial,
+            'sensorialdescriptors': item.sensorialdescriptors,
+            'regdate': item.regdate
+        }
+        for item in unique_merged_list
+    ]
+
+    return JsonResponse(data_list, safe=False)
+
+@login_required
+def inv_view(request, coffee_id):
+    user = request.user
+    print('invview call user:', user.id)
+    date_time = datetime.datetime.now().strftime("%d/%m/%Y %H:%M")
+
+    try:
+        inv = Inventory.objects.get(id=coffee_id)
+        print(inv.sampleid)
+        try:
+            sample = Samples.objects.get(id=inv.sampleid)
+            if sample:
+                if user.id == sample.user.id:
+                    sample_allowed_fields = [field.name for field in sample._meta.fields]
+                    print(sample_allowed_fields, "owner")
+                else:
+                    sample_allowed_fields = get_allowed_fields(user, sample)
+                    print(sample_allowed_fields, "not owner!@")
+
+                sample_field_values = {}
+                for field_name in sample_allowed_fields:
+                    field_value = getattr(sample, field_name)
+                    sample_field_values[field_name] = field_value
+                    # Set values for fields not in allowed_fields to "No Permissions"
+
+                for field_name in sample._meta.fields:
+                    print(field_name.name, "name! exist!")
+                    if field_name.name not in sample_allowed_fields:
+                        print(field_name.name, "name!")
+                        sample_field_values[field_name.name] = "No Permissions"
+                print(sample_field_values, "!!!!!!")
+
+        except Exception as e:
+            sample_field_values = {}
+            sample = {}
+            print('Error:', e)
+            pass
+    except Inventory.DoesNotExist:
+        # Handle the case where the coffee with the given ID doesn't exist
+        return HttpResponseNotFound("Inventory not found")
+    # Check if the user is the same as the sample's user
+    if user.id == inv.user.id:
+        allowed_fields = [field.name for field in inv._meta.fields]
+        print(allowed_fields, "owner")
+    else:
+        allowed_fields = get_allowed_fields(user, inv)
+        print(allowed_fields, "not owner!@")
+
+    field_values = {}
+    for field_name in allowed_fields:
+        field_value = getattr(inv, field_name)
+        field_values[field_name] = field_value
+        # Set values for fields not in allowed_fields to "No Permissions"
+
+    for field_name in inv._meta.fields:
+        print(field_name.name, "name! exist!")
+        if field_name.name not in allowed_fields:
+            print(field_name.name, "name!")
+            field_values[field_name.name] = "No Permissions"
+    print(field_values, "!!!!!!")
+
+
+    try:
+        cupsession = CuppingSCI.objects.filter(
+            Q(sample_id=coffee_id) | (Q(sample_id=inv.sampleid) if inv.sampleid is not None else Q()),
+            user=user.id
+        )
+    except CuppingSCI.DoesNotExist:
+        cupsession = "No cupping data found!"
+        print(cupsession)
+        context = {
+            'global_session': cupsessions,
+            'cup_session': cupsession,
+            'sample_id': coffee_id,
+            'user_first_name': user.first_name,
+            'user_last_name': user.last_name,
+            'sample': sample,
+            'user_id': user.id,
+            'inventory': inv,
+            'field_values': field_values,
+            'sample_field_values': sample_field_values,
+            'allowed_fields': allowed_fields,  # Pass the allowed fields to the template
+        }
+        return render(request, 'invview.html', context)
+
+    try:
+        cupsessions = CuppingSCI.objects.filter(
+            Q(sample_id=coffee_id) | (Q(sample_id=inv.sampleid) if inv.sampleid is not None else Q())
+        )
+    except CuppingSCI.DoesNotExist:
+        cupsessions = "No cupping data found!"
+        print(cupsessions)
+        context = {
+            'global_session': cupsessions,
+            'cup_session': cupsession,
+            'sample_id': coffee_id,
+            'user_first_name': user.first_name,
+            'user_last_name': user.last_name,
+            'sample': sample,
+            'user_id': user.id,
+            'inventory': inv,
+            'field_values': field_values,
+            'sample_field_values': sample_field_values,
+            'allowed_fields': allowed_fields,  # Pass the allowed fields to the template
+        }
+        return render(request, 'invview.html', context)
+
+    context = {
+            'global_session': cupsessions,
+            'cup_session': cupsession,
+            'sample_id': coffee_id,
+            'user_first_name': user.first_name,
+            'user_last_name': user.last_name,
+            'sample': sample,
+            'user_id': user.id,
+            'inventory': inv,
+            'field_values': field_values,
+            'sample_field_values': sample_field_values,
+            'allowed_fields': allowed_fields,  # Pass the allowed fields to the template
+        }
+    print(cupsession)
+    return render(request, 'invview.html', context)
+
+
+@login_required
+def edit_selected_rows_inv(request):
+    user = request.user
+    selected_row_ids = request.GET.get('ids').split(',')
+    
+    # Fetch data for selected rows and check if the user has permission to edit each sample
+    rows_data = []
+    try:
+        for inv_id in selected_row_ids:
+            inv = get_object_or_404(Inventory, id=inv_id)
+        
+        # Check if the sample belongs to the user or is shared with them with can_alter=True
+            if inv.user == user or inv.inventoryshare_set.filter(user=user, can_alter=1).exists():
+                rows_data.append(inv)
+            else:
+            # If the user doesn't have permission, return a 403 Forbidden response
+                return HttpResponseForbidden("You don't have permission to edit this Inventory Item.")
+    
+        context = {
+            'rows_data': rows_data,
+            'user_first_name': user.first_name,
+            'user_last_name': user.last_name
+        }
+        return render(request, 'editinv.html', context)
+    except:
+        messages.error(request, "Inventory Not Found!")
+        return JsonResponse({'success': False})
+
+@login_required
+def update_selected_row_inv(request):
+    if request.method == "POST":
+        print('POST CALL-----')
+        selected_row_ids = request.POST.getlist('id')  # Get the selected row IDs from the form
+
+        for row_id in selected_row_ids:
+            instance = Inventory.objects.get(id=row_id)
+            print(row_id)  # Get the existing instance from the database
+            form = changeinv(request.POST, instance=instance)
+            print("MAdE IT THIS FAR--")  # Populate the form with existing instance data
+            try: 
+                if form.is_valid() == True:
+                    form.save() 
+                    print('SAVEFORM---') # Save the updated data
+                else:
+                    print(form.errors)
+                    print(form.is_valid())
+            except Exception as e:
+                print("error: ", e)
+        messages.success(request, "Inventory updated successfully!")
+        return redirect('inventory')  # Redirect to the samples page or another appropriate URL
+
+    return redirect('edit_selected_rows_inv')
+
+@login_required
+def search_users_inv(request):
+    if request.headers.get('x-requested-with') == 'XMLHttpRequest':
+        search_query = request.GET.get('search_query', '')
+        # Query the users based on the search query
+        users = User.objects.filter(username__icontains=search_query)[:10]  # Adjust the query as needed
+        user_list = [{'username': user.username, 'email': user.email, 'id': user.id} for user in users]
+        return JsonResponse({'users': user_list})
+    else:
+        # If it's not an AJAX request, return an empty JSON response or handle it as needed
+        return JsonResponse({})
+    
+@login_required
+def inv_add_to_shared(request):
+    if request.method == 'POST':
+        username_id = request.POST.get('username_id')
+        inv_ids = request.POST.get('inv_ids')
+        allow_alter = request.POST.get('allow_alter')  # Get the 'allow_alter' value
+        print(username_id, inv_ids, allow_alter)
+        try:
+            # Get the User instance based on the username_id
+            user_to_share_with = get_object_or_404(User, id=username_id)
+            
+            # Split the sample_ids into a list
+            inv_ids_list = inv_ids.split(',')
+            print(inv_ids_list)
+            # Iterate through the sample IDs
+            for inv_id in inv_ids_list:
+                # Get the Samples instance based on sample_id
+                inv = get_object_or_404(Inventory, id=inv_id)
+                print(inv)
+                # Check if the requesting user is the original creator of the sample
+                if inv.user != request.user:
+                    return JsonResponse({'success': False, 'error': 'You cannot share samples that you do not own!'})
+                
+                # Check if a share already exists for this user and sample
+                share, created = InventoryShare.objects.get_or_create(
+                    user=user_to_share_with,
+                    inventoryid=inv
+                )
+                
+                # Update the 'can_alter' field based on 'allow_alter'
+                share.can_alter = allow_alter == 'true'
+                share.save()
+                print('alter: ', allow_alter)
+
+                if share.can_alter:
+                    try:
+        # Check if ViewPerms already exist for this user and sample
+                        existing_perms = InventoryViewPerms.objects.filter(user=user_to_share_with, inventoryid=inv).first()
+        
+                        if existing_perms:
+            # Update the existing ViewPerms object
+                            for field in existing_perms._meta.fields:
+                                if field.name not in ['inv_id', 'user_id', 'inventoryid', 'user', 'id']:
+                                    setattr(existing_perms, field.name, True)
+                            existing_perms.save()
+                            print("Existing permissions updated")
+                        else:
+            # Create a new ViewPerms object
+                            new_perms = InventoryViewPerms.objects.create(user=user_to_share_with, inventoryid=inv)
+
+            # Set sample_id and user_id manually
+                            new_perms.inv_id = inv.id
+                            new_perms.user_id = user_to_share_with.id
+
+            # Iterate over the other fields and set them to True
+                            for field in new_perms._meta.fields:
+                                if field.name not in ['inv_id', 'user_id', 'inventoryid', 'user', 'id']:
+                                    setattr(new_perms, field.name, True)
+
+                            new_perms.save()
+                            print('New permissions created')
+                    except Exception as e:
+                        print('Did not create or update viewing permissions:', e)
+                else:
+                    print('Cannot alter, permissions will be set automatically later')
+
+            return JsonResponse({'success': True})
+        
+        except User.DoesNotExist:
+            return JsonResponse({'success': False, 'error': 'User not found'})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    else:
+        return JsonResponse({'success': False})

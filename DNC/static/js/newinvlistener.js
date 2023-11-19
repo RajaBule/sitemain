@@ -29,3 +29,40 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
+
+    // Function to calculate and update the Total Inventory
+function updateTotal() {
+        // Get all the grade input elements and the "unsortedq" and "defectq" inputs
+    var gradeInputs = document.querySelectorAll('[name^="g"]');
+    var unsortedInput = document.querySelector('[name="unsortedq"]');
+    var defectInput = document.querySelector('[name="defectq"]');
+        
+    var total = 0;
+
+        // Iterate through all grade inputs, "unsortedq," and "defectq" inputs and calculate the sum
+    gradeInputs.forEach(function(gradeInput) {
+        var value = parseFloat(gradeInput.value) || 0;
+        total += value;
+    });
+
+        // Add the values of "unsortedq" and "defectq" to the total
+    total += (parseFloat(unsortedInput.value) || 0);
+    total += (parseFloat(defectInput.value) || 0);
+
+        // Update the Total Inventory input with the calculated sum
+    var totalInput = document.querySelector('[name="totalq"]');
+    totalInput.value = total;
+    }
+
+    // Attach an event listener to each grade input, "unsortedq," and "defectq" to update the Total Inventory when any of them change
+    var gradeInputs = document.querySelectorAll('[name^="g"]');
+    var unsortedInput = document.querySelector('[name="unsortedq"]');
+    var defectInput = document.querySelector('[name="defectq"]');
+    
+    gradeInputs.forEach(function(gradeInput) {
+        gradeInput.addEventListener('input', updateTotal);
+    });
+    
+    unsortedInput.addEventListener('input', updateTotal);
+    defectInput.addEventListener('input', updateTotal);

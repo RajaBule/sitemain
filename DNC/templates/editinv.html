@@ -1,0 +1,342 @@
+{% extends 'ext_inv.html' %}
+{% block content %}
+                <div class="container-fluid">
+                    <h2 class="text-light mb-1">Edit Inventory</h2>
+                </div>
+                <form id="editinv" method="post" action="{% url 'update_row_inv' %}">
+                    {% csrf_token %}
+                    {% for row_data in rows_data %}
+                    
+                        <input type="hidden" name="regdate" value="{{date_time}}">
+                        <div class="row" style="margin-top: 37px;margin-right: 50px;margin-left: 0px;text-align: center;max-width: 100%;min-width: 230px;">
+                            <div class="col-auto col-lg-8" style="margin-left: 50px;padding-left: 0px;margin-right: 50px;padding-right: 50px;text-align: center;min-width: auto;width: auto;">
+                                <div class="card mb-4" style="max-width: 100%;text-align: center;width: auto;min-width: auto;">
+                                    <div class="card-header text-bg-info py-3" data-bs-theme="dark" style="text-align: center;max-width: 100%;">
+                                        <h4 class="text-dark m-0 fw-bold">Basic Information ({{ row_data.id }})</h4>
+                                    </div>
+                                    <div class="card-body text-bg-dark border rounded-0" data-bs-theme="dark" style="padding: 0px;text-align: center;max-width: 100%;">
+                                        <div class="row text-info" style="margin: 10px;margin-right: 0px;margin-left: 0px;padding: 0px;padding-top: 12px;max-width: 100%;border-color: var(--bs-primary-text-emphasis);border-bottom-style: solid;position: relative;width: auto;text-align: center;">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="width: auto;margin: 0px;margin-bottom: 0px;padding-bottom: 0px;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding-bottom: 0px;width: auto;">
+                                                        <h6 class="fs-4 text-center text-info m-0" style="width: auto;">ID</h6><input readonly="readonly" name="id" id="id" class="border rounded float-none" type="text" placeholder="{{ row_data.id }}" value="{{ row_data.id }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: 0px;max-height: 93px;width: auto;position: relative;">
+                                                <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="width: auto;min-width: 0px;position: relative;overflow: visible;display: block;">
+                                                    <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding-bottom: 0px;margin-bottom: 0px;min-width: auto;position: relative;width: auto;">
+                                                        <h5 class="fs-4 text-center text-info m-0" style="position: relative;width: auto;">Sample ID</h5><input name="sampleid" class="border rounded float-none" type="text" placeholder="{{ row_data.sampleid }}" value="{{ row_data.sampleid }}" data-bs-theme="dark" style="text-align: center;position: relative;display: block;width: 100%;padding: 0px 0px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: 0px;max-height: 93px;width: auto;position: relative;">
+                                                <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="width: auto;min-width: 0px;position: relative;overflow: visible;display: block;">
+                                                    <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding-bottom: 0px;margin-bottom: 0px;min-width: auto;position: relative;width: auto;">
+                                                        <h5 class="fs-4 text-center text-info m-0" style="position: relative;width: auto;">Name</h5><input name="name" class="border rounded float-none" type="text" placeholder="{{ row_data.name }}" value="{{ row_data.name }}" data-bs-theme="dark" style="text-align: center;position: relative;display: block;width: 100%;padding: 0px 0px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-info m-0" style="width: auto;">Current Location</h5><input name="location" class="border rounded float-none" type="text" placeholder="{{ row_data.location }}" value="{{ row_data.location }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-info m-0" style="width: auto;">Code</h5><input name="code" class="border rounded float-none" type="text" placeholder="{{ row_data.code }}" value="{{ row_data.code }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-info m-0" style="width: auto;">Project</h5><input name="project" class="border rounded float-none" type="text" placeholder="{{ row_data.project }}" value="{{ row_data.project }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-info m-0" style="width: auto;">Cup Score</h5><input name="sensorial" class="border rounded float-none" type="text" placeholder="{{ row_data.sensorial }}" value="{{ row_data.sensorial }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row text-info" style="margin: auto;margin-right: 0px;margin-left: 0px;padding: 0px;padding-top: 12px;max-width: 100%;width: auto;display: flex;position: relative;text-align: center;">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 16px;padding-right: 16px;min-width: 0px;max-height: none;width: 100%;height: auto;">
+                                                <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="width: 100%;margin-bottom: 0px;padding-bottom: 0px;">
+                                                    <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding-bottom: 0px;padding-left: 0px;min-width: 0px;margin-top: 10px;padding-right: 0px;width: 100%;">
+                                                        <h5 class="text-center text-info m-0" style="padding-left: 0px;width: 100%;font-size: 25px;height: 28.6px;">Sensorial&nbsp;<span style="color: rgba(var(--bs-info-rgb), var(--bs-text-opacity));">D</span>escriptors</h5><textarea name="sensorialdescriptors" class="border rounded" style="width: 100%;height: 147px;padding: 0px;" placeholder="{{ row_data.sensorialdescriptors }}" value="{{ row_data.sensorialdescriptors }}">{{ row_data.sensorialdescriptors }}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto col-lg-8" style="margin-left: 50px;padding-left: 0px;margin-right: 50px;padding-right: 50px;text-align: center;min-width: auto;width: auto;">
+                                <div class="card mb-4" style="max-width: 100%;text-align: center;width: auto;min-width: auto;">
+                                    <div class="card-header text-bg-warning py-3" data-bs-theme="dark" style="text-align: center;max-width: 100%;">
+                                        <h4 class="text-dark m-0 fw-bold">Origins</h4>
+                                    </div>
+                                    <div class="card-body text-bg-dark border rounded-0" data-bs-theme="dark" style="padding: 0px;text-align: center;max-width: 100%;">
+                                        <div class="row text-info" style="margin: 10px;margin-right: 0px;margin-left: 0px;padding: 0px;padding-top: 12px;max-width: 100%;border-color: var(--bs-primary-text-emphasis);border-bottom-style: solid;position: relative;width: auto;text-align: center;">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Country</h5><input name="country" class="border rounded float-none" type="text" placeholder="{{ row_data.country }}" value="{{ row_data.country }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Farm</h5><input name="farm" class="border rounded float-none" type="text" placeholder="{{ row_data.farm }}" value="{{ row_data.farm }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Tracking Number</h5><input name="tracknum" class="border rounded float-none" type="text" placeholder="{{ row_data.tracknum }}" value="{{ row_data.tracknum }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Importer</h5><input name="importer" class="border rounded float-none" type="text" placeholder="{{ row_data.importer }}" value="{{ row_data.importer }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Exporter</h5><input name="exporter" class="border rounded float-none" type="text" placeholder="{{ row_data.exporter }}" value="{{ row_data.exporter }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Wetmill</h5><input name="wetmill" class="border rounded float-none" type="text" placeholder="{{ row_data.wetmill }}" value="{{ row_data.wetmill }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Drymill</h5><input name="drymill" class="border rounded float-none" type="text" placeholder="{{ row_data.drymill }}" value="{{ row_data.drymill }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Cooperative</h5><input name="cooperative" class="border rounded float-none" type="text" placeholder="{{ row_data.cooperative }}" value="{{ row_data.cooperative }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Assosiation</h5><input name="assosiation" class="border rounded float-none" type="text" placeholder="{{ row_data.assosiation }}" value="{{ row_data.assosiation }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row text-info" style="margin: auto;margin-right: 0px;margin-left: 0px;padding: 0px;padding-top: 12px;max-width: 100%;width: auto;display: flex;position: relative;text-align: center;">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 16px;padding-right: 16px;min-width: 0px;max-height: none;width: 100%;height: auto;">
+                                                <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="width: 100%;margin-bottom: 0px;padding-bottom: 0px;">
+                                                    <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding-bottom: 0px;padding-left: 0px;min-width: 0px;margin-top: 10px;padding-right: 0px;width: 100%;">
+                                                        <h5 class="text-center text-warning m-0" style="padding-left: 0px;width: 100%;">Tracking Notes</h5><textarea name="othertrac" style="width: 100%;height: 147px;padding: 0px;" placeholder="{{ row_data.othertrac }}" value="{{ row_data.othertrac}}">{{ row_data.othertrac }}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto col-lg-8" style="margin-left: 50px;padding-left: 0px;margin-right: 50px;padding-right: 50px;text-align: center;min-width: auto;width: auto;">
+                                <div class="card mb-4" style="max-width: 100%;text-align: center;width: auto;min-width: auto;">
+                                    <div class="card-header text-bg-danger py-3" data-bs-theme="dark" style="text-align: center;max-width: 100%;">
+                                        <h4 class="text-dark m-0 fw-bold">Other Details</h4>
+                                    </div>
+                                    <div class="card-body text-bg-dark border rounded-0" data-bs-theme="dark" style="padding: 0px;text-align: center;max-width: 100%;">
+                                        <div class="row text-info" style="margin: 10px;margin-right: 0px;margin-left: 0px;padding: 0px;padding-top: 12px;max-width: 100%;border-color: var(--bs-primary-text-emphasis);border-bottom-style: solid;position: relative;width: auto;text-align: center;">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-danger m-0" style="width: auto;">Moisture</h5><input name="moisture" class="border rounded float-none" type="text" placeholder="{{ row_data.moisture }}" value="{{ row_data.moisture }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-danger m-0" style="width: auto;">WA</h5><input name="wa" class="border rounded float-none" type="text" placeholder="{{ row_data.wa }}" value="{{ row_data.wa }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <input type="hidden" id="proccessing" name="proccessing" value="{{ row_data.proccessing }}">
+                                                <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin: auto;margin-left: 0px;margin-right: 0px;padding: 0px;padding-left: 0px;padding-right: 0px;min-width: 0px;max-height: 93px;width: auto;text-align: center;">
+                                                    <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;position: relative;display: flex;max-width: 100%;text-align: center;padding-right: 16px;padding-left: 16px;">
+                                                        <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding: 0px;padding-bottom: 0px;margin: 0px;margin-bottom: 0px;margin-top: 0px;width: auto;min-width: auto;padding-top: 0px;max-width: 100%;padding-left: 0px;padding-right: 0px;text-align: center;margin-right: 0px;margin-left: 0px;">
+                                                            <h4 class="fs-4 text-center text-danger m-0" style="width: auto;">*Processing</h4>
+                                                            <div class="dropdown" style="text-align: center;" data-bs-theme="dark"><button data-toggle="weightdatadropt3" id="weightdrop3" class="btn btn-dark dropdown-toggle fs-5 text-center link-secondary" aria-expanded="false" data-bs-toggle="dropdown" type="button" style="margin-left: 0px;width: 100%;padding: 0px;position: static;">{{ row_data.proccessing}}&nbsp;</button>
+                                                                <div class="dropdown-menu text-center text-bg-light" data-dropdown="weightdatadrop3">
+                                                                    <h6 class="dropdown-header text-dark">Processing</h6><a class="dropdown-item link-dark">Wet Hulled</a><a class="dropdown-item link-dark">Semi-Washed</a><a class="dropdown-item link-dark">Natural</a><a class="dropdown-item link-dark">Pulped Natural</a><a class="dropdown-item link-dark">Washed</a><a class="dropdown-item link-dark">Honey</a><a class="dropdown-item link-dark">Miscellaneous</a><a class="dropdown-item link-dark">Other</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-danger m-0" style="width: auto;">Density</h5><input name="density" class="border rounded float-none" type="text" placeholder="{{ row_data.density }}" value="{{ row_data.density }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-danger m-0" style="width: auto;">Screen Size</h5><input name="screensize" class="border rounded float-none" type="text" placeholder="{{ row_data.screensize }}" value="{{ row_data.screensize }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin: 0px;margin-left: 0px;margin-right: 0px;padding: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;margin-top: 0px;margin-bottom: 0px;padding-top: 0px;padding-bottom: 0px;max-width: 100%;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-danger m-0" style="width: auto;">Varieties</h5><input name="varieties" class="border rounded float-none" type="text" placeholder="{{ row_data.varieties }}" value="{{ row_data.varieties }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin: 0px;margin-left: 0px;margin-right: 0px;padding: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;margin-top: 0px;margin-bottom: 0px;padding-top: 0px;padding-bottom: 0px;max-width: 100%;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-danger m-0" style="width: auto;">Crop Year</h5><input name="cropyear" class="border rounded float-none" type="text" placeholder="{{ row_data.cropyear }}" value="{{ row_data.cropyear }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-danger m-0" style="width: auto;">Classification</h5><input name="classification" class="border rounded float-none" type="text" placeholder="{{ row_data.classification }}" value="{{ row_data.classification }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row text-info" style="margin: auto;margin-right: 0px;margin-left: 0px;padding: 0px;padding-top: 12px;max-width: 100%;width: auto;display: flex;position: relative;text-align: center;">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 16px;padding-right: 16px;min-width: 0px;max-height: none;width: 100%;height: auto;">
+                                                <div class="card border rounded border-0 mb-4" data-bs-theme="dark" style="width: 100%;margin-bottom: 0px;padding-bottom: 0px;">
+                                                    <div class="card-header text-dark text-bg-dark border-0 border-dark py-3" style="padding-bottom: 0px;padding-left: 0px;min-width: 0px;margin-top: 10px;padding-right: 0px;width: 100%;">
+                                                        <h5 class="text-center text-danger m-0" style="padding-left: 0px;width: 100%;">Other Notes</h5><textarea name="generalcomments" class="border rounded" style="width: 100%;height: 147px;padding: 0px;" placeholder="{{ row_data.generalcomments }}" value="{{ row_data.generalcomments }}">{{ row_data.generalcomments }}</textarea>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto col-lg-8" style="margin-left: 50px;padding-left: 0px;margin-right: 50px;padding-right: 50px;text-align: center;min-width: auto;width: auto;">
+                                <div class="card mb-4" style="max-width: 100%;text-align: center;width: auto;min-width: auto;">
+                                    <div class="card-header text-bg-warning py-3" data-bs-theme="dark" style="text-align: center;max-width: 100%;">
+                                        <h4 class="text-dark m-0 fw-bold">Graded Inventory (kg)</h4>
+                                    </div>
+                                    <div class="card-body text-bg-dark border rounded-0" data-bs-theme="dark" style="padding: 0px;text-align: center;max-width: 100%;">
+                                        <div class="row text-info" style="margin: 10px;margin-right: 0px;margin-left: 0px;padding: 0px;padding-top: 12px;max-width: 100%;position: relative;width: auto;text-align: center;border-color: var(--bs-primary-text-emphasis);border-bottom-style: none;">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Grade 1</h5><input name="g1q" class="border rounded float-none" type="text" placeholder="{{ row_data.g1q }}" value="{{ row_data.g1q }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Grade 2</h5><input name="g2q" class="border rounded float-none" type="text" placeholder="{{ row_data.g2q }}" value="{{ row_data.g2q }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Grade 3</h5><input name="g3q" class="border rounded float-none" type="text" placeholder="{{ row_data.g3q }}" value="{{ row_data.g3q }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Grade 4</h5><input name="g4q" class="border rounded float-none" type="text" placeholder="{{ row_data.g4q }}" value="{{ row_data.g4q }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Grade 5</h5><input name="g5q" class="border rounded float-none" type="text" placeholder="{{ row_data.g5q }}" value="{{ row_data.g5q }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Unsorted</h5><input name="unsortedq" class="border rounded float-none" type="text" placeholder="{{ row_data.unsortedq }}" value="{{ row_data.unsortedq }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">defects</h5><input name="defectq" class="border rounded float-none" type="text" placeholder="{{ row_data.defectq }}" value="{{ row_data.defectq }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-warning m-0" style="width: auto;">Total Inventory</h5><input name="totalq" class="border rounded float-none" type="text" placeholder="{{ row_data.totalq }}" value="{{ row_data.totalq }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto col-lg-12" style="margin-left: 50px;padding-left: 0px;margin-right: 50px;padding-right: 50px;text-align: center;min-width: auto;width: 100%;">
+                                <div class="card mb-4" style="max-width: 100%;text-align: center;width: auto;min-width: auto;">
+                                    <div class="card-header text-bg-success py-3" data-bs-theme="dark" style="text-align: center;max-width: 100%;">
+                                        <h4 class="text-dark m-0 fw-bold">Pricing&nbsp;details</h4>
+                                    </div>
+                                    <div class="card-body text-bg-dark border rounded-0" data-bs-theme="dark" style="padding: 0px;text-align: center;max-width: 100%;">
+                                        <div class="row text-info" style="margin: 10px;margin-right: 0px;margin-left: 0px;padding: 0px;padding-top: 12px;max-width: 100%;position: relative;width: 100%;text-align: center;border-color: var(--bs-primary-text-emphasis);border-bottom-style: none;">
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-success m-0" style="width: auto;">Local Price</h5><input name="pricelocal" class="border rounded float-none" type="text" placeholder="{{ row_data.pricelocal }}" value="{{ row_data.pricelocal }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-auto col-md-6 col-lg-6 col-xl-3 col-xxl-3 m-auto mb-4" style="margin-left: 0px;margin-right: 0px;padding-left: 0px;padding-right: 0px;min-width: auto;max-height: 93px;width: auto;">
+                                                <div class="card border-dark shadow-none mb-4" data-bs-theme="dark" style="width: auto;min-width: auto;">
+                                                    <div class="card-header text-dark text-bg-dark border-dark shadow-none py-3" style="padding-bottom: 0px;margin-bottom: 0px;width: auto;">
+                                                        <h5 class="fs-4 text-center text-success m-0" style="width: auto;">Export Price</h5><input name="priceexport" class="border rounded float-none" type="text" placeholder="{{ row_data.priceexport }}" value="{{ row_data.priceexport }}" data-bs-theme="dark" style="margin-right: 26px;text-align: center;width: 100%;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="submit-button" class="btn btn-success btn-lg text-start link-dark border rounded btn-icon-split" role="button" type="submit" style="margin-bottom: 24px;"><span class="text-white-50 icon"><i class="fas fa-check text-dark"></i></span><span class="text-dark text">Submit Edits to ({{ row_data.id }})</span></button>
+                            </div>                    
+                        </div>
+                {% endfor %}
+        </form>
+{% endblock %}

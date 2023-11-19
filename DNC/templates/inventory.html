@@ -210,7 +210,7 @@
                                                 <td style="width: 85px;max-width: 100px;"><input class="form-check-input custom-control-input" type="checkbox" value="{{item.id}}"></td>
                                                 <td>{{ item.id }}</td>
                                                 <td>{{ item.code }}</td>
-                                                <td><a href="{% url 'sample_view' item.id %}">{{ item.name }}</a></td>
+                                                <td><a href="{% url 'invview' item.id %}">{{ item.name }}</a></td>
                                                 <td>{{ item.sensorial }}</td>
                                                 <td>{{ item.pricelocal }}</td>
                                                 <td>{{ item.priceexport }}</td>
@@ -288,6 +288,8 @@
         <script src="{% static 'js/chart.min.js' %}"></script>
         <script src="{% static 'js/bs-init.js' %}"></script>
         <script src="{% static 'js/theme.js' %}"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="{% static 'js/invtablelisten.js' %}"></script>
     </body>
     
     </html>

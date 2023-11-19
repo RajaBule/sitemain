@@ -1,5 +1,6 @@
 {% extends 'ext_samples.html' %}
 {% block content %}
+{% load static %}
                 <div class="container-fluid">
                     <h2 class="text-light mb-1">New Sample</h2>
                 </div>
@@ -298,4 +299,5 @@
                         </div>
                     </div>
                 </form>
+                <script src="{% static 'js/newsamplelistener.js' %}"></script>
 {% endblock %}

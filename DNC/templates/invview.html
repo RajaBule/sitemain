@@ -1,0 +1,384 @@
+{% extends 'ext_inv.html' %}
+
+{% block content %}
+                <div class="container-fluid" style="text-align: center;">
+                    <h2 class="mb-1">{{ inventory.name }} - {{ inventory.id }}</h2>
+                </div>
+                
+                <div class="card mb-4" style="margin-top: 40px;width: 85%;margin-left: 8%; text-align: center;">
+                    <div class="card-header text-bg-info py-3" style="border-top-style: none;margin-left: 0px;">
+                        <h4 class="text-primary m-0 fw-bold">Inventory&nbsp;data</h4>
+                    </div>
+                    
+                    <div class="card-body" style="border-top-style: none;">
+                        <div class="table-responsive">
+                            <table class="table table-striped-columns">
+                                <thead>
+                                        
+                                    <tr>
+                                        <th style="width: 171.45px;max-width: 170px;">ID</th>
+                                        <th style="min-width: 100px;">Code</th>
+                                        <th style="min-width: 150px;">Name</th>
+                                        <th>Cup Score</th>
+                                        <th>Local Price</th>
+                                        <th>Export Price</th>
+                                        <th>Total Invetory</th>
+                                        <th>Grade 1</th>
+                                        <th>Grade 2</th>
+                                        <th>Grade 3</th>
+                                        <th>Grade 4</th>
+                                        <th>Grade 5</th>
+                                        <th>Unsorted</th>
+                                        <th>Defects</th>
+                                        <th>Location</th>
+                                        <th style="min-width: 200px;">Notes</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    
+                                    <tr>
+                                            <td>{{ field_values.id }}</td>
+                                            <td>{{ field_values.code }}</td>
+                                            <td>{{ field_values.name }}</td>
+                                            <td>{{ field_values.sensorial }}</td>
+                                            <td>{{ field_values.pricelocal }}</td>
+                                            <td>{{ field_values.priceexport }}</td>
+                                            <td>{{ field_values.totalq }}</td>
+                                            <td>{{ field_values.g1q }}</td>
+                                            <td>{{ field_values.g2q }}</td>
+                                            <td>{{ field_values.g3q }}</td>
+                                            <td>{{ field_values.g4q }}</td>
+                                            <td>{{ field_values.g5q }}</td>
+                                            <td>{{ field_values.unsortedq }}</td>
+                                            <td>{{ field_values.defectq }}</td>
+                                            <td>{{ field_values.location }}</td>
+                                            <td>{{ field_values.sensorialdescriptors }}</td>
+                                            <td>{{ field_values.regdate }}</td>
+                                    </tr>
+                                    
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th style="width: 171.45px;max-width: 170px;">ID</th>   
+                                        <th>Code</th>                                         
+                                        <th>Name</th>
+                                        <th>Cup Score</th>
+                                        <th>Local Price</th>
+                                        <th>Export Price</th>
+                                        <th>Total Invetory</th>
+                                        <th>Grade 1</th>
+                                        <th>Grade 2</th>
+                                        <th>Grade 3</th>
+                                        <th>Grade 4</th>
+                                        <th>Grade 5</th>
+                                        <th>Unsorted</th>
+                                        <th>Defects</th>
+                                        <th>Location</th>
+                                        <th>Notes</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4" style="margin-top: 40px;width: 85%;margin-left: 8%; text-align: center;">
+                    <div class="card-header text-bg-info py-3" style="border-top-style: none;margin-left: 0px;">
+                        <h4 class="text-primary m-0 fw-bold">Sample&nbsp;data</h4>
+                    </div>
+                    
+                    <div class="card-body" style="border-top-style: none;">
+                        <div class="table-responsive">
+                            <table class="table table-striped-columns">
+                                <thead>
+                                    <tr style="text-decoration: underline;">
+                                        <th>Id</th>
+                                        <th>Name</th>
+                                        <th>Sensorial Descriptors</th>
+                                        <th>Cupping Score</th>
+                                        <th>Type</th>
+                                        <th>Project</th>
+                                        <th>Location</th>
+                                        <th>Proccessing</th>
+                                        <th>Cropyear</th>
+                                        <th>Varieties</th>
+                                        <th>Grade</th>
+                                        <th>Rating</th>
+                                        <th>Basic Notes</th>
+                                        <th>Country</th>
+                                        <th>Farm</th>
+                                        <th>Importer</th>
+                                        <th>Exporter</th>
+                                        <th>Wetmill</th>
+                                        <th>Drymill</th>
+                                        <th>Co-Op</th>
+                                        <th>Assosiation</th>
+                                        <th>Customer</th>
+                                        <th>Tracing Notes</th>
+                                        <th>Weight</th>
+                                        <th>Weight Unit</th>
+                                        <th>Moisture</th>
+                                        <th>WA</th>
+                                        <th>Density</th>
+                                        <th>Screen Size</th>
+                                        <th>Classification</th>
+                                        <th>Other Notes</th>
+                                        <th>Registeration Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="min-width: 75px;">{{ sample_field_values.id }}</td>
+                                        <td style="min-width: 200px;">{{ sample_field_values.name }}</td>
+                                        <td style="min-width: 200px;">{{ sample_field_values.sensorialdescriptors }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.sensorial }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.stype }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.project }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.location }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.proccessing }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.cropyear }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.varieties }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.grade }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.rating }}</td>
+                                        <td style="min-width: 200px;">{{ sample_field_values.notes }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.country }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.farm }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.importer }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.exporter }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.wetmill }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.drymill }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.cooperative }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.assosiation }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.customer }}</td>
+                                        <td style="min-width: 200px;">{{ sample_field_values.othertrac }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.sampleweight }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.sampleweightunit }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.moisture }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.wa }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.density }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.screensize }}</td>
+                                        <td style="min-width: 75px;">{{ sample_field_values.classification }}</td>
+                                        <td style="min-width: 200px;">{{ sample_field_values.generalcomments}}</td>
+                                        <td style="min-width: 200px;">{{ sample_field_values.regdate }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mb-4" style="margin-top: 40px;width: 85%;margin-left: 8%; text-align: center;">
+                    <div class="card-header text-bg-success py-3" style="border-top-style: none;margin-left: 0px;">
+                        <h4 class="text-primary m-0 fw-bold">Your Cupping Results</h4>
+                    </div>
+                    <div class="card-body" style="border-top-style: none;">
+                        <div class="table-responsive">
+                            <table class="table table-striped-columns table-hover">
+                                <thead>
+                                    <tr style="text-decoration: underline;">
+                                        <th>Session Id</th>
+                                        <th>Cup Score</th>
+                                        <th>Final Notes</th>
+                                        <th>Roast Level</th>
+                                        <th>Ferment Level</th>
+                                        <th>Fragrance</th>
+                                        <th>Fragrance Intensity</th>
+                                        <th>Fragrance Notes</th>
+                                        <th>Aroma</th>
+                                        <th>Aroma Intensity</th>
+                                        <th>Aroma Notes</th>
+                                        <th>Flavor</th>
+                                        <th>Flavor Intensity</th>
+                                        <th>Flavor Notes</th>
+                                        <th>Acidity</th>
+                                        <th>Acidity Intensity</th>
+                                        <th>Acidity Notes</th>
+                                        <th>Body</th>
+                                        <th>Body Thickness</th>
+                                        <th>Body Notes</th>
+                                        <th>Sweetness</th>
+                                        <th>Sweetness Intensity</th>
+                                        <th>Sweetness Notes</th>
+                                        <th>Aftertaste</th>
+                                        <th>Aftertaste Duration</th>
+                                        <th>Aftertaste Notes</th>
+                                        <th>Fresh Crop</th>
+                                        <th>Woody</th>
+                                        <th>Fresh Crop Notes</th>
+                                        <th>Off Flavor 1</th>
+                                        <th>Off Flavor 2</th>
+                                        <th>Off Flavor 3</th>
+                                        <th>Off Flavor 4</th>
+                                        <th>Off Flavor 5</th>
+                                        <th>Off Flavor Notes</th>
+                                        <th>Uniformity 1</th>
+                                        <th>Uniformity 2</th>
+                                        <th>Uniformity 3</th>
+                                        <th>Uniformity 4</th>
+                                        <th>Uniformity 5</th>
+                                        <th>Uniformity Notes</th>
+                                        <th>Session Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for cup_session in cup_session %}
+                                        <tr>
+                                            <td style="min-width: 75px;">{{ cup_session.id }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.total_cup_score }}</td>
+                                            <td style="min-width: 200px;">{{ cup_session.sens_descriptors }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.roast_level_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.ferment_level_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.fragrance_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.fragrance_intensity_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_session.fragrance_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.aroma_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.aroma_intensity_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_session.aroma_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.flavor_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.flavor_intensity_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_session.Flavor_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.acidity_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.acidity_intensity_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_session.Acidity_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.body_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.body_thickness_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_session.body_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.sweetness_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.sweetness_intensity_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_session.sweetness_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.aftertaste_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.aftertaste_duration_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_session.aftertaste_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.fresh_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.fresh_woody_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_session.freshcrop_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.off_1_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.off_2_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.off_3_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.off_4_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.off_5_range}}</td>
+                                            <td style="min-width: 200px;">{{ cup_session.off_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.uniform_1_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.uniform_2_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.uniform_3_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.uniform_4_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_session.uniform_5_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_session.uniformity_notes }}</td>
+                                            <td style="min-width: 200px;">{{ cup_session.cupdate }}</td>
+                                        </tr>
+                                        {% endfor %}    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="card mb-4" style="margin-top: 40px;width: 85%;margin-left: 8%; text-align: center;">
+                    <div class="card-header text-bg-warning py-3" style="border-top-style: none;margin-left: 0px;">
+                        <h4 class="text-primary m-0 fw-bold">Global Cupping Results</h4>
+                    </div>
+                    <div class="card-body" style="border-top-style: none;">
+                        <div class="table-responsive">
+                            <table class="table table-striped-columns table-hover">
+                                <thead>
+                                    <tr style="text-decoration: underline;">
+                                        <th>Session Id</th>
+                                        <th>User Name</th>
+                                        <th>Cup Score</th>
+                                        <th>Final Notes</th>
+                                        <th>Roast Level</th>
+                                        <th>Ferment Level</th>
+                                        <th>Fragrance</th>
+                                        <th>Fragrance Intensity</th>
+                                        <th>Fragrance Notes</th>
+                                        <th>Aroma</th>
+                                        <th>Aroma Intensity</th>
+                                        <th>Aroma Notes</th>
+                                        <th>Flavor</th>
+                                        <th>Flavor Intensity</th>
+                                        <th>Flavor Notes</th>
+                                        <th>Acidity</th>
+                                        <th>Acidity Intensity</th>
+                                        <th>Acidity Notes</th>
+                                        <th>Body</th>
+                                        <th>Body Thickness</th>
+                                        <th>Body Notes</th>
+                                        <th>Sweetness</th>
+                                        <th>Sweetness Intensity</th>
+                                        <th>Sweetness Notes</th>
+                                        <th>Aftertaste</th>
+                                        <th>Aftertaste Duration</th>
+                                        <th>Aftertaste Notes</th>
+                                        <th>Fresh Crop</th>
+                                        <th>Woody</th>
+                                        <th>Fresh Crop Notes</th>
+                                        <th>Off Flavor 1</th>
+                                        <th>Off Flavor 2</th>
+                                        <th>Off Flavor 3</th>
+                                        <th>Off Flavor 4</th>
+                                        <th>Off Flavor 5</th>
+                                        <th>Off Flavor Notes</th>
+                                        <th>Uniformity 1</th>
+                                        <th>Uniformity 2</th>
+                                        <th>Uniformity 3</th>
+                                        <th>Uniformity 4</th>
+                                        <th>Uniformity 5</th>
+                                        <th>Uniformity Notes</th>
+                                        <th>Session Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for cup_sessions in global_session %}
+                                        <tr>
+                                            <td style="min-width: 75px;">{{ cup_sessions.id }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.user }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.total_cup_score }}</td>
+                                            <td style="min-width: 200px;">{{ cup_sessions.sens_descriptors }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.roast_level_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.ferment_level_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.fragrance_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.fragrance_intensity_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_sessions.fragrance_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.aroma_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.aroma_intensity_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_sessions.aroma_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.flavor_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.flavor_intensity_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_sessions.Flavor_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.acidity_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.acidity_intensity_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_sessions.Acidity_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.body_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.body_thickness_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_sessions.body_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.sweetness_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.sweetness_intensity_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_sessions.sweetness_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.aftertaste_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.aftertaste_duration_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_sessions.aftertaste_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.fresh_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.fresh_woody_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_sessions.freshcrop_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.off_1_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.off_2_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.off_3_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.off_4_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.off_5_range}}</td>
+                                            <td style="min-width: 200px;">{{ cup_sessions.off_notes }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.uniform_1_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.uniform_2_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.uniform_3_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.uniform_4_range }}</td>
+                                            <td style="min-width: 75px;">{{ cup_sessions.uniform_5_range }}</td>
+                                            <td style="min-width: 200px;">{{ cup_sessions.uniformity_notes }}</td>
+                                            <td style="min-width: 200px;">{{ cup_sessions.cupdate }}</td>
+                                        </tr>
+                                        {% endfor %}    
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+{% endblock %}
